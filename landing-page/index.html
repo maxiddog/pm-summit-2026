@@ -214,6 +214,46 @@
             color: var(--dispatch-blue);
             }
 
+        /* Video Section */
+        .video-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .video-header h2 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: var(--dispatch-navy);
+            margin-bottom: 16px;
+        }
+
+        .video-header p {
+            color: var(--gray-500);
+            font-size: 18px;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--gray-200);
+            background: var(--dispatch-navy);
+        }
+
+        .demo-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* Features Section */
         .features {
             padding: 80px 0;
@@ -588,6 +628,28 @@
                 <a href="#features" class="btn btn-secondary">
                     Learn More
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-header">
+                <h2 class="fade-in-up">See It In Action</h2>
+                <p class="fade-in-up delay-1">Watch how to debug with Datadog MCP</p>
+            </div>
+            <div class="video-container fade-in-up delay-2">
+                <video 
+                    controls 
+                    playsinline
+                    preload="metadata"
+                    poster=""
+                    class="demo-video"
+                >
+                    <source src="/shah_video_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>

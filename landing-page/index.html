@@ -73,7 +73,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-        }
+            }
 
         .header-content {
             display: flex;
@@ -201,7 +201,7 @@
             background: var(--dispatch-blue-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 102, 255, 0.35);
-        }
+            }
 
         .btn-secondary {
             background: var(--white);
@@ -212,7 +212,7 @@
         .btn-secondary:hover {
             border-color: var(--dispatch-blue);
             color: var(--dispatch-blue);
-        }
+            }
 
         /* Features Section */
         .features {
@@ -550,9 +550,9 @@
 </head>
 <body>
     <div class="bg-pattern"></div>
-
+    
     <header class="header">
-        <div class="container">
+    <div class="container">
             <div class="header-content">
                 <a href="/" class="logo fade-in-up">
                     <div class="logo-icon">🚀</div>
@@ -565,7 +565,7 @@
                 </nav>
             </div>
         </div>
-    </header>
+        </header>
 
     <section class="hero">
         <div class="container">
@@ -580,7 +580,7 @@
             <p class="hero-subtitle fade-in-up delay-2">
                 Learn to use Datadog's MCP server with your favorite AI code editor. 
                 Fix intentional bugs in our swag store and claim your rewards.
-            </p>
+                </p>
             <div class="hero-cta fade-in-up delay-3">
                 <a href="#start" class="btn btn-primary">
                     Start Challenge →
@@ -597,23 +597,23 @@
             <div class="features-header">
                 <h2 class="fade-in-up">What You'll Learn</h2>
                 <p class="fade-in-up delay-1">Master AI-powered debugging in 15 minutes</p>
-            </div>
+                    </div>
             <div class="features-grid">
                 <div class="feature-card fade-in-up delay-2">
                     <div class="feature-icon float">🔍</div>
                     <h3>Query Datadog Logs</h3>
                     <p>Use natural language to search through logs, traces, and metrics directly from your code editor.</p>
-                </div>
+                    </div>
                 <div class="feature-card fade-in-up delay-3">
                     <div class="feature-icon float" style="animation-delay: 0.5s;">🤖</div>
                     <h3>AI-Powered Fixes</h3>
                     <p>Let Cursor or Claude Code analyze errors and suggest fixes using real observability data.</p>
-                </div>
+                    </div>
                 <div class="feature-card fade-in-up delay-4">
                     <div class="feature-icon float" style="animation-delay: 1s;">🚀</div>
                     <h3>Deploy & Test</h3>
                     <p>Make changes, redeploy instantly, and see your fixes work in real-time.</p>
-                </div>
+                    </div>
                 <div class="feature-card fade-in-up delay-5">
                     <div class="feature-icon float" style="animation-delay: 1.5s;">🎁</div>
                     <h3>Claim Your Swag</h3>
@@ -628,26 +628,26 @@
             <div class="auth-container">
                 <h2 class="fade-in-up">Ready to Debug?</h2>
                 <p class="subtitle fade-in-up delay-1">Enter your email to create your personal instance</p>
-                
+
                 <div class="auth-form fade-in-up delay-2">
-                    <div class="error" id="error"></div>
-                    <form id="authForm">
-                        <div class="form-group">
+            <div class="error" id="error"></div>
+            <form id="authForm">
+                <div class="form-group">
                             <label for="email">Work Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
                                 placeholder="you@company.com"
-                                required
-                            />
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            Create My Instance
-                        </button>
-                    </form>
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
+                        required
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Create My Instance
+                </button>
+            </form>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
                         <span>Setting up your environment...</span>
                     </div>
                 </div>
@@ -663,22 +663,22 @@
             </div>
             <div class="steps-grid">
                 <div class="step-card fade-in-up delay-2">
-                    <div class="step-number">1</div>
+                <div class="step-number">1</div>
                     <h3>Get Your Instance</h3>
                     <p>Enter your email above and receive a unique debugging environment with MCP credentials.</p>
                 </div>
                 <div class="step-card fade-in-up delay-3">
-                    <div class="step-number">2</div>
+                <div class="step-number">2</div>
                     <h3>Clone & Deploy</h3>
                     <p>Clone the repo and deploy your own copy with <code>vercel --prod</code></p>
                 </div>
                 <div class="step-card fade-in-up delay-4">
-                    <div class="step-number">3</div>
+                <div class="step-number">3</div>
                     <h3>Debug with AI</h3>
                     <p>Use <code>Cursor</code> or <code>Claude Code</code> with Datadog MCP to find and fix bugs.</p>
                 </div>
                 <div class="step-card fade-in-up delay-5">
-                    <div class="step-number">4</div>
+                <div class="step-number">4</div>
                     <h3>Claim Swag!</h3>
                     <p>Fix all bugs, complete your order, and we'll ship your free Dispatch merchandise.</p>
                 </div>
@@ -689,7 +689,7 @@
     <footer class="footer">
         <div class="container">
             <p>Dispatch MCP Debugging Challenge • Built with ❤️ by the Datadog team</p>
-        </div>
+    </div>
     </footer>
 
     <script>

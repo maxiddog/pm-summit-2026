@@ -27,7 +27,15 @@ function ProductCard({ product, onAddToCart }) {
   return (
     <div className="product-card">
       <div className="product-image">
-        <span className="product-emoji">{product.image}</span>
+        <img 
+          src={product.image} 
+          alt={product.name}
+          className="product-img"
+          onError={(e) => {
+            e.target.style.display = 'none';
+            e.target.parentElement.innerHTML = '<span class="product-emoji">📦</span>';
+          }}
+        />
       </div>
       
       <div className="product-info">

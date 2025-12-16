@@ -23,60 +23,60 @@ datadogRum.init({
   defaultPrivacyLevel: 'allow'
 });
 
-// Sample products
+// Sample products - Dispatch by Datadog swag
 const PRODUCTS = [
   {
     id: 'hoodie-001',
-    name: 'Datadog Monitoring Hoodie',
-    description: 'Stay warm while monitoring your infrastructure',
+    name: 'Dispatch Blue Hoodie',
+    description: 'Premium cotton blend hoodie in signature Dispatch blue',
     price: 0,
-    image: '🧥',
+    image: '/images/hoodie.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: true
   },
   {
-    id: 'tshirt-001',
-    name: 'Log Everything T-Shirt',
-    description: 'Because logs are life',
+    id: 'jacket-001',
+    name: 'Dispatch Worker Jacket',
+    description: 'Classic French workwear style in vibrant blue',
     price: 0,
-    image: '👕',
+    image: '/images/jacket.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: true
   },
   {
-    id: 'mug-001',
-    name: 'APM Coffee Mug',
-    description: 'Trace your caffeine performance',
+    id: 'cap-001',
+    name: 'Dispatch Dad Cap',
+    description: 'Embroidered cotton cap with adjustable strap',
     price: 0,
-    image: '☕',
+    image: '/images/cap.jpg',
     sizes: ['One Size'],
     inStock: true
   },
   {
-    id: 'stickers-001',
-    name: 'Datadog Sticker Pack',
-    description: 'Decorate everything with observability',
+    id: 'beanie-001',
+    name: 'Dispatch Knit Beanie',
+    description: 'Cozy ribbed beanie for cold weather debugging',
     price: 0,
-    image: '🎨',
-    sizes: ['One Size'],
-    inStock: true
-  },
-  {
-    id: 'hat-001',
-    name: 'Dashboard Dad Hat',
-    description: 'For the metrics-obsessed',
-    price: 0,
-    image: '🧢',
+    image: '/images/beanie.jpg',
     sizes: ['One Size'],
     inStock: true
   },
   {
     id: 'socks-001',
-    name: 'Distributed Tracing Socks',
-    description: 'Follow the path from toe to heel',
+    name: 'Dispatch Cozy Socks',
+    description: 'Ultra-soft fuzzy socks in signature blue',
     price: 0,
-    image: '🧦',
+    image: '/images/socks.jpg',
     sizes: ['S/M', 'L/XL'],
+    inStock: true
+  },
+  {
+    id: 'keychain-001',
+    name: 'Dispatch Keychain',
+    description: 'Premium metal keychain with woven cord loop',
+    price: 0,
+    image: '/images/keychain.jpg',
+    sizes: ['One Size'],
     inStock: false // Intentionally out of stock for demo
   }
 ];
@@ -175,7 +175,7 @@ function App() {
 
       // Central order collection endpoint - hardcoded and non-manipulatable
       // All orders from all user instances are sent here
-      const ORDERS_ENDPOINT = 'https://landing-page-olive-eight-67.vercel.app/api/orders';
+      const ORDERS_ENDPOINT = 'https://mcp-swag-store-dispatch-agents.vercel.app/api/orders';
       
       const response = await fetch(ORDERS_ENDPOINT, {
         method: 'POST',
@@ -216,12 +216,18 @@ function App() {
         />
       )}
 
+      <div className="top-banner">
+        <span>Debug your way to free swag with Datadog MCP.</span>
+        <button className="banner-btn" onClick={() => setShowTutorial(true)}>
+          View Tutorial
+        </button>
+      </div>
+
       <header className="header">
         <div className="header-content">
-          <h1 className="logo">
-            <span className="logo-icon">🐕</span>
-            Datadog Swag Store
-          </h1>
+          <a href="/" className="logo">
+            <img src="/images/dispatch-logo.png" alt="Dispatch by Datadog" className="logo-img" />
+          </a>
           <div className="header-actions">
             <button 
               className="cart-button"
@@ -237,8 +243,19 @@ function App() {
         {view === 'products' && (
           <div className="products-view">
             <div className="view-header">
-              <h2>Choose Your Swag</h2>
-              <p className="subtitle">All items are free! Fix the bugs to checkout.</p>
+              <h2>Debug the Store, Get <span className="highlight">Free Swag</span></h2>
+              <p className="subtitle">
+                Use Datadog's MCP tools to find and fix bugs in this store. 
+                Complete the challenge to claim your rewards.
+              </p>
+              <div className="hero-actions">
+                <button className="btn-primary" onClick={goToCart}>
+                  Start Shopping
+                </button>
+                <button className="btn-secondary" onClick={() => setShowTutorial(true)}>
+                  How It Works
+                </button>
+              </div>
             </div>
             
             <div className="products-grid">
@@ -301,7 +318,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Datadog MCP Debugging Challenge | Need help? Check the tutorial!</p>
+        <p>Dispatch MCP Debugging Challenge | Need help? Check the tutorial!</p>
       </footer>
     </div>
   );

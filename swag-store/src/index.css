@@ -1,13 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  /* Dispatch-style color palette */
+  --primary-blue: #4A7BF7;
+  --primary-blue-hover: #3A68E0;
+  --primary-blue-light: rgba(74, 123, 247, 0.08);
+  --text-dark: #1a1f36;
+  --text-secondary: #525f7f;
+  --text-muted: #8898aa;
+  --bg-white: #ffffff;
+  --bg-light: #f8fafc;
+  --bg-pattern: #f0f4f8;
+  --border-light: #e6ebf1;
+  --border-medium: #d1d9e6;
+  --success-green: #24b47e;
+  --error-red: #e25950;
+  --warning-amber: #f5a623;
+  
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0A0E14;
+  color-scheme: light;
+  color: var(--text-dark);
+  background-color: var(--bg-white);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,12 +32,22 @@
   -webkit-text-size-adjust: 100%;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg-white);
+  /* Subtle grid pattern like Dispatch */
+  background-image: 
+    linear-gradient(rgba(74, 123, 247, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 123, 247, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 #root {

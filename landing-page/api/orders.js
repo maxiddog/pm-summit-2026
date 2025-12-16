@@ -3,14 +3,14 @@
 
 const crypto = require('crypto');
 
-// In production, use Vercel KV, Supabase, or similar for persistence
-// For demo, we'll log to console and you can use Vercel logs to track orders
-// Or integrate with Google Sheets, Airtable, etc.
+// Simple in-memory store for orders (resets on each deployment)
+// For persistent storage, use Vercel KV or set ORDER_WEBHOOK_URL for Google Sheets
+global.orders = global.orders || [];
 
 module.exports = async function handler(req, res) {
   // Enable CORS for swag store instances
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Instance-ID');
 
   // Handle preflight
@@ -18,7 +18,17 @@ module.exports = async function handler(req, res) {
     return res.status(200).end();
   }
 
-  // Only allow POST
+  // GET - Show generic info (NO order data exposed)
+  if (req.method === 'GET') {
+    return res.status(200).json({
+      endpoint: 'Order Collection API',
+      description: 'This endpoint receives swag orders from the Dispatch MCP Challenge',
+      status: 'active',
+      usage: 'POST order data to this endpoint'
+    });
+  }
+
+  // Only allow POST for actual order submission
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -71,6 +81,9 @@ module.exports = async function handler(req, res) {
       status: 'pending'
     };
 
+    // Store in memory
+    global.orders.push(completeOrder);
+
     // Log the order (visible in Vercel logs)
     console.log('='.repeat(60));
     console.log('📦 NEW ORDER RECEIVED');
@@ -97,7 +110,7 @@ module.exports = async function handler(req, res) {
 
 // Send order to external tracking service
 async function sendToExternalService(order) {
-  // Option 1: Google Sheets via Zapier/Make webhook
+  // Option 1: Google Sheets via Apps Script webhook
   const webhookUrl = process.env.ORDER_WEBHOOK_URL;
   
   if (webhookUrl) {
@@ -122,12 +135,4 @@ async function sendToExternalService(order) {
       console.error('Webhook error:', error);
     }
   }
-
-  // Option 2: Send email notification (if configured)
-  const notifyEmail = process.env.ORDER_NOTIFY_EMAIL;
-  // Add email sending logic here if needed
-
-  // The order is always logged to console, 
-  // so you can view all orders in Vercel's deployment logs
 }
-

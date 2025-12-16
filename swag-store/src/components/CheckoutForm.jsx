@@ -227,9 +227,13 @@ function CheckoutForm({ cart, onComplete, onBack }) {
           <div className="summary-items">
             {cart.map(item => (
               <div key={item.cartId} className="summary-item">
-                <span className="summary-item-name">
-                  {item.name} ({item.selectedSize})
-                </span>
+                <div className="summary-item-image">
+                  <img src={item.image} alt={item.name} />
+                </div>
+                <div className="summary-item-details">
+                  <span className="summary-item-name">{item.name}</span>
+                  <span className="summary-item-size">Size: {item.selectedSize}</span>
+                </div>
                 <span className="summary-item-price">FREE</span>
               </div>
             ))}

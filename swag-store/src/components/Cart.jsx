@@ -25,7 +25,9 @@ function Cart({ cart, onRemove, onCheckout, onContinueShopping }) {
       <div className="cart-items">
         {cart.map(item => (
           <div key={item.cartId} className="cart-item">
-            <div className="cart-item-image">{item.image}</div>
+            <div className="cart-item-image">
+              <img src={item.image} alt={item.name} />
+            </div>
             <div className="cart-item-details">
               <h3>{item.name}</h3>
               <p className="cart-item-size">Size: {item.selectedSize}</p>
@@ -45,12 +47,6 @@ function Cart({ cart, onRemove, onCheckout, onContinueShopping }) {
           Continue Shopping
         </button>
         
-        {/* BUG #1: Checkout button is broken! 
-            The onClick handler is commented out/missing.
-            This is the critical path bug users need to fix first.
-            
-            TO FIX: Uncomment the line below
-        */}
         {/* BUG #1: Checkout button is broken! 
             The onClick handler is commented out/missing.
             This is the critical path bug users need to fix first.

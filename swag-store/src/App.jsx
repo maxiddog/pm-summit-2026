@@ -143,35 +143,54 @@ function App() {
   };
 
   const handleCheckoutComplete = async (shippingInfo) => {
-    // Submit order to admin endpoint
+    // Submit order to central admin endpoint
+    // This endpoint is on the landing page server and collects all orders
     try {
+      // Parse full name into first/last name
+      const nameParts = shippingInfo.name.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+
       const orderData = {
         instanceId,
         email: shippingInfo.email,
-        timestamp: new Date().toISOString(),
         items: cart.map(item => ({
           productId: item.id,
           name: item.name,
-          size: item.selectedSize,
-          quantity: 1,
-          price: item.price
+          selectedSize: item.selectedSize,
+          quantity: 1
         })),
-        shippingAddress: shippingInfo,
+        shippingAddress: {
+          firstName,
+          lastName,
+          address: shippingInfo.street,
+          apartment: '',
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          zipCode: shippingInfo.zip,
+          country: shippingInfo.country
+        },
         bugsFixed: Object.keys(bugsFixed).filter(key => bugsFixed[key])
       };
 
-      // Hardcoded admin endpoint - non-manipulatable
-      const response = await fetch('https://api.datadog-swag.com/orders', {
+      // Central order collection endpoint - hardcoded and non-manipulatable
+      // All orders from all user instances are sent here
+      const ORDERS_ENDPOINT = 'https://landing-page-olive-eight-67.vercel.app/api/orders';
+      
+      const response = await fetch(ORDERS_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Admin-Token': import.meta.env.VITE_ADMIN_TOKEN
+          'X-Instance-ID': instanceId
         },
         body: JSON.stringify(orderData)
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         datadogRum.addAction('order_complete', { 
+          orderId: result.orderId,
           orderTotal: cart.length,
           bugsFixed: bugsFixed 
         });
@@ -179,7 +198,7 @@ function App() {
         // Show success message
         setView('success');
       } else {
-        throw new Error('Order submission failed');
+        throw new Error(result.error || 'Order submission failed');
       }
     } catch (error) {
       console.error('Checkout error:', error);

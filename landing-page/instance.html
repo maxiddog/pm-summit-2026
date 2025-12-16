@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Instance is Ready! | Datadog MCP</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Your Instance is Ready! | Dispatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,96 +13,101 @@
         }
 
         :root {
-            --dd-purple: #632CA6;
-            --dd-pink: #FF6B9D;
-            --dd-blue: #00A0F5;
-            --bg-dark: #0A0E14;
-            --bg-card: #1A1F2E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A0AEC0;
-            --accent-green: #00D4AA;
-            --success: #10B981;
+            --dispatch-blue: #0066FF;
+            --dispatch-blue-light: #3385FF;
+            --dispatch-blue-dark: #0052CC;
+            --dispatch-navy: #0A1628;
+            --white: #FFFFFF;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
+            --accent-green: #10B981;
+            --accent-amber: #F59E0B;
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 40px 20px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
+            padding: 40px 24px;
         }
 
+        /* Success Header */
         .success-header {
             text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            margin-bottom: 48px;
         }
 
         .success-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 20px;
-            background: var(--success);
+            margin: 0 auto 24px;
+            background: var(--accent-green);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 40px;
-            animation: scaleIn 0.5s ease-out 0.3s both;
+            animation: scaleIn 0.5s ease-out, pulse 2s ease-in-out infinite 0.5s;
         }
 
         @keyframes scaleIn {
-            from {
-                transform: scale(0);
-            }
-            to {
-                transform: scale(1);
-            }
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
-        h1 {
-            font-size: 36px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--dd-purple), var(--dd-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
         }
 
-        .subtitle {
+        .success-header h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: var(--dispatch-navy);
+            margin-bottom: 8px;
+        }
+
+        .success-header .subtitle {
             font-size: 18px;
-            color: var(--text-secondary);
+            color: var(--gray-500);
         }
 
+        /* Cards */
         .card {
-            background: var(--bg-card);
-            border-radius: 16px;
+            background: var(--white);
+            border-radius: 20px;
             padding: 32px;
             margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeInUp 0.8s ease-out;
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
         }
+
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+        .card:nth-child(5) { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -110,22 +115,21 @@
             }
         }
 
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .card:nth-child(3) { animation-delay: 0.2s; }
-        .card:nth-child(4) { animation-delay: 0.3s; }
-
         .card h2 {
-            font-size: 24px;
-            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dispatch-navy);
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
         .card-icon {
-            font-size: 28px;
+            font-size: 24px;
         }
 
+        /* Info Items */
         .info-item {
             margin-bottom: 20px;
         }
@@ -135,29 +139,32 @@
         }
 
         .info-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
+            font-size: 13px;
             font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
         }
 
         .info-value {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 12px 16px;
-            border-radius: 8px;
+            background: var(--gray-50);
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
             font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
-            color: var(--accent-green);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--dispatch-blue);
         }
 
         .info-value a {
-            color: var(--dd-blue);
+            color: var(--dispatch-blue);
             text-decoration: none;
             flex: 1;
+            word-break: break-all;
         }
 
         .info-value a:hover {
@@ -166,42 +173,45 @@
 
         .copy-btn {
             padding: 8px 16px;
-            background: var(--dd-purple);
+            background: var(--dispatch-blue);
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             color: white;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+            flex-shrink: 0;
         }
 
         .copy-btn:hover {
-            background: var(--dd-pink);
-            transform: translateY(-2px);
+            background: var(--dispatch-blue-dark);
         }
 
         .copy-btn.copied {
-            background: var(--success);
+            background: var(--accent-green);
         }
 
+        /* Code Block */
         .code-block {
-            background: rgba(0, 0, 0, 0.5);
+            background: var(--dispatch-navy);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 16px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
+            overflow: hidden;
         }
 
         .code-block pre {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-primary);
+            line-height: 1.7;
+            color: var(--gray-300);
             overflow-x: auto;
             margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
 
         .code-block .copy-btn {
@@ -210,6 +220,34 @@
             right: 12px;
         }
 
+        /* Alert */
+        .alert {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .alert-warning {
+            background: #FFFBEB;
+            border: 1px solid #FDE68A;
+            color: #92400E;
+        }
+
+        .alert-info {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            color: #1E40AF;
+        }
+
+        .alert-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Steps List */
         .steps-list {
             list-style: none;
             counter-reset: step-counter;
@@ -217,8 +255,8 @@
 
         .steps-list li {
             counter-increment: step-counter;
-            margin-bottom: 20px;
-            padding-left: 48px;
+            margin-bottom: 24px;
+            padding-left: 56px;
             position: relative;
         }
 
@@ -227,87 +265,135 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--dd-purple), var(--dd-pink));
+            width: 40px;
+            height: 40px;
+            background: var(--dispatch-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 16px;
+            color: white;
         }
 
         .steps-list li strong {
-            color: var(--text-primary);
+            color: var(--dispatch-navy);
             display: block;
             margin-bottom: 4px;
+            font-size: 16px;
         }
 
         .steps-list li p {
-            color: var(--text-secondary);
-            line-height: 1.6;
+            color: var(--gray-600);
             font-size: 14px;
+            margin: 0;
         }
 
-        .cta-button {
+        .steps-list code {
             display: inline-block;
+            background: var(--gray-100);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--dispatch-blue);
+            margin-top: 8px;
+        }
+
+        /* Bug List */
+        .bug-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bug-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .bug-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .bug-icon {
+            font-size: 20px;
+        }
+
+        .bug-list strong {
+            color: var(--dispatch-navy);
+        }
+
+        .bug-list .difficulty {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .difficulty.easy {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .difficulty.medium {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: block;
             width: 100%;
-            padding: 16px 32px;
-            background: linear-gradient(135deg, var(--dd-purple), var(--dd-pink));
+            padding: 18px 32px;
+            background: var(--dispatch-blue);
             color: white;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 18px;
             font-weight: 600;
             text-align: center;
             transition: all 0.3s ease;
-            margin-top: 16px;
+            margin-top: 24px;
+            box-shadow: 0 4px 14px rgba(0, 102, 255, 0.25);
         }
 
         .cta-button:hover {
+            background: var(--dispatch-blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99, 44, 166, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.35);
         }
 
-        .warning {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 16px 0;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .warning-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .warning p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 16px;
+            .container {
+                padding: 24px 16px;
             }
 
-            h1 {
-                font-size: 28px;
+            .success-header h1 {
+                font-size: 32px;
             }
 
             .card {
-                padding: 24px 20px;
+                padding: 24px;
             }
 
             .info-value {
-                font-size: 12px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .copy-btn {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -317,13 +403,13 @@
         <div class="success-header">
             <div class="success-icon">✓</div>
             <h1>Your Instance is Ready!</h1>
-            <p class="subtitle">Time to start debugging 🐛</p>
+            <p class="subtitle">Time to start debugging 🚀</p>
         </div>
 
         <div class="card">
             <h2>
                 <span class="card-icon">🔗</span>
-                Your Swag Store Instance
+                Your Swag Store
             </h2>
             <div class="info-item">
                 <div class="info-label">Instance URL</div>
@@ -339,25 +425,22 @@
                     <button class="copy-btn" onclick="copyToClipboard('instanceId')">Copy</button>
                 </div>
             </div>
-            <div class="warning">
-                <span class="warning-icon">⚠️</span>
-                <p>
-                    <strong>Important:</strong> Your instance will automatically expire in 7 days. 
-                    Complete the challenge before then to claim your swag!
-                </p>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⏰</span>
+                <div>
+                    <strong>Expires in 7 days.</strong> Complete the challenge before then to claim your swag!
+                </div>
             </div>
         </div>
 
         <div class="card">
             <h2>
                 <span class="card-icon">🔑</span>
-                MCP Server Configuration
+                MCP Configuration
             </h2>
-            <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                Copy this configuration and add it to your <strong>Cursor</strong> or 
-                <strong>Claude Code</strong> settings to enable Datadog MCP integration.
+            <p style="color: var(--gray-600); margin-bottom: 16px;">
+                Add this to your <strong>Cursor</strong> or <strong>Claude Code</strong> MCP settings:
             </p>
-
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCodeBlock('mcpConfig')">Copy</button>
                 <pre id="mcpConfig">{
@@ -366,90 +449,76 @@
       "command": "npx",
       "args": ["-y", "@datadog/datadog-mcp-server"],
       "env": {
-        "DD_API_KEY": "YOUR_API_KEY_HERE",
-        "DD_APP_KEY": "YOUR_APP_KEY_HERE",
+        "DD_API_KEY": "YOUR_DD_API_KEY",
+        "DD_APP_KEY": "YOUR_DD_APP_KEY",
         "DD_SITE": "datadoghq.com"
       }
     }
   }
 }</pre>
             </div>
-
-            <div class="warning">
-                <span class="warning-icon">💡</span>
-                <p>
-                    The API keys above are <strong>read-only</strong> and scoped to your instance only. 
-                    They're safe to use in your local development environment.
-                </p>
+            <div class="alert alert-info">
+                <span class="alert-icon">💡</span>
+                <div>These keys are read-only and scoped to your instance. Safe for local development.</div>
             </div>
         </div>
 
         <div class="card">
             <h2>
-                <span class="card-icon">📚</span>
-                Setup Instructions
+                <span class="card-icon">📋</span>
+                Quick Start
             </h2>
             <ol class="steps-list">
                 <li>
                     <strong>Clone the Repository</strong>
-                    <p>
-                        Clone the swag store repo to your local machine:<br>
-                        <code style="display: block; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 4px;">
-                        git clone https://github.com/maxiddog/datadog-swag-game.git && cd datadog-swag-game/swag-store
-                        </code>
-                    </p>
+                    <p>Get the buggy swag store code on your machine</p>
+                    <code>git clone https://github.com/maxiddog/datadog-swag-game.git</code>
                 </li>
                 <li>
                     <strong>Deploy Your Instance</strong>
-                    <p>
-                        Deploy your own copy of the buggy store to Vercel:<br>
-                        <code style="display: block; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 4px;">
-                        npm install && vercel --prod
-                        </code>
-                    </p>
+                    <p>Deploy your own copy to Vercel</p>
+                    <code>cd datadog-swag-game/swag-store && npm install && vercel --prod</code>
                 </li>
                 <li>
-                    <strong>Add MCP Configuration to Cursor/Claude Code</strong>
-                    <p>
-                        In your editor settings, find "MCP Servers" section. Paste the JSON configuration from above. 
-                        Save and restart to activate the Datadog MCP server.
-                    </p>
+                    <strong>Configure MCP</strong>
+                    <p>Add the MCP config above to Cursor or Claude Code settings, then restart</p>
                 </li>
                 <li>
-                    <strong>Open Your Store & Start Debugging!</strong>
-                    <p>
-                        Visit your deployed store URL, try to checkout, and encounter the bugs.
-                        Ask your AI assistant to help debug using Datadog MCP. Fix the code locally, 
-                        run <code>vercel --prod</code> again, and your fixes go live!
-                    </p>
+                    <strong>Start Debugging!</strong>
+                    <p>Visit your store, encounter bugs, and ask your AI assistant to help fix them</p>
                 </li>
             </ol>
         </div>
 
         <div class="card">
             <h2>
-                <span class="card-icon">🎯</span>
-                What to Expect
+                <span class="card-icon">🐛</span>
+                Bugs to Fix
             </h2>
-            <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                Your swag store has <strong>3-5 intentional bugs</strong> that prevent checkout. 
-                Each bug teaches you a different debugging pattern:
-            </p>
-            <ul style="list-style: none; padding: 0;">
-                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    🐛 <strong>Frontend bug:</strong> Broken checkout button (easy)
+            <ul class="bug-list">
+                <li>
+                    <span class="bug-icon">🛒</span>
+                    <div>
+                        <strong>Checkout button doesn't work</strong>
+                        <span class="difficulty easy">Easy</span>
+                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">The button exists but clicking does nothing</p>
+                    </div>
                 </li>
-                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    🐛 <strong>Exception handling:</strong> Size selection crashes (easy)
+                <li>
+                    <span class="bug-icon">📏</span>
+                    <div>
+                        <strong>Selecting size "S" crashes the page</strong>
+                        <span class="difficulty easy">Easy</span>
+                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">An exception is thrown when size S is selected</p>
+                    </div>
                 </li>
-                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    🐛 <strong>Backend bug:</strong> Database connection issues (medium)
-                </li>
-                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    🐛 <strong>Logic error:</strong> Form validation broken (easy)
-                </li>
-                <li style="padding: 12px 0;">
-                    🐛 <strong>API integration:</strong> Payment endpoint misconfigured (medium)
+                <li>
+                    <span class="bug-icon">📧</span>
+                    <div>
+                        <strong>Email validation is broken</strong>
+                        <span class="difficulty medium">Medium</span>
+                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">Valid emails are being rejected in checkout</p>
+                    </div>
                 </li>
             </ul>
 
@@ -460,45 +529,38 @@
     </div>
 
     <script>
-        // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const instanceId = urlParams.get('id');
         const token = urlParams.get('token');
 
-        // Fetch instance details from API
         async function loadInstanceDetails() {
             if (!instanceId || !token) {
                 window.location.href = '/';
                 return;
             }
 
-            try {
-                // For the MVP, construct the store URL directly
-                const storeUrl = `https://mcp-swag-store-dispatch-agents.vercel.app/?instance=${instanceId}`;
-                
-                document.getElementById('instanceId').textContent = instanceId;
-                document.getElementById('instanceUrl').textContent = storeUrl;
-                document.getElementById('instanceUrl').href = storeUrl;
-                document.getElementById('ctaButton').href = storeUrl;
+            const storeUrl = `https://mcp-swag-store-dispatch-agents.vercel.app/?instance=${instanceId}`;
+            
+            document.getElementById('instanceId').textContent = instanceId;
+            document.getElementById('instanceUrl').textContent = storeUrl;
+            document.getElementById('instanceUrl').href = storeUrl;
+            document.getElementById('ctaButton').href = storeUrl;
 
-                // Update MCP config - in production these would be real scoped API keys
-                const mcpConfig = document.getElementById('mcpConfig');
-                mcpConfig.textContent = JSON.stringify({
-                    "mcpServers": {
-                        "datadog": {
-                            "command": "npx",
-                            "args": ["-y", "@datadog/datadog-mcp-server"],
-                            "env": {
-                                "DD_API_KEY": "YOUR_DD_API_KEY",
-                                "DD_APP_KEY": "YOUR_DD_APP_KEY", 
-                                "DD_SITE": "datadoghq.com"
-                            }
+            // Update MCP config
+            const mcpConfig = document.getElementById('mcpConfig');
+            mcpConfig.textContent = JSON.stringify({
+                "mcpServers": {
+                    "datadog": {
+                        "command": "npx",
+                        "args": ["-y", "@datadog/datadog-mcp-server"],
+                        "env": {
+                            "DD_API_KEY": "YOUR_DD_API_KEY",
+                            "DD_APP_KEY": "YOUR_DD_APP_KEY",
+                            "DD_SITE": "datadoghq.com"
                         }
                     }
-                }, null, 2);
-            } catch (error) {
-                console.error('Error loading instance:', error);
-            }
+                }
+            }, null, 2);
         }
 
         loadInstanceDetails();

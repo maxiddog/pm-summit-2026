@@ -157,6 +157,31 @@
             line-height: 1.7;
         }
 
+        /* Hero Video */
+        .hero-video-container {
+            max-width: 800px;
+            margin: 0 auto 48px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.05),
+                0 20px 50px rgba(0, 102, 255, 0.12);
+            border: 1px solid var(--gray-200);
+            background: var(--gray-50);
+            aspect-ratio: 16 / 9;
+            position: relative;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 112%;
+            height: 112%;
+            object-fit: cover;
+        }
+
         .hero-cta {
             display: flex;
             gap: 16px;
@@ -609,15 +634,30 @@
                 <span class="hero-badge-icon">🐛</span>
                 Interactive Debugging Challenge
             </div>
-            <h1 class="fade-in-up delay-1">
+            
+            <!-- Hero Video -->
+            <div class="hero-video-container fade-in-up delay-1">
+                <video 
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="auto"
+                    class="hero-video"
+                >
+                    <source src="/shah_video_1.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <h1 class="fade-in-up delay-2">
                 Debug with <span class="highlight">AI</span>,<br>
                 Win Free Swag
             </h1>
-            <p class="hero-subtitle fade-in-up delay-2">
+            <p class="hero-subtitle fade-in-up delay-3">
                 Learn to use Datadog's MCP server with your favorite AI code editor. 
                 Fix intentional bugs in our swag store and claim your rewards.
                 </p>
-            <div class="hero-cta fade-in-up delay-3">
+            <div class="hero-cta fade-in-up delay-4">
                 <a href="#start" class="btn btn-primary">
                     Start Challenge →
                 </a>

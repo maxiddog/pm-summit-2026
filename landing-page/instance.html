@@ -103,6 +103,7 @@
         .card:nth-child(3) { animation-delay: 0.2s; }
         .card:nth-child(4) { animation-delay: 0.3s; }
         .card:nth-child(5) { animation-delay: 0.4s; }
+        .card:nth-child(6) { animation-delay: 0.5s; }
 
         @keyframes fadeInUp {
             from {
@@ -242,6 +243,12 @@
             color: #1E40AF;
         }
 
+        .alert-success {
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+        }
+
         .alert-icon {
             font-size: 20px;
             flex-shrink: 0;
@@ -255,9 +262,13 @@
 
         .steps-list li {
             counter-increment: step-counter;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             padding-left: 56px;
             position: relative;
+        }
+
+        .steps-list li:last-child {
+            margin-bottom: 0;
         }
 
         .steps-list li::before {
@@ -277,28 +288,34 @@
             color: white;
         }
 
+        .steps-list li.completed::before {
+            background: var(--accent-green);
+            content: "✓";
+        }
+
         .steps-list li strong {
             color: var(--dispatch-navy);
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             font-size: 16px;
         }
 
         .steps-list li p {
             color: var(--gray-600);
             font-size: 14px;
-            margin: 0;
+            margin: 0 0 12px 0;
         }
 
         .steps-list code {
-            display: inline-block;
-            background: var(--gray-100);
-            padding: 4px 10px;
-            border-radius: 6px;
+            display: block;
+            background: var(--dispatch-navy);
+            padding: 14px 16px;
+            border-radius: 8px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
-            color: var(--dispatch-blue);
+            color: var(--gray-300);
             margin-top: 8px;
+            overflow-x: auto;
         }
 
         /* Bug List */
@@ -350,25 +367,97 @@
 
         /* CTA Button */
         .cta-button {
-            display: block;
-            width: 100%;
-            padding: 18px 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 28px;
             background: var(--dispatch-blue);
             color: white;
             text-decoration: none;
-            border-radius: 14px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             text-align: center;
             transition: all 0.3s ease;
-            margin-top: 24px;
             box-shadow: 0 4px 14px rgba(0, 102, 255, 0.25);
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
         }
 
         .cta-button:hover {
             background: var(--dispatch-blue-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 102, 255, 0.35);
+        }
+
+        .cta-button.secondary {
+            background: var(--white);
+            color: var(--dispatch-blue);
+            border: 2px solid var(--dispatch-blue);
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--gray-50);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        /* Input Field */
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--gray-200);
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--gray-50);
+            transition: all 0.2s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--dispatch-blue);
+            background: var(--white);
+        }
+
+        .input-group input::placeholder {
+            color: var(--gray-400);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--dispatch-blue);
+        }
+
+        .progress-step.completed {
+            background: var(--accent-green);
         }
 
         /* Responsive */
@@ -395,6 +484,14 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -402,33 +499,84 @@
     <div class="container">
         <div class="success-header">
             <div class="success-icon">✓</div>
-            <h1>Your Instance is Ready!</h1>
-            <p class="subtitle">Time to start debugging 🚀</p>
+            <h1>You're Registered!</h1>
+            <p class="subtitle">Now let's deploy your personal swag store 🚀</p>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-step completed"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
         </div>
 
         <div class="card">
             <h2>
-                <span class="card-icon">🔗</span>
-                Your Swag Store
+                <span class="card-icon">📋</span>
+                Step 1: Clone & Deploy Your Instance
             </h2>
-            <div class="info-item">
-                <div class="info-label">Instance URL</div>
-                <div class="info-value">
-                    <a href="#" id="instanceUrl" target="_blank">Loading...</a>
-                    <button class="copy-btn" onclick="copyToClipboard('instanceUrl')">Copy</button>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Instance ID</div>
-                <div class="info-value">
-                    <span id="instanceId">Loading...</span>
-                    <button class="copy-btn" onclick="copyToClipboard('instanceId')">Copy</button>
-                </div>
-            </div>
-            <div class="alert alert-warning">
-                <span class="alert-icon">⏰</span>
+            <p style="color: var(--gray-600); margin-bottom: 16px;">
+                Run these commands in your terminal to get your own buggy swag store:
+            </p>
+            
+            <ol class="steps-list">
+                <li>
+                    <strong>Clone the repository</strong>
+                    <p>Get the buggy swag store code on your machine</p>
+                    <code>git clone https://github.com/maxiddog/datadog-swag-game.git && cd datadog-swag-game/swag-store</code>
+                </li>
+                <li>
+                    <strong>Install dependencies</strong>
+                    <p>Install the required npm packages</p>
+                    <code>npm install</code>
+                </li>
+                <li>
+                    <strong>Deploy to Vercel</strong>
+                    <p>Deploy your personal instance (you'll need a free Vercel account)</p>
+                    <code>npx vercel --prod</code>
+                </li>
+            </ol>
+
+            <div class="alert alert-info" style="margin-top: 20px;">
+                <span class="alert-icon">💡</span>
                 <div>
-                    <strong>Expires in 7 days.</strong> Complete the challenge before then to claim your swag!
+                    After deploying, Vercel will give you a URL like <strong>swag-store-yourusername.vercel.app</strong>. 
+                    That's YOUR personal instance to debug!
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>
+                <span class="card-icon">✏️</span>
+                Step 2: Save Your Instance URL
+            </h2>
+            <p style="color: var(--gray-600); margin-bottom: 16px;">
+                Once you've deployed, paste your Vercel URL here so you can easily access it:
+            </p>
+            
+            <div class="input-group">
+                <input 
+                    type="url" 
+                    id="instanceUrlInput" 
+                    placeholder="https://swag-store-yourusername.vercel.app"
+                />
+                <button class="cta-button" onclick="saveInstanceUrl()">Save</button>
+            </div>
+
+            <div id="savedUrlSection" style="display: none; margin-top: 20px;">
+                <div class="info-item">
+                    <div class="info-label">Your Swag Store URL</div>
+                    <div class="info-value">
+                        <a href="#" id="savedInstanceUrl" target="_blank">Loading...</a>
+                        <button class="copy-btn" onclick="copyToClipboard('savedInstanceUrl')">Copy</button>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <a href="#" id="openStoreBtn" class="cta-button" target="_blank">
+                        🛍️ Open My Store
+                    </a>
                 </div>
             </div>
         </div>
@@ -436,10 +584,10 @@
         <div class="card">
             <h2>
                 <span class="card-icon">🔑</span>
-                MCP Configuration
+                Step 3: Configure Datadog MCP
             </h2>
             <p style="color: var(--gray-600); margin-bottom: 16px;">
-                Add this to your <strong>Cursor</strong> or <strong>Claude Code</strong> MCP settings:
+                Add this to your <strong>Cursor</strong> or <strong>Claude Code</strong> MCP settings to enable AI-powered debugging:
             </p>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCodeBlock('mcpConfig')">Copy</button>
@@ -457,51 +605,30 @@
   }
 }</pre>
             </div>
-            <div class="alert alert-info">
-                <span class="alert-icon">💡</span>
-                <div>These keys are read-only and scoped to your instance. Safe for local development.</div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠️</span>
+                <div>
+                    <strong>You need real Datadog API keys!</strong> Sign up at <a href="https://www.datadoghq.com" target="_blank" style="color: inherit;">datadoghq.com</a> 
+                    and get your API/App keys from <strong>Organization Settings → API Keys</strong>.
+                </div>
             </div>
         </div>
 
         <div class="card">
             <h2>
-                <span class="card-icon">📋</span>
-                Quick Start
-            </h2>
-            <ol class="steps-list">
-                <li>
-                    <strong>Clone the Repository</strong>
-                    <p>Get the buggy swag store code on your machine</p>
-                    <code>git clone https://github.com/maxiddog/datadog-swag-game.git</code>
-                </li>
-                <li>
-                    <strong>Deploy Your Instance</strong>
-                    <p>Deploy your own copy to Vercel</p>
-                    <code>cd datadog-swag-game/swag-store && npm install && vercel --prod</code>
-                </li>
-                <li>
-                    <strong>Configure MCP</strong>
-                    <p>Add the MCP config above to Cursor or Claude Code settings, then restart</p>
-                </li>
-                <li>
-                    <strong>Start Debugging!</strong>
-                    <p>Visit your store, encounter bugs, and ask your AI assistant to help fix them</p>
-                </li>
-            </ol>
-        </div>
-
-        <div class="card">
-            <h2>
                 <span class="card-icon">🐛</span>
-                Bugs to Fix
+                Step 4: Debug These Bugs
             </h2>
+            <p style="color: var(--gray-600); margin-bottom: 16px;">
+                Your swag store has these intentional bugs. Use AI + Datadog MCP to find and fix them:
+            </p>
             <ul class="bug-list">
                 <li>
                     <span class="bug-icon">🛒</span>
                     <div>
                         <strong>Checkout button doesn't work</strong>
                         <span class="difficulty easy">Easy</span>
-                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">The button exists but clicking does nothing</p>
+                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">The button exists but clicking does nothing. Check the event handlers!</p>
                     </div>
                 </li>
                 <li>
@@ -517,14 +644,52 @@
                     <div>
                         <strong>Email validation is broken</strong>
                         <span class="difficulty medium">Medium</span>
-                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">Valid emails are being rejected in checkout</p>
+                        <p style="color: var(--gray-600); font-size: 14px; margin-top: 4px;">Valid emails are being rejected in the checkout form</p>
                     </div>
                 </li>
             </ul>
 
-            <a href="#" id="ctaButton" class="cta-button">
-                🚀 Open My Swag Store
-            </a>
+            <div class="alert alert-success" style="margin-top: 20px;">
+                <span class="alert-icon">🎁</span>
+                <div>
+                    <strong>Win swag!</strong> Once you fix all bugs and successfully place an order, 
+                    we'll ship you free Dispatch merchandise!
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>
+                <span class="card-icon">💡</span>
+                Debugging Tips
+            </h2>
+            <p style="color: var(--gray-600); margin-bottom: 16px;">
+                Try these prompts in Cursor or Claude Code with MCP connected:
+            </p>
+            <div class="code-block">
+                <pre>"Look at the Cart component in the swag store. The checkout button isn't working. 
+Can you use Datadog logs to find what's wrong?"</pre>
+            </div>
+            <div class="code-block" style="margin-top: 12px;">
+                <pre>"There's an error when selecting size S. Check the Datadog exceptions 
+and help me fix the bug in the code."</pre>
+            </div>
+            <div class="code-block" style="margin-top: 12px;">
+                <pre>"The email validation in the checkout form is rejecting valid emails. 
+Can you investigate using Datadog and fix it?"</pre>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--gray-200);">
+            <p style="color: var(--gray-500); margin-bottom: 16px;">Need help? Check out the documentation:</p>
+            <div class="button-group" style="justify-content: center;">
+                <a href="https://github.com/maxiddog/datadog-swag-game" class="cta-button secondary" target="_blank">
+                    📖 View on GitHub
+                </a>
+                <a href="/" class="cta-button secondary">
+                    ← Back to Home
+                </a>
+            </div>
         </div>
     </div>
 
@@ -533,37 +698,45 @@
         const instanceId = urlParams.get('id');
         const token = urlParams.get('token');
 
-        async function loadInstanceDetails() {
-            if (!instanceId || !token) {
-                window.location.href = '/';
+        // Check if user has a saved URL in localStorage
+        const savedUrl = localStorage.getItem('swagStoreUrl');
+        if (savedUrl) {
+            showSavedUrl(savedUrl);
+        }
+
+        function saveInstanceUrl() {
+            const input = document.getElementById('instanceUrlInput');
+            let url = input.value.trim();
+            
+            if (!url) {
+                alert('Please enter your Vercel URL');
                 return;
             }
 
-            const storeUrl = `https://mcp-swag-store-dispatch-agents.vercel.app/?instance=${instanceId}`;
-            
-            document.getElementById('instanceId').textContent = instanceId;
-            document.getElementById('instanceUrl').textContent = storeUrl;
-            document.getElementById('instanceUrl').href = storeUrl;
-            document.getElementById('ctaButton').href = storeUrl;
+            // Add https if missing
+            if (!url.startsWith('http')) {
+                url = 'https://' + url;
+            }
 
-            // Update MCP config
-            const mcpConfig = document.getElementById('mcpConfig');
-            mcpConfig.textContent = JSON.stringify({
-                "mcpServers": {
-                    "datadog": {
-                        "command": "npx",
-                        "args": ["-y", "@datadog/datadog-mcp-server"],
-                        "env": {
-                            "DD_API_KEY": "YOUR_DD_API_KEY",
-                            "DD_APP_KEY": "YOUR_DD_APP_KEY",
-                            "DD_SITE": "datadoghq.com"
-                        }
-                    }
-                }
-            }, null, 2);
+            // Validate URL format
+            try {
+                new URL(url);
+            } catch (e) {
+                alert('Please enter a valid URL');
+                return;
+            }
+
+            localStorage.setItem('swagStoreUrl', url);
+            showSavedUrl(url);
         }
 
-        loadInstanceDetails();
+        function showSavedUrl(url) {
+            document.getElementById('savedUrlSection').style.display = 'block';
+            document.getElementById('savedInstanceUrl').textContent = url;
+            document.getElementById('savedInstanceUrl').href = url;
+            document.getElementById('openStoreBtn').href = url;
+            document.getElementById('instanceUrlInput').value = url;
+        }
 
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);

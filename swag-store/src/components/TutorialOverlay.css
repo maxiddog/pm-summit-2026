@@ -1,0 +1,221 @@
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tutorial-content {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  position: relative;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.tutorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tutorial-header h2 {
+  font-size: 24px;
+  flex: 1;
+}
+
+.tutorial-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.tutorial-minimize,
+.tutorial-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background 0.3s ease;
+}
+
+.tutorial-minimize:hover,
+.tutorial-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tutorial-body {
+  line-height: 1.8;
+}
+
+.tutorial-body h3 {
+  font-size: 18px;
+  margin: 20px 0 12px;
+  color: var(--text-primary);
+}
+
+.tutorial-body p {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+}
+
+.tutorial-body ul, .tutorial-body ol {
+  margin: 16px 0 16px 24px;
+  color: var(--text-secondary);
+}
+
+.tutorial-body li {
+  margin-bottom: 8px;
+}
+
+.tutorial-body strong {
+  color: var(--text-primary);
+}
+
+.code-prompt {
+  background: rgba(0, 0, 0, 0.4);
+  border-left: 4px solid var(--dd-purple);
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+}
+
+.code-prompt strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.code-prompt code {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent-green);
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.tip-box {
+  background: rgba(0, 212, 170, 0.1);
+  border: 1px solid var(--accent-green);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.tip-box strong {
+  color: var(--accent-green);
+}
+
+.tutorial-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-tutorial-next {
+  flex: 1;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--dd-purple), var(--dd-pink));
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-tutorial-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 44, 166, 0.4);
+}
+
+.btn-tutorial-skip {
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-tutorial-skip:hover {
+  border-color: var(--dd-purple);
+  color: var(--text-primary);
+}
+
+.tutorial-progress {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.tutorial-minimized {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--dd-purple), var(--dd-pink));
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.tutorial-minimized:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .tutorial-content {
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+  }
+}

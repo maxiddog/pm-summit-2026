@@ -60,6 +60,60 @@ const PRODUCTS = [
     image: '/images/holiday-sweater.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: false // Intentionally out of stock for demo
+  },
+  {
+    id: 'candle-001',
+    name: 'Datadog Candle',
+    description: 'Luxurious scented candle in amber glass with purple & gold packaging',
+    price: 0,
+    image: '/images/candle.jpg',
+    sizes: ['One Size'],
+    inStock: true
+  },
+  {
+    id: 'cards-001',
+    name: 'BITS AI Agent Cards',
+    description: 'Collectible trading cards featuring BITS AI SRE, Dev & Security agents',
+    price: 0,
+    image: '/images/agent-cards.jpg',
+    sizes: ['One Size'],
+    inStock: true
+  },
+  {
+    id: 'checkered-001',
+    name: 'Checkered Bits Tee',
+    description: 'Bold purple & white checkered tee with Bits mascot graphic',
+    price: 0,
+    image: '/images/checkered-tee.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    inStock: true
+  },
+  {
+    id: 'hoodie-001',
+    name: 'Scattered Datadog Hoodie',
+    description: 'Black hoodie with scattered DATADOG lettering and Bits logo',
+    price: 0,
+    image: '/images/black-hoodie.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    inStock: true
+  },
+  {
+    id: 'longsleeve-001',
+    name: 'Web Application Long Sleeve',
+    description: 'Cream long sleeve with purple Datadog graphics and icons',
+    price: 0,
+    image: '/images/longsleeve.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    inStock: true
+  },
+  {
+    id: 'plush-001',
+    name: 'Bits VR Plush Keychain',
+    description: 'Adorable Bits plush keychain wearing VR goggles',
+    price: 0,
+    image: '/images/bits-plush.jpg',
+    sizes: ['One Size'],
+    inStock: true
   }
 ];
 

@@ -666,6 +666,49 @@
             color: var(--text-tertiary);
         }
 
+        .embedded-iframe {
+            width: 100%;
+            height: 280px;
+            border: none;
+            background: var(--bg-secondary);
+        }
+
+        .toolkit-body .embedded-iframe {
+            height: 240px;
+        }
+
+        .toolkit-body.tall .embedded-iframe {
+            height: 320px;
+        }
+
+        .iframe-auth-notice {
+            height: 280px;
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .iframe-auth-notice svg {
+            width: 32px;
+            height: 32px;
+            color: var(--purple-primary);
+        }
+
+        .iframe-auth-notice p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            max-width: 280px;
+        }
+
+        .iframe-auth-notice .btn {
+            margin-top: 8px;
+        }
+
         /* Resource Links */
         .resource-grid {
             display: grid;
@@ -1231,7 +1274,7 @@
                                         </svg>
                                         Product Operations
                                     </div>
-                                    <a href="https://jira.atlassian.com" target="_blank" class="card-link">
+                                    <a href="https://datadoghq.atlassian.net/jira/core/projects/POPS/board?filter=&groupBy=status" target="_blank" class="card-link">
                                         Open in JIRA
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -1240,14 +1283,15 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="iframe-placeholder">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                        <path d="M3 9h18"/>
-                                        <path d="M9 21V9"/>
+                                <div class="iframe-auth-notice">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                                     </svg>
-                                    <span class="iframe-placeholder-title">JIRA Board Integration</span>
-                                    <span class="iframe-placeholder-sub">Connect your JIRA workspace to view boards</span>
+                                    <p>JIRA requires authentication. Click below to open in a new tab.</p>
+                                    <a href="https://datadoghq.atlassian.net/jira/core/projects/POPS/board?filter=&groupBy=status" target="_blank" class="btn btn-primary">
+                                        Open JIRA Board
+                                    </a>
                                 </div>
                             </div>
 
@@ -1261,7 +1305,7 @@
                                         </svg>
                                         Product Metrics
                                     </div>
-                                    <a href="https://metabase.com" target="_blank" class="card-link">
+                                    <a href="https://metabase-analytics.us1.prod.dog/dashboard/45205?billing_plan_start_date=past12months~&lead_creation_month=past12months~&revenue_month=past12months~&tab=448-volume%2Fpartners&world_region=" target="_blank" class="card-link">
                                         Open in Metabase
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -1270,14 +1314,16 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="iframe-placeholder">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <div class="iframe-auth-notice">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M18 20V10"/>
                                         <path d="M12 20V4"/>
                                         <path d="M6 20v-6"/>
                                     </svg>
-                                    <span class="iframe-placeholder-title">Metabase Dashboard</span>
-                                    <span class="iframe-placeholder-sub">Connect your Metabase to view metrics</span>
+                                    <p>Metabase requires VPN/authentication. Click below to open in a new tab.</p>
+                                    <a href="https://metabase-analytics.us1.prod.dog/dashboard/45205?billing_plan_start_date=past12months~&lead_creation_month=past12months~&revenue_month=past12months~&tab=448-volume%2Fpartners&world_region=" target="_blank" class="btn btn-primary">
+                                        Open Metabase
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1470,17 +1516,22 @@
                                     </svg>
                                     Release Notes App
                                 </div>
-                                <span class="toolkit-badge">App Builder</span>
+                                <a href="https://app.datadoghq.com/app-builder/apps/62d0c830-5b16-4e7d-af89-d5839e7a0203" target="_blank" class="card-link">
+                                    Open
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15 3 21 3 21 9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                </a>
                             </div>
                             <div class="toolkit-body">
-                                <div class="iframe-placeholder">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                        <polyline points="14 2 14 8 20 8"/>
-                                    </svg>
-                                    <span class="iframe-placeholder-title">Release Notes Generator</span>
-                                    <span class="iframe-placeholder-sub">Powered by Datadog App Builder</span>
-                                </div>
+                                <iframe 
+                                    src="https://app.datadoghq.com/app-builder/apps/62d0c830-5b16-4e7d-af89-d5839e7a0203" 
+                                    class="embedded-iframe"
+                                    title="Release Notes App"
+                                    loading="lazy"
+                                ></iframe>
                             </div>
                         </div>
 
@@ -1496,7 +1547,7 @@
                                     </svg>
                                     GumLoop Automation
                                 </div>
-                                <a href="https://www.gumloop.com" target="_blank" class="card-link">
+                                <a href="https://www.gumloop.com/agents" target="_blank" class="card-link">
                                     Open
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -1506,14 +1557,12 @@
                                 </a>
                             </div>
                             <div class="toolkit-body">
-                                <div class="iframe-placeholder">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <polyline points="16 3 21 3 21 8"/>
-                                        <line x1="4" y1="20" x2="21" y2="3"/>
-                                    </svg>
-                                    <span class="iframe-placeholder-title">GumLoop Workflows</span>
-                                    <span class="iframe-placeholder-sub">AI-powered automation</span>
-                                </div>
+                                <iframe 
+                                    src="https://www.gumloop.com/agents" 
+                                    class="embedded-iframe"
+                                    title="GumLoop Agents"
+                                    loading="lazy"
+                                ></iframe>
                             </div>
                         </div>
 

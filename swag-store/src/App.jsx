@@ -126,6 +126,76 @@ const PRODUCTS = [
     sizes: ['One Size'],
     category: 'Accessories',
     inStock: true
+  },
+  {
+    id: 'lego-001',
+    name: 'Bits Lego Set',
+    description: 'Build your own Bits! This 850-piece Lego set features the AI SRE Agent in stunning detail. Perfect for desk display or stress relief during incident response. Includes collector box.',
+    price: 0,
+    image: '/images/lego-set.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
+  },
+  {
+    id: 'bandana-001',
+    name: 'Datadog Bandana',
+    description: 'Classic black bandana featuring an all-over Datadog mascot pattern. Versatile styling - wear it as a headband, neck scarf, or pocket square. 100% soft cotton.',
+    price: 0,
+    image: '/images/bandana.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
+  },
+  {
+    id: 'snowglobe-001',
+    name: 'Bits Snow Globe',
+    description: 'Magical snow globe featuring the Bits mascot in a winter wonderland. Shake it up and watch the snow fall around your favorite AI companion. Comes in premium gift box.',
+    price: 0,
+    image: '/images/snow-globe.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
+  },
+  {
+    id: 'pin-001',
+    name: 'Bits Enamel Pin',
+    description: 'High-quality enamel pin featuring Bits on a purple gradient background. Perfect for jackets, bags, or lanyards. Individually wrapped for gifting.',
+    price: 0,
+    image: '/images/bits-pin.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
+  },
+  {
+    id: 'tracksuit-001',
+    name: 'Datadog Track Suit',
+    description: 'Premium black track jacket and joggers set with embroidered Datadog logo patches. Sleek athletic fit perfect for the gym, travel, or working from home in style.',
+    price: 0,
+    image: '/images/tracksuit.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    category: 'Tops',
+    inStock: true
+  },
+  {
+    id: 'dashboard-cap-001',
+    name: 'Dashboard 5-Panel Cap',
+    description: 'Eye-catching purple and pink 5-panel cap featuring a Datadog dashboard design. Retro-futuristic style with adjustable strap. Stand out at any tech event.',
+    price: 0,
+    image: '/images/dashboard-cap.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
+  },
+  {
+    id: 'www-cap-001',
+    name: 'World Wide Web Cap',
+    description: 'Vintage-inspired cream and purple baseball cap with bold embroidered DATADOG lettering and World Wide Web globe design. A nod to internet history.',
+    price: 0,
+    image: '/images/www-cap.jpg',
+    sizes: ['One Size'],
+    category: 'Accessories',
+    inStock: true
   }
 ];
 

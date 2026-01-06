@@ -23,60 +23,42 @@ datadogRum.init({
   defaultPrivacyLevel: 'allow'
 });
 
-// Sample products - Dispatch by Datadog swag
+// Sample products - Datadog PM Summit swag
 const PRODUCTS = [
   {
-    id: 'hoodie-001',
-    name: 'Dispatch Blue Hoodie',
-    description: 'Premium cotton blend hoodie in signature Dispatch blue',
+    id: 'crewneck-001',
+    name: 'Datadog Varsity Crewneck',
+    description: 'Premium black crewneck with classic varsity-style Datadog lettering',
     price: 0,
-    image: '/images/hoodie.jpg',
+    image: '/images/crewneck.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: true
   },
   {
-    id: 'jacket-001',
-    name: 'Dispatch Worker Jacket',
-    description: 'Classic French workwear style in vibrant blue',
+    id: 'polo-001',
+    name: 'Research Lab Polo',
+    description: 'Sleek purple gradient polo with Datadog Research Lab branding',
     price: 0,
-    image: '/images/jacket.jpg',
+    image: '/images/polo.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: true
   },
   {
-    id: 'cap-001',
-    name: 'Dispatch Dad Cap',
-    description: 'Embroidered cotton cap with adjustable strap',
+    id: 'tshirt-001',
+    name: 'PM Summit 2026 Tee',
+    description: "World's Best Product Manager - exclusive Product Management Summit edition",
     price: 0,
-    image: '/images/cap.jpg',
-    sizes: ['One Size'],
+    image: '/images/tshirt.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: true
   },
   {
-    id: 'beanie-001',
-    name: 'Dispatch Knit Beanie',
-    description: 'Cozy ribbed beanie for cold weather debugging',
+    id: 'sweater-001',
+    name: 'Datadog Holiday Sweater',
+    description: 'Festive purple knit sweater with Nordic pattern and Datadog branding',
     price: 0,
-    image: '/images/beanie.jpg',
-    sizes: ['One Size'],
-    inStock: true
-  },
-  {
-    id: 'socks-001',
-    name: 'Dispatch Cozy Socks',
-    description: 'Ultra-soft fuzzy socks in signature blue',
-    price: 0,
-    image: '/images/socks.jpg',
-    sizes: ['S/M', 'L/XL'],
-    inStock: true
-  },
-  {
-    id: 'keychain-001',
-    name: 'Dispatch Keychain',
-    description: 'Premium metal keychain with woven cord loop',
-    price: 0,
-    image: '/images/keychain.jpg',
-    sizes: ['One Size'],
+    image: '/images/holiday-sweater.jpg',
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     inStock: false // Intentionally out of stock for demo
   }
 ];

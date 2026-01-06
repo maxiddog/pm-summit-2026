@@ -357,7 +357,7 @@ function App() {
             alt="Datadog" 
             className="datadog-logo-img"
           />
-          <span className="footer-tagline">Vibecoded with love in NYC<br/>(with flaky office WiFi)</span>
+          <span className="footer-tagline">Vibecoded with ❤️ in NYC<br/>(with flaky office WiFi)</span>
         </div>
       </motion.aside>
 

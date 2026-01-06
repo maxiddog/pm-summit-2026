@@ -63,10 +63,14 @@ const PRODUCTS = [
   }
 ];
 
+// Categories for sidebar
+const CATEGORIES = ['All', 'Tops', 'Accessories'];
+
 function App() {
   const [cart, setCart] = useState([]);
   const [view, setView] = useState('products'); // products, cart, checkout
   const [showTutorial, setShowTutorial] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('All');
   const [bugsFixed, setBugsFixed] = useState({
     checkoutButton: false,
     sizeSelection: false,
@@ -198,110 +202,109 @@ function App() {
         />
       )}
 
-      <div className="top-banner">
-        <span>Debug your way to free swag with Datadog MCP.</span>
-        <button className="banner-btn" onClick={() => setShowTutorial(true)}>
-          View Tutorial
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-brand">
+          <h1>
+            Datadog
+            <span>PM Summit 2026</span>
+          </h1>
+        </div>
+        
+        <nav className="sidebar-nav">
+          {CATEGORIES.map(category => (
+            <button
+              key={category}
+              className={`sidebar-nav-item ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+          <button 
+            className="sidebar-nav-item"
+            onClick={() => setShowTutorial(true)}
+          >
+            Debug Guide
+          </button>
+        </nav>
+
+        <div className="sidebar-footer">
+          © 2026 Datadog
+        </div>
+      </aside>
+
+      {/* Floating Cart Button */}
+      <div className="cart-floating">
+        <button className="cart-button" onClick={goToCart}>
+          Cart ({cart.length})
         </button>
       </div>
 
-      <header className="header">
-        <div className="header-content">
-          <a href="/" className="logo">
-            <img src="/images/dispatch-logo.png" alt="Dispatch by Datadog" className="logo-img" />
-          </a>
-          <div className="header-actions">
-            <button 
-              className="cart-button"
-              onClick={goToCart}
-            >
-              🛒 Cart ({cart.length})
-            </button>
+      {/* Main Content */}
+      {view === 'products' && (
+        <main className="main-content">
+          <div className="products-grid">
+            {PRODUCTS.map(product => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={addToCart}
+              />
+            ))}
           </div>
-        </div>
-      </header>
+        </main>
+      )}
 
-      <main className="main-content">
-        {view === 'products' && (
-          <div className="products-view">
-            <div className="view-header">
-              <h2>Debug the Store, Get <span className="highlight">Free Swag</span></h2>
-              <p className="subtitle">
-                Use Datadog's MCP tools to find and fix bugs in this store. 
-                Complete the challenge to claim your rewards.
-              </p>
-              <div className="hero-actions">
-                <button className="btn-primary" onClick={goToCart}>
-                  Start Shopping
-                </button>
-                <button className="btn-secondary" onClick={() => setShowTutorial(true)}>
-                  How It Works
-                </button>
-              </div>
-            </div>
-            
-            <div className="products-grid">
-              {PRODUCTS.map(product => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={addToCart}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {view === 'cart' && (
+      {view === 'cart' && (
+        <div className="cart-view">
           <Cart
             cart={cart}
             onRemove={removeFromCart}
             onCheckout={goToCheckout}
             onContinueShopping={continueShopping}
           />
-        )}
+        </div>
+      )}
 
-        {view === 'checkout' && (
+      {view === 'checkout' && (
+        <div className="checkout-view">
           <CheckoutForm
             cart={cart}
             onComplete={handleCheckoutComplete}
             onBack={() => setView('cart')}
           />
-        )}
+        </div>
+      )}
 
-        {view === 'success' && (
-          <div className="success-view">
-            <div className="success-card">
-              <div className="success-icon">✓</div>
-              <h2>Order Submitted!</h2>
-              <p>
-                Congratulations! You've successfully debugged the swag store and 
-                placed your order. We'll ship your items soon!
-              </p>
-              <p className="bugs-fixed">
-                <strong>Bugs Fixed:</strong>
-                <ul>
-                  {Object.entries(bugsFixed).map(([bug, fixed]) => (
-                    <li key={bug}>
-                      {fixed ? '✓' : '✗'} {bug.replace(/([A-Z])/g, ' $1').toLowerCase()}
-                    </li>
-                  ))}
-                </ul>
-              </p>
-              <button 
-                className="btn-primary"
-                onClick={() => window.location.reload()}
-              >
-                Start New Challenge
-              </button>
+      {view === 'success' && (
+        <div className="success-view">
+          <div className="success-card">
+            <div className="success-icon">✓</div>
+            <h2>Order Submitted!</h2>
+            <p>
+              Congratulations! You've successfully debugged the swag store and 
+              placed your order. We'll ship your items soon!
+            </p>
+            <div className="bugs-fixed">
+              <strong>Bugs Fixed:</strong>
+              <ul>
+                {Object.entries(bugsFixed).map(([bug, fixed]) => (
+                  <li key={bug}>
+                    {fixed ? '✓' : '○'} {bug.replace(/([A-Z])/g, ' $1').toLowerCase()}
+                  </li>
+                ))}
+              </ul>
             </div>
+            <button 
+              className="btn-primary"
+              onClick={() => window.location.reload()}
+            >
+              Start New Challenge
+            </button>
           </div>
-        )}
-      </main>
-
-      <footer className="footer">
-        <p>Dispatch MCP Debugging Challenge | Need help? Check the tutorial!</p>
-      </footer>
+        </div>
+      )}
     </div>
   );
 }

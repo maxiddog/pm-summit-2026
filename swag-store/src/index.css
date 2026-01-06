@@ -1,35 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Dispatch-style color palette */
-  --primary-blue: #4A7BF7;
-  --primary-blue-hover: #3A68E0;
-  --primary-blue-light: rgba(74, 123, 247, 0.08);
-  --text-dark: #1a1f36;
-  --text-secondary: #525f7f;
-  --text-muted: #8898aa;
+  /* OpenAI Supply-inspired palette - clean & minimal */
+  --bg-main: #f0f0f0;
   --bg-white: #ffffff;
-  --bg-light: #f8fafc;
-  --bg-pattern: #f0f4f8;
-  --border-light: #e6ebf1;
-  --border-medium: #d1d9e6;
-  --success-green: #24b47e;
-  --error-red: #e25950;
-  --warning-amber: #f5a623;
+  --bg-card: #fafafa;
+  --text-primary: #0d0d0d;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-light: #e5e5e5;
+  --border-medium: #d0d0d0;
+  --accent-purple: #7c3aed;
+  --accent-purple-light: rgba(124, 58, 237, 0.08);
+  --success-green: #10b981;
+  --error-red: #ef4444;
   
-  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
+  font-family: 'Syne', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light;
-  color: var(--text-dark);
-  background-color: var(--bg-white);
+  color: var(--text-primary);
+  background-color: var(--bg-main);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 * {
@@ -42,15 +39,28 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--bg-white);
-  /* Subtle grid pattern like Dispatch */
-  background-image: 
-    linear-gradient(rgba(74, 123, 247, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(74, 123, 247, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background: var(--bg-main);
 }
 
 #root {
   width: 100%;
   margin: 0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }

@@ -353,7 +353,7 @@ function App() {
 
         <div className="sidebar-footer">
           <img 
-            src="/images/datadog-logo.png" 
+            src="/images/datadog-logo.jpg" 
             alt="Datadog" 
             className="datadog-logo-img"
           />

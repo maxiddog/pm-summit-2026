@@ -693,6 +693,10 @@
             text-align: center;
         }
 
+        .toolkit-body .iframe-auth-notice {
+            height: 240px;
+        }
+
         .iframe-auth-notice svg {
             width: 32px;
             height: 32px;
@@ -1526,12 +1530,16 @@
                                 </a>
                             </div>
                             <div class="toolkit-body">
-                                <iframe 
-                                    src="https://app.datadoghq.com/app-builder/apps/62d0c830-5b16-4e7d-af89-d5839e7a0203" 
-                                    class="embedded-iframe"
-                                    title="Release Notes App"
-                                    loading="lazy"
-                                ></iframe>
+                                <div class="iframe-auth-notice">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                    </svg>
+                                    <p>Generate release notes automatically from JIRA tickets and GitHub PRs.</p>
+                                    <a href="https://app.datadoghq.com/app-builder/apps/62d0c830-5b16-4e7d-af89-d5839e7a0203" target="_blank" class="btn btn-primary">
+                                        Open App
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -1557,12 +1565,16 @@
                                 </a>
                             </div>
                             <div class="toolkit-body">
-                                <iframe 
-                                    src="https://www.gumloop.com/agents" 
-                                    class="embedded-iframe"
-                                    title="GumLoop Agents"
-                                    loading="lazy"
-                                ></iframe>
+                                <div class="iframe-auth-notice">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="16 3 21 3 21 8"/>
+                                        <line x1="4" y1="20" x2="21" y2="3"/>
+                                    </svg>
+                                    <p>Create AI-powered automation workflows to streamline your PM tasks.</p>
+                                    <a href="https://www.gumloop.com/agents" target="_blank" class="btn btn-primary">
+                                        Open GumLoop
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

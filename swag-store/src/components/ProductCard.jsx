@@ -1,38 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import './ProductCard.css';
 
-function ProductCard({ product, onAddToCart }) {
-  const [selectedSize, setSelectedSize] = useState('');
-  const [showSizeError, setShowSizeError] = useState(false);
-
-  const handleAddToCart = (e) => {
-    e.stopPropagation();
-    
-    if (!selectedSize) {
-      setShowSizeError(true);
-      return;
-    }
-
-    setShowSizeError(false);
-    
-    try {
-      onAddToCart(product, selectedSize);
-      // Reset selection after adding
-      setSelectedSize('');
-    } catch (error) {
-      // BUG #2 will be caught here when size "S" is selected
-      console.error('Error adding to cart:', error);
-      alert(`Oops! An error occurred: ${error.message}\n\nTry using Datadog MCP to investigate this exception!`);
-    }
-  };
-
+function ProductCard({ product, onAddToCart, onClick }) {
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={onClick}>
       <div className="product-image">
-        <img 
+        <motion.img 
           src={product.image} 
           alt={product.name}
           className="product-img"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
           onError={(e) => {
             e.target.style.display = 'none';
             e.target.parentElement.innerHTML = '<span class="product-emoji">📦</span>';
@@ -40,58 +19,24 @@ function ProductCard({ product, onAddToCart }) {
         />
         
         {!product.inStock && (
-          <div className="out-of-stock-badge">
+          <motion.div 
+            className="out-of-stock-badge"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             Sold Out
-          </div>
+          </motion.div>
         )}
 
-        {/* Hover Overlay with Actions */}
-        {product.inStock && (
-          <div className="product-overlay">
-            <div className="product-name-overlay">{product.name}</div>
-            
-            <div className="product-actions">
-              <div className="size-selector">
-                <label>Select Size</label>
-                <div className="size-options">
-                  {product.sizes.map(size => (
-                    <button
-                      key={size}
-                      className={`size-option ${selectedSize === size ? 'selected' : ''}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedSize(size);
-                        setShowSizeError(false);
-                      }}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-                {showSizeError && (
-                  <p className="size-error">Please select a size</p>
-                )}
-              </div>
-
-              <button 
-                className="btn-add-to-cart"
-                onClick={handleAddToCart}
-              >
-                Add to Cart
-              </button>
-
-              {/* Debug hint for size "S" bug */}
-              {selectedSize === 'S' && (
-                <div className="size-warning">
-                  <small>⚠️ Size "S" may cause issues!</small>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+        {/* Hover Overlay */}
+        <div className="product-overlay">
+          <span className="view-details">View Details</span>
+        </div>
       </div>
       
       <div className="product-info">
+        <span className="product-category">{product.category}</span>
         <h3 className="product-name">{product.name}</h3>
       </div>
     </div>

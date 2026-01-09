@@ -139,7 +139,7 @@
         }
 
         .hero-video {
-            width: 280px;
+            width: 420px;
             height: auto;
             border-radius: 16px;
             margin-bottom: 24px;
@@ -269,6 +269,69 @@
         .btn svg {
             width: 16px;
             height: 16px;
+        }
+
+        /* Offsite Section */
+        .offsite-section {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .offsite-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+            border-radius: 16px;
+            padding: 0;
+            color: white;
+            overflow: hidden;
+        }
+
+        .offsite-image {
+            flex: 0 0 320px;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .offsite-content {
+            padding: 32px 40px 32px 0;
+        }
+
+        .offsite-content h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .offsite-content h3 span {
+            color: #9B4DCA;
+        }
+
+        .offsite-content p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+
+        .offsite-details {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .offsite-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .offsite-detail svg {
+            width: 16px;
+            height: 16px;
+            color: #9B4DCA;
         }
 
         /* Speakers Section */
@@ -705,6 +768,13 @@
             color: white;
         }
 
+        .speaker-avatar-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
         .speaker-info {
             flex: 1;
         }
@@ -1017,7 +1087,7 @@
             </video>
             <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
-                March 2026 • New York City
+                January 2026 • Bryant Park, NYC
             </div>
             <h1 class="hero-title">
                 Datadog<br>
@@ -1027,9 +1097,9 @@
                 Two days of insights, collaboration, and shaping the future of observability with product leaders from across the globe.
             </p>
             <div class="hero-date">
-                <span>📍 NYC HQ</span>
+                <span>📍 Jay Suites, Bryant Park</span>
                 <span class="hero-date-divider"></span>
-                <span>📅 March 15-16, 2026</span>
+                <span>📅 January 27-28, 2026</span>
             </div>
             <div class="hero-cta">
                 <a href="#" class="btn btn-primary" onclick="showSection('questions'); return false;">
@@ -1044,6 +1114,33 @@
             </div>
         </div>
 
+        <!-- Offsite Section -->
+        <div class="offsite-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Offsite</h2>
+                    <p class="section-subtitle">Where we'll be gathering</p>
+                </div>
+                <div class="offsite-card">
+                    <img src="images/paris-room.jpg" alt="The Paris Room" class="offsite-image">
+                    <div class="offsite-content">
+                        <h3>The Paris Room at <span>Jay Suites</span></h3>
+                        <p>Join us at the beautiful Paris Room in The Jay Suites Conference Center, located in Bryant Park — just a few minutes' walk from the office. An inspiring space for two days of collaboration and innovation.</p>
+                        <div class="offsite-details">
+                            <div class="offsite-detail">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Bryant Park, NYC</span>
+                            </div>
+                            <div class="offsite-detail">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span>January 27-28, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Speakers Section -->
         <div class="speakers-section">
             <div class="section-container">
@@ -1055,12 +1152,12 @@
                     <div class="speaker-card" onclick="openSpeakerModal('yanbing')">
                         <img src="images/Yanbing-pic.png" alt="Yanbing Li" class="speaker-photo">
                         <div class="speaker-name">Yanbing Li</div>
-                        <div class="speaker-title">Head of PM</div>
+                        <div class="speaker-title">Chief Product Officer</div>
                     </div>
                     <div class="speaker-card" onclick="openSpeakerModal('chris')">
                         <img src="images/chris-pic.png" alt="Chris McLaughlin" class="speaker-photo">
                         <div class="speaker-name">Chris McLaughlin</div>
-                        <div class="speaker-title">Senior Director, PM</div>
+                        <div class="speaker-title">Chief of Staff, CPO</div>
                     </div>
                     <div class="speaker-card" onclick="openSpeakerModal('michael')">
                         <img src="images/Michael-pic.png" alt="Michael Whetten" class="speaker-photo">
@@ -1112,6 +1209,11 @@
                         <div class="speaker-name">Alex Haugland</div>
                         <div class="speaker-title">Staff Engineer @ Cursor</div>
                     </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('alexis')">
+                        <img src="images/alexis-pic.png" alt="Alexis Lê-Quôc" class="speaker-photo">
+                        <div class="speaker-name">Alexis Lê-Quôc</div>
+                        <div class="speaker-title">CTO & Co-Founder</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1154,8 +1256,8 @@
                 </div>
                 
                 <div class="agenda-tabs">
-                    <button class="agenda-tab active" onclick="showAgendaDay(1)">Day 1 • March 15</button>
-                    <button class="agenda-tab" onclick="showAgendaDay(2)">Day 2 • March 16</button>
+                    <button class="agenda-tab active" onclick="showAgendaDay(1)">Day 1 • January 27</button>
+                    <button class="agenda-tab" onclick="showAgendaDay(2)">Day 2 • January 28</button>
                 </div>
 
                 <!-- Day 1 -->
@@ -1386,7 +1488,7 @@
             <div class="speaker-grid">
                 <div class="speaker-form-card" data-speaker="1">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">AL</div>
+                        <img src="images/alexis-pic.png" alt="Alexis Lê-Quôc" class="speaker-avatar-img">
                         <div class="speaker-info">
                             <div class="speaker-name">Alexis Lê-Quôc</div>
                             <div class="speaker-role">CTO & Co-Founder</div>
@@ -1410,7 +1512,7 @@
                 </div>
                 <div class="speaker-form-card">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">DI</div>
+                        <img src="images/dev-pic.png" alt="Dev Ittycheria" class="speaker-avatar-img">
                         <div class="speaker-info">
                             <div class="speaker-name">Dev Ittycheria</div>
                             <div class="speaker-role">Board Member</div>
@@ -1434,7 +1536,7 @@
                 </div>
                 <div class="speaker-form-card">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">AH</div>
+                        <img src="images/alex-pic.png" alt="Alex Haugland" class="speaker-avatar-img">
                         <div class="speaker-info">
                             <div class="speaker-name">Alex Haugland</div>
                             <div class="speaker-role">Staff Engineer @ Cursor</div>
@@ -1492,14 +1594,14 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     </div>
                     <div class="logistics-title">Date</div>
-                    <div class="logistics-detail">March 15-16, 2026</div>
+                    <div class="logistics-detail">January 27-28, 2026</div>
                 </div>
                 <div class="logistics-card">
                     <div class="logistics-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
                     <div class="logistics-title">Location</div>
-                    <div class="logistics-detail">NYC HQ • 620 8th Ave</div>
+                    <div class="logistics-detail">Jay Suites • Bryant Park</div>
                 </div>
                 <div class="logistics-card">
                     <div class="logistics-icon">
@@ -1576,16 +1678,16 @@
         const speakers = {
             yanbing: {
                 name: 'Yanbing Li',
-                title: 'Head of Product Management',
+                title: 'Chief Product Officer',
                 photo: 'images/Yanbing-pic.png',
-                bio: 'Yanbing leads the global Product Management organization at Datadog, driving product strategy and execution across all product lines. With extensive experience in enterprise software, she brings a customer-centric approach to building world-class observability solutions.',
+                bio: 'Yanbing leads the global Product Management organization at Datadog as Chief Product Officer, driving product strategy and execution across all product lines. With extensive experience in enterprise software, she brings a customer-centric approach to building world-class observability solutions.',
                 linkedin: 'https://www.linkedin.com/in/yanbingli/'
             },
             chris: {
                 name: 'Chris McLaughlin',
-                title: 'Senior Director, Product Management',
+                title: 'Chief of Staff, CPO',
                 photo: 'images/chris-pic.png',
-                bio: 'Chris oversees key product initiatives at Datadog, focusing on developer experience and platform capabilities. His background in engineering and product enables him to bridge technical excellence with customer needs.',
+                bio: 'Chris serves as Chief of Staff to the CPO at Datadog, overseeing key product initiatives and strategic programs. His background in engineering and product enables him to bridge technical excellence with customer needs.',
                 linkedin: 'https://www.linkedin.com/in/chrismclaughlin/'
             },
             michael: {
@@ -1657,6 +1759,13 @@
                 photo: 'images/alex-pic.png',
                 bio: 'Alex is a staff engineer at Cursor, where he works on building AI-powered development tools. He\'ll share how Cursor uses Datadog for observability and insights on building AI-native products.',
                 linkedin: 'https://www.linkedin.com/in/alexhaugland/'
+            },
+            alexis: {
+                name: 'Alexis Lê-Quôc',
+                title: 'CTO & Co-Founder',
+                photo: 'images/alexis-pic.png',
+                bio: 'Alexis co-founded Datadog and serves as CTO, driving the technical vision behind the platform. His deep expertise in infrastructure and monitoring has shaped Datadog into the industry-leading observability solution it is today.',
+                linkedin: 'https://www.linkedin.com/in/alexislequoc/'
             }
         };
 

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PM Hub | Datadog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Datadog PM Summit 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,1782 +13,1312 @@
         }
 
         :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F8FA;
-            --bg-tertiary: #EEF3F7;
-            --bg-hover: #E8EEF3;
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --bg-elevated: #1f1f1f;
             
-            --text-primary: #23233C;
-            --text-secondary: #5E6B7A;
-            --text-tertiary: #8B97A4;
-            --text-link: #632CA6;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
             
-            --purple-primary: #632CA6;
-            --purple-light: #7B3FBF;
-            --purple-lighter: #F3EEFA;
-            --purple-bg: #FAF7FD;
+            --accent-purple: #632CA6;
+            --accent-purple-light: #7B3FBF;
+            --accent-gradient: linear-gradient(135deg, #632CA6 0%, #9B4DCA 100%);
             
-            --border-light: #E3E8EE;
-            --border-medium: #D1D9E0;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.12);
             
-            --success: #2DA44E;
-            --warning: #D4A72C;
-            --error: #CF222E;
-            
-            --shadow-sm: 0 1px 2px rgba(35, 35, 60, 0.04);
-            --shadow-md: 0 4px 12px rgba(35, 35, 60, 0.08);
-            --shadow-lg: 0 8px 24px rgba(35, 35, 60, 0.12);
-            
-            --radius-sm: 6px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --shadow-glow: 0 0 60px rgba(99, 44, 166, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-secondary);
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
             color: var(--text-primary);
-            line-height: 1.5;
-            overflow: hidden;
-            height: 100vh;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .app-container {
-            display: flex;
-            height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 240px;
-            background: var(--bg-primary);
-            border-right: 1px solid var(--border-light);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            z-index: 100;
-        }
-
-        .sidebar-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sidebar-logo {
-            width: 32px;
-            height: 32px;
-        }
-
-        .sidebar-logo svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .sidebar-brand {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar-brand-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .sidebar-brand-sub {
-            font-size: 11px;
-            color: var(--text-tertiary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            overflow-y: auto;
-        }
-
-        .nav-section {
-            margin-bottom: 16px;
-        }
-
-        .nav-section-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 12px 6px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.15s ease;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            border: 1px solid transparent;
-        }
-
-        .nav-item:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .nav-item.active {
-            background: var(--purple-lighter);
-            color: var(--purple-primary);
-            border-color: var(--purple-primary);
-        }
-
-        .nav-icon {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            color: inherit;
-        }
-
-        .sidebar-footer {
-            padding: 12px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .user-menu:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .user-avatar {
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 11px;
-        }
-
-        .user-info {
-            flex: 1;
-        }
-
-        .user-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .user-role {
-            font-size: 11px;
-            color: var(--text-tertiary);
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 240px;
-            overflow-y: auto;
-            height: 100vh;
-            background: var(--bg-secondary);
-        }
-
-        .page {
-            display: none;
-            opacity: 0;
-            transform: translateY(8px);
-        }
-
-        .page.active {
-            display: block;
-            animation: pageEnter 0.3s ease forwards;
-        }
-
-        @keyframes pageEnter {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Page Header */
-        .page-header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 28px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .page-header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .page-title-group {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .page-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--purple-lighter);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--purple-primary);
-        }
-
-        .page-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .page-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .page-subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-
-        .page-body {
-            padding: 20px 28px;
-        }
-
-        /* App Catalog Grid */
-        .app-catalog {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        /* Flip Card */
-        .flip-card {
-            perspective: 1000px;
-            height: 180px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-light);
-            background: var(--bg-primary);
-            overflow: hidden;
-        }
-
-        .flip-card-front {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            gap: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .flip-card:hover .flip-card-front {
-            border-color: var(--purple-primary);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .flip-card.flipped:hover .flip-card-front {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .flip-card-back {
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--purple-bg), var(--bg-primary));
-        }
-
-        .app-logo {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-md);
-            object-fit: contain;
-            background: var(--bg-secondary);
-            padding: 8px;
-        }
-
-        .app-logo-placeholder {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-md);
-            background: var(--purple-lighter);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--purple-primary);
-        }
-
-        .app-logo-placeholder svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        .app-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .app-category {
-            font-size: 11px;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .app-back-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .app-description {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .app-url {
-            font-size: 11px;
-            color: var(--text-tertiary);
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--bg-tertiary);
-            padding: 6px 10px;
-            border-radius: var(--radius-sm);
-            margin: 10px 0;
-            word-break: break-all;
-            display: block;
-        }
-
-        .app-open-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 10px 16px;
-            background: var(--purple-primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            text-decoration: none;
-        }
-
-        .app-open-btn:hover {
-            background: var(--purple-light);
-        }
-
-        .app-open-btn svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .flip-hint {
-            position: absolute;
-            bottom: 8px;
-            right: 10px;
-            font-size: 10px;
-            color: var(--text-tertiary);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .flip-hint svg {
-            width: 12px;
-            height: 12px;
-        }
-
-        /* Home Page */
-        .home-grid {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 20px;
-        }
-
-        .feed-card {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .feed-header {
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-secondary);
-        }
-
-        .feed-header svg {
-            width: 16px;
-            height: 16px;
-            color: var(--text-tertiary);
-        }
-
-        .feed-content {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .feed-item {
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            gap: 12px;
-            transition: background 0.15s ease;
-        }
-
-        .feed-item:hover {
-            background: var(--bg-secondary);
-        }
-
-        .feed-item:last-child {
-            border-bottom: none;
-        }
-
-        .feed-avatar {
-            width: 32px;
-            height: 32px;
-            background: var(--purple-lighter);
-            color: var(--purple-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 11px;
-            flex-shrink: 0;
-        }
-
-        .feed-body {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .feed-author {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .feed-message {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-top: 2px;
-        }
-
-        .feed-time {
-            font-size: 11px;
-            color: var(--text-tertiary);
-            margin-top: 4px;
-        }
-
-        /* Quick Links */
-        .quick-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .quick-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.15s ease;
-        }
-
-        .quick-link:hover {
-            border-color: var(--purple-primary);
-            background: var(--purple-bg);
-        }
-
-        .quick-link svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-tertiary);
-        }
-
-        .quick-link:hover svg {
-            color: var(--purple-primary);
-        }
-
-        /* Philosophy Page - Confluence Style */
-        .confluence-content {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .confluence-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .confluence-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-tertiary);
-        }
-
-        .confluence-breadcrumb a {
-            color: var(--text-link);
-            text-decoration: none;
-        }
-
-        .confluence-breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        .confluence-meta {
-            font-size: 11px;
-            color: var(--text-tertiary);
-        }
-
-        .confluence-body {
-            padding: 28px 32px;
-        }
-
-        .confluence-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-        }
-
-        .confluence-section {
-            margin-bottom: 32px;
-        }
-
-        .confluence-section h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--purple-lighter);
-        }
-
-        .confluence-section h3 {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 16px 0 8px;
-        }
-
-        .confluence-section p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .confluence-section ul {
-            margin: 12px 0;
-            padding-left: 20px;
-        }
-
-        .confluence-section li {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 6px;
-        }
-
-        .confluence-callout {
-            background: var(--purple-bg);
-            border-left: 4px solid var(--purple-primary);
-            padding: 16px 20px;
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-            margin: 16px 0;
-        }
-
-        .confluence-callout p {
-            margin: 0;
-            color: var(--text-primary);
-        }
-
-        .confluence-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-        }
-
-        .confluence-table th,
-        .confluence-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border-light);
-            font-size: 13px;
-        }
-
-        .confluence-table th {
-            background: var(--bg-secondary);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .confluence-table td {
-            color: var(--text-secondary);
-        }
-
-        .status-badge {
-            display: inline-flex;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .status-badge.green {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-
-        .status-badge.blue {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-
-        .status-badge.purple {
-            background: var(--purple-lighter);
-            color: var(--purple-primary);
-        }
-
-        /* Swag Store */
-        .swag-container {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 77px);
-        }
-
-        .swag-iframe {
-            flex: 1;
-            border: none;
-            width: 100%;
-            background: var(--bg-primary);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: var(--radius-md);
-            font-size: 13px;
-            font-weight: 500;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            border: 1px solid transparent;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--purple-primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--purple-light);
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border-color: var(--border-medium);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .btn svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Animations */
-        .animate-in {
-            opacity: 0;
-            transform: translateY(12px);
-            animation: animateIn 0.4s ease forwards;
-        }
-
-        @keyframes animateIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-1 { animation-delay: 0.05s; }
-        .delay-2 { animation-delay: 0.1s; }
-        .delay-3 { animation-delay: 0.15s; }
-        .delay-4 { animation-delay: 0.2s; }
-        .delay-5 { animation-delay: 0.25s; }
-        .delay-6 { animation-delay: 0.3s; }
-        .delay-7 { animation-delay: 0.35s; }
-
-        /* Modal */
-        .modal-overlay {
+        /* Navigation */
+        .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(35, 35, 60, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            width: 90%;
-            max-width: 520px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            transform: scale(0.95);
-            transition: all 0.2s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 18px 24px;
-            border-bottom: 1px solid var(--border-light);
+            padding: 20px 40px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
         }
 
-        .modal-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
+        .nav.scrolled {
+            padding: 14px 40px;
+            background: rgba(10, 10, 10, 0.95);
         }
 
-        .modal-close {
-            width: 28px;
-            height: 28px;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            border: none;
-            color: var(--text-tertiary);
-            cursor: pointer;
+        .nav-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: var(--bg-tertiary);
+            gap: 14px;
+            text-decoration: none;
             color: var(--text-primary);
         }
 
-        .modal-body {
-            padding: 24px;
+        .nav-logo img {
+            height: 36px;
+            width: auto;
         }
 
-        .modal-footer {
-            padding: 16px 24px;
-            border-top: 1px solid var(--border-light);
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo-text span {
+            color: var(--accent-purple-light);
+        }
+
+        .nav-links {
             display: flex;
             gap: 8px;
-            justify-content: flex-end;
         }
 
-        /* Resources Grid */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .resource-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
+        .nav-link {
+            padding: 10px 20px;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.15s ease;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
-        .resource-link:hover {
-            border-color: var(--purple-primary);
-            background: var(--purple-bg);
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
         }
 
-        .resource-link svg {
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--accent-purple);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 44, 166, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(99, 44, 166, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(155, 77, 202, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero-title-gradient {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.6s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-date-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border-light);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 80px rgba(99, 44, 166, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-purple);
+        }
+
+        .btn svg {
             width: 18px;
             height: 18px;
-            color: var(--text-tertiary);
         }
 
-        .resource-link:hover svg {
-            color: var(--purple-primary);
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 40px 60px;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
         }
 
         .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 12px;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
         }
 
-        .section {
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Swag Store */
+        .swag-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .swag-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .swag-intro-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .swag-intro-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
             margin-bottom: 24px;
         }
 
-        @media (max-width: 1100px) {
-            .home-grid {
-                grid-template-columns: 1fr;
+        .swag-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .swag-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .swag-feature svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-purple-light);
+        }
+
+        .swag-iframe-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            overflow: hidden;
+            height: calc(100vh - 180px);
+        }
+
+        .swag-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Questions Section */
+        .questions-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .speaker-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .speaker-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .speaker-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .speaker-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .speaker-header:hover {
+            background: var(--bg-hover);
+        }
+
+        .speaker-avatar {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .speaker-info {
+            flex: 1;
+        }
+
+        .speaker-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .speaker-role {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .speaker-topic {
+            font-size: 13px;
+            color: var(--accent-purple-light);
+            margin-top: 4px;
+        }
+
+        .speaker-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .speaker-card.expanded .speaker-toggle {
+            transform: rotate(180deg);
+            color: var(--accent-purple-light);
+        }
+
+        .speaker-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .speaker-form {
+            display: none;
+            padding: 0 24px 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .speaker-card.expanded .speaker-form {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
-            .app-catalog {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 64px;
+        .form-group {
+            margin-top: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(99, 44, 166, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        .submitted-questions {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-dark);
+            border-radius: 10px;
+        }
+
+        .submitted-questions-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .submitted-question {
+            padding: 12px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .submitted-question:last-child {
+            margin-bottom: 0;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .logistics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .logistics-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .logistics-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+        }
+
+        .logistics-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .logistics-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .logistics-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .logistics-detail {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(99, 44, 166, 0.5);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-hover);
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.expanded .faq-icon {
+            transform: rotate(45deg);
+            color: var(--accent-purple-light);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faq-item.expanded .faq-answer {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer-logo {
+            width: 120px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            color: #22c55e;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav {
+                padding: 16px 20px;
             }
-            .sidebar-brand, .nav-item span, .user-info, .nav-section-title {
-                display: none;
+            
+            .nav-links {
+                gap: 4px;
             }
-            .nav-item {
-                justify-content: center;
-                padding: 12px;
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 13px;
             }
-            .main-content {
-                margin-left: 64px;
+            
+            .hero {
+                padding: 100px 20px 60px;
             }
-            .resources-grid {
+            
+            .section {
+                padding: 80px 20px 40px;
+            }
+            
+            .logistics-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .swag-intro {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero-date {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .hero-date-divider {
+                width: 40px;
+                height: 1px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">
-                    <svg viewBox="0 0 32 32" fill="none">
-                        <rect width="32" height="32" rx="6" fill="#632CA6"/>
-                        <path d="M16 8C11.58 8 8 11.58 8 16s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" fill="white"/>
-                        <circle cx="16" cy="16" r="3" fill="white"/>
-                    </svg>
-                </div>
-                <div class="sidebar-brand">
-                    <span class="sidebar-brand-name">PM Hub</span>
-                    <span class="sidebar-brand-sub">Datadog</span>
-                </div>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-logo" onclick="showSection('home'); return false;">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <rect width="36" height="36" rx="8" fill="white"/>
+                <path d="M18 8C12.48 8 8 12.48 8 18s4.48 10 10 10 10-4.48 10-10S23.52 8 18 8zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="#632CA6"/>
+                <circle cx="18" cy="18" r="4" fill="#632CA6"/>
+            </svg>
+            <span class="nav-logo-text">PM Summit <span>2026</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-section="home">Home</a>
+            <a href="#" class="nav-link" data-section="questions">Submit Questions</a>
+            <a href="#" class="nav-link" data-section="swag">Swag Store</a>
+            <a href="#" class="nav-link" data-section="faq">FAQ</a>
+        </div>
+    </nav>
 
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <div class="nav-section-title">Overview</div>
-                    <div class="nav-item active" data-page="home">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
-                        </svg>
-                        <span>Home</span>
-                    </div>
-                    <div class="nav-item" data-page="philosophy">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                        </svg>
-                        <span>PM Philosophy</span>
-                    </div>
+    <!-- Home / Hero Section -->
+    <section class="section active" id="section-home">
+        <div class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Registration Open
                 </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">Tools</div>
-                    <div class="nav-item" data-page="toolkit">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"/>
-                            <rect x="14" y="3" width="7" height="7"/>
-                            <rect x="14" y="14" width="7" height="7"/>
-                            <rect x="3" y="14" width="7" height="7"/>
+                <h1 class="hero-title">
+                    Datadog<br>
+                    <span class="hero-title-gradient">PM Summit 2026</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Join us for two days of insights, collaboration, and shaping the future of observability. Connect with product leaders from across the globe.
+                </p>
+                <div class="hero-date">
+                    <span>📍 New York City</span>
+                    <span class="hero-date-divider"></span>
+                    <span>📅 March 15-16, 2026</span>
+                </div>
+                <div class="hero-cta">
+                    <a href="#" class="btn btn-primary" onclick="showSection('questions'); return false;">
+                        Submit a Question
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5l7 7-7 7"/>
                         </svg>
-                        <span>Toolkit</span>
-                    </div>
-                    <div class="nav-item" data-page="swag-store">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    </a>
+                    <a href="#" class="btn btn-secondary" onclick="showSection('swag'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
                             <line x1="3" y1="6" x2="21" y2="6"/>
                             <path d="M16 10a4 4 0 0 1-8 0"/>
                         </svg>
-                        <span>Swag Store</span>
+                        Get Your Swag
+                    </a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14"/>
+                    <path d="M19 12l-7 7-7-7"/>
+                </svg>
+                Scroll to explore
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Questions Section -->
+    <section class="section" id="section-questions">
+        <div class="questions-container">
+            <div class="section-header">
+                <h1 class="section-title">Submit Questions</h1>
+                <p class="section-subtitle">Got a question for our speakers? Submit it here and it may be answered during their session.</p>
+            </div>
+
+            <div class="speaker-grid">
+                <!-- Speaker 1 -->
+                <div class="speaker-card" data-speaker="1">
+                    <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
+                        <div class="speaker-avatar">OB</div>
+                        <div class="speaker-info">
+                            <div class="speaker-name">Olivier Bloch</div>
+                            <div class="speaker-role">Chief Product Officer</div>
+                            <div class="speaker-topic">Keynote: The Future of Observability</div>
+                        </div>
+                        <div class="speaker-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="speaker-form">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Question</label>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Olivier?"></textarea>
+                        </div>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Olivier Bloch')">
+                            Submit Question
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
-                <div class="nav-section">
-                    <div class="nav-section-title">Resources</div>
-                    <div class="nav-item" data-page="resources">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                <!-- Speaker 2 -->
+                <div class="speaker-card" data-speaker="2">
+                    <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
+                        <div class="speaker-avatar">AP</div>
+                        <div class="speaker-info">
+                            <div class="speaker-name">Alexis Lê-Quôc</div>
+                            <div class="speaker-role">CTO & Co-Founder</div>
+                            <div class="speaker-topic">Engineering Excellence at Scale</div>
+                        </div>
+                        <div class="speaker-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="speaker-form">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Question</label>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Alexis?"></textarea>
+                        </div>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Alexis Lê-Quôc')">
+                            Submit Question
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Speaker 3 -->
+                <div class="speaker-card" data-speaker="3">
+                    <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
+                        <div class="speaker-avatar">SK</div>
+                        <div class="speaker-info">
+                            <div class="speaker-name">Sarah Kim</div>
+                            <div class="speaker-role">VP Product, Infrastructure</div>
+                            <div class="speaker-topic">Building Products Customers Love</div>
+                        </div>
+                        <div class="speaker-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="speaker-form">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Question</label>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Sarah?"></textarea>
+                        </div>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Sarah Kim')">
+                            Submit Question
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Speaker 4 -->
+                <div class="speaker-card" data-speaker="4">
+                    <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
+                        <div class="speaker-avatar">MR</div>
+                        <div class="speaker-info">
+                            <div class="speaker-name">Maxi Rodriguez</div>
+                            <div class="speaker-role">Senior PM, Developer Experience</div>
+                            <div class="speaker-topic">The MCP Revolution: AI-Powered Debugging</div>
+                        </div>
+                        <div class="speaker-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="speaker-form">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Question</label>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Maxi?"></textarea>
+                        </div>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Maxi Rodriguez')">
+                            Submit Question
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swag Store Section -->
+    <section class="section" id="section-swag">
+        <div class="swag-container">
+            <div class="swag-intro">
+                <div class="swag-intro-content">
+                    <h2>PM Summit 2026 Swag</h2>
+                    <p>Debug your way to exclusive merchandise! Use the Datadog MCP to find and fix bugs in the store, then claim your free swag.</p>
+                    <div class="swag-features">
+                        <div class="swag-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Find 3 intentional bugs using MCP</span>
+                        </div>
+                        <div class="swag-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Fix the code and complete checkout</span>
+                        </div>
+                        <div class="swag-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Claim your exclusive PM Summit merch</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <a href="https://swag-store-sage.vercel.app/" target="_blank" class="btn btn-primary">
+                        Open Full Store
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
                         </svg>
-                        <span>Resources</span>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="sidebar-footer">
-                <div class="user-menu">
-                    <div class="user-avatar">PM</div>
-                    <div class="user-info">
-                        <div class="user-name">Product Manager</div>
-                        <div class="user-role">Datadog</div>
-                    </div>
+                    </a>
                 </div>
             </div>
-        </aside>
+            <div class="swag-iframe-wrapper">
+                <iframe 
+                    src="https://swag-store-sage.vercel.app/" 
+                    class="swag-iframe"
+                    title="PM Summit Swag Store"
+                ></iframe>
+            </div>
+        </div>
+    </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Home Page -->
-            <div class="page active" id="page-home">
-                <header class="page-header">
-                    <div class="page-header-content">
-                        <div class="page-title-group">
-                            <div class="page-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                    <polyline points="9 22 9 12 15 12 15 22"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h1 class="page-title">Welcome back</h1>
-                                <p class="page-subtitle">Your product management command center</p>
-                            </div>
-                        </div>
+    <!-- FAQ Section -->
+    <section class="section" id="section-faq">
+        <div class="faq-container">
+            <div class="section-header">
+                <h1 class="section-title">Logistics & FAQ</h1>
+                <p class="section-subtitle">Everything you need to know about PM Summit 2026</p>
+            </div>
+
+            <div class="logistics-grid">
+                <div class="logistics-card">
+                    <div class="logistics-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
                     </div>
-                </header>
-
-                <div class="page-body">
-                    <div class="home-grid">
-                        <div>
-                            <div class="feed-card animate-in">
-                                <div class="feed-header">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                    </svg>
-                                    Recent Updates
-                                </div>
-                                <div class="feed-content">
-                                    <div class="feed-item">
-                                        <div class="feed-avatar">SK</div>
-                                        <div class="feed-body">
-                                            <div class="feed-author">Sarah Kim</div>
-                                            <div class="feed-message">Just shipped the new onboarding flow. Check out the metrics in the dashboard.</div>
-                                            <div class="feed-time">2 hours ago</div>
-                                        </div>
-                                    </div>
-                                    <div class="feed-item">
-                                        <div class="feed-avatar">MR</div>
-                                        <div class="feed-body">
-                                            <div class="feed-author">Maxi Rodriguez</div>
-                                            <div class="feed-message">PM Summit 2026 swag store is now live. Go claim your free merch!</div>
-                                            <div class="feed-time">5 hours ago</div>
-                                        </div>
-                                    </div>
-                                    <div class="feed-item">
-                                        <div class="feed-avatar">JL</div>
-                                        <div class="feed-body">
-                                            <div class="feed-author">James Liu</div>
-                                            <div class="feed-message">New PRD template added to the toolkit. Uses our updated framework.</div>
-                                            <div class="feed-time">Yesterday</div>
-                                        </div>
-                                    </div>
-                                    <div class="feed-item">
-                                        <div class="feed-avatar">AP</div>
-                                        <div class="feed-body">
-                                            <div class="feed-author">Ana Patel</div>
-                                            <div class="feed-message">Customer feedback from Gong calls updated. Great insights for Q1.</div>
-                                            <div class="feed-time">Yesterday</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="quick-links animate-in delay-1">
-                            <a href="https://datadoghq.atlassian.net/jira/core/projects/POPS/board" target="_blank" class="quick-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                    <path d="M3 9h18"/>
-                                    <path d="M9 21V9"/>
-                                </svg>
-                                JIRA Board
-                            </a>
-                            <a href="https://metabase-analytics.us1.prod.dog/dashboard/45205" target="_blank" class="quick-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18 20V10"/>
-                                    <path d="M12 20V4"/>
-                                    <path d="M6 20v-6"/>
-                                </svg>
-                                Metabase Dashboard
-                            </a>
-                            <a href="https://datadoghq.atlassian.net/wiki/spaces/PM/overview" target="_blank" class="quick-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                </svg>
-                                PM Confluence Space
-                            </a>
-                            <a href="https://www.gong.io" target="_blank" class="quick-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                                </svg>
-                                GONG Insights
-                            </a>
-                        </div>
+                    <div class="logistics-title">Date</div>
+                    <div class="logistics-detail">March 15-16, 2026</div>
+                </div>
+                <div class="logistics-card">
+                    <div class="logistics-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
                     </div>
+                    <div class="logistics-title">Location</div>
+                    <div class="logistics-detail">Datadog NYC HQ<br>620 8th Ave, New York</div>
+                </div>
+                <div class="logistics-card">
+                    <div class="logistics-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <div class="logistics-title">Schedule</div>
+                    <div class="logistics-detail">9:00 AM - 6:00 PM<br>Both Days</div>
                 </div>
             </div>
 
-            <!-- Philosophy Page -->
-            <div class="page" id="page-philosophy">
-                <header class="page-header">
-                    <div class="page-header-content">
-                        <div class="page-title-group">
-                            <div class="page-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h1 class="page-title">PM Philosophy</h1>
-                                <p class="page-subtitle">From Confluence: PM Space Overview</p>
-                            </div>
-                        </div>
-                        <a href="https://datadoghq.atlassian.net/wiki/spaces/PM/overview" target="_blank" class="btn btn-secondary">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                <polyline points="15 3 21 3 21 9"/>
-                                <line x1="10" y1="14" x2="21" y2="3"/>
-                            </svg>
-                            Open in Confluence
-                        </a>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>What should I bring to the summit?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
                     </div>
-                </header>
+                    <div class="faq-answer">
+                        Bring your laptop with Cursor or your preferred AI-enabled IDE installed, along with the Datadog MCP configured. We'll have hands-on workshops where you'll debug real code. Don't forget your badge (sent via email before the event) and comfortable shoes—we have a lot of ground to cover!
+                    </div>
+                </div>
 
-                <div class="page-body">
-                    <div class="confluence-content animate-in">
-                        <div class="confluence-header">
-                            <div class="confluence-breadcrumb">
-                                <a href="#">Datadog</a>
-                                <span>/</span>
-                                <a href="#">Product</a>
-                                <span>/</span>
-                                <span>PM Space</span>
-                            </div>
-                            <div class="confluence-meta">Last updated: Jan 6, 2026</div>
-                        </div>
-                        <div class="confluence-body">
-                            <h1 class="confluence-title">Product Management at Datadog</h1>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>Is there a dress code?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        The dress code is smart casual. Jeans and a nice shirt work perfectly. You'll also receive exclusive PM Summit swag including a hoodie, so dress comfortably!
+                    </div>
+                </div>
 
-                            <div class="confluence-section">
-                                <h2>Our Mission</h2>
-                                <p>We build products that help engineering teams see inside any stack, any app, at any scale. Our mission is to bring clarity to complexity—empowering developers to build, ship, and run software with confidence.</p>
-                                <div class="confluence-callout">
-                                    <p><strong>As Product Managers at Datadog, we are the voice of the customer and the architects of solutions that make observability accessible to everyone.</strong></p>
-                                </div>
-                            </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>Will meals be provided?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! We'll provide breakfast, lunch, and snacks both days. There will also be a networking dinner on the first evening at a nearby venue. Please note any dietary restrictions in your registration.
+                    </div>
+                </div>
 
-                            <div class="confluence-section">
-                                <h2>PM Principles</h2>
-                                <table class="confluence-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Principle</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Customer Obsession</strong></td>
-                                            <td>Every decision starts with the customer. We deeply understand their pain points, workflows, and goals.</td>
-                                            <td><span class="status-badge green">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Ship Fast, Learn Faster</strong></td>
-                                            <td>We believe in rapid iteration and learning from real-world usage. Perfect is the enemy of shipped.</td>
-                                            <td><span class="status-badge green">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Data-Driven Decisions</strong></td>
-                                            <td>We eat our own dog food. Every feature is measured, analyzed, and optimized based on real usage data.</td>
-                                            <td><span class="status-badge green">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Cross-Functional Excellence</strong></td>
-                                            <td>Great products are built by great teams. We collaborate closely with engineering, design, and GTM.</td>
-                                            <td><span class="status-badge green">Active</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>How do I get my free swag?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Head to the Swag Store tab and complete the debugging challenge! Use your AI assistant (Cursor or Cline) with the Datadog MCP to find and fix 3 intentional bugs in the store. Once fixed, complete your checkout and pick up your merch at the registration desk.
+                    </div>
+                </div>
 
-                            <div class="confluence-section">
-                                <h2>PM Success Framework</h2>
-                                <h3>Clear Communication</h3>
-                                <ul>
-                                    <li>Write crisp PRDs that articulate the problem and proposed solution</li>
-                                    <li>Ensure alignment across all stakeholders before development begins</li>
-                                    <li>Maintain clear documentation in Confluence and JIRA</li>
-                                </ul>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>Can I submit questions for speakers ahead of time?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Use the Submit Questions tab to send questions to any of our speakers. We'll compile the most upvoted questions and address them during Q&A sessions. You can also ask questions live during the event.
+                    </div>
+                </div>
 
-                                <h3>Strategic Thinking</h3>
-                                <ul>
-                                    <li>Balance short-term wins with long-term vision</li>
-                                    <li>Every feature should ladder up to company OKRs</li>
-                                    <li>Prioritize ruthlessly using RICE or similar frameworks</li>
-                                </ul>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>Will sessions be recorded?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, all main stage sessions will be recorded and made available on our internal learning platform within a week after the summit. Workshop sessions are not recorded to encourage open discussion.
+                    </div>
+                </div>
 
-                                <h3>Bias for Action</h3>
-                                <ul>
-                                    <li>Move quickly, make decisions with 70% certainty</li>
-                                    <li>Course-correct based on feedback and data</li>
-                                    <li>Don't let perfect be the enemy of good</li>
-                                </ul>
-                            </div>
-
-                            <div class="confluence-section">
-                                <h2>Key Resources</h2>
-                                <table class="confluence-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Resource</th>
-                                            <th>Description</th>
-                                            <th>Owner</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#">PRD Template</a></td>
-                                            <td>Standard template for writing product requirements documents</td>
-                                            <td>PM Team</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Launch Checklist</a></td>
-                                            <td>Comprehensive checklist for GA launches</td>
-                                            <td>PM Team</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Customer Interview Guide</a></td>
-                                            <td>Framework for conducting effective customer interviews</td>
-                                            <td>UX Research</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Competitive Analysis Template</a></td>
-                                            <td>Template for tracking competitive landscape</td>
-                                            <td>PM Team</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
+                        <span>What is the Datadog MCP?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        The Datadog MCP (Model Context Protocol) is a tool that connects your AI assistant directly to Datadog's observability platform. It allows you to query logs, traces, metrics, and more using natural language. During the summit, you'll learn how to use it to debug applications in real-time.
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Toolkit Page -->
-            <div class="page" id="page-toolkit">
-                <header class="page-header">
-                    <div class="page-header-content">
-                        <div class="page-title-group">
-                            <div class="page-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="3" width="7" height="7"/>
-                                    <rect x="14" y="3" width="7" height="7"/>
-                                    <rect x="14" y="14" width="7" height="7"/>
-                                    <rect x="3" y="14" width="7" height="7"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h1 class="page-title">Toolkit</h1>
-                                <p class="page-subtitle">Click any app to see details</p>
-                            </div>
-                        </div>
-                    </div>
-                </header>
+    <!-- Footer -->
+    <footer class="footer">
+        <img src="images/datadog-logo.png" alt="Datadog" class="footer-logo" onerror="this.style.display='none'">
+        <p>Vibecoded with ❤️ in NYC (with flaky office WiFi)</p>
+        <p style="margin-top: 8px;">© 2026 Datadog, Inc. All rights reserved.</p>
+    </footer>
 
-                <div class="page-body">
-                    <div class="app-catalog">
-                        <!-- JIRA -->
-                        <div class="flip-card animate-in delay-1" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                            <path d="M3 9h18"/>
-                                            <path d="M9 21V9"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">JIRA</div>
-                                    <div class="app-category">Project Management</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">JIRA</div>
-                                    <div class="app-description">Track product operations, manage sprints, and coordinate with engineering teams. Access the POPS board for PM-specific tasks.</div>
-                                    <span class="app-url">datadoghq.atlassian.net/jira</span>
-                                    <a href="https://datadoghq.atlassian.net/jira/core/projects/POPS/board" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open JIRA
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Metabase -->
-                        <div class="flip-card animate-in delay-2" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 20V10"/>
-                                            <path d="M12 20V4"/>
-                                            <path d="M6 20v-6"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">Metabase</div>
-                                    <div class="app-category">Analytics</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">Metabase</div>
-                                    <div class="app-description">Access product metrics, revenue dashboards, and customer analytics. Track KPIs and monitor product health in real-time.</div>
-                                    <span class="app-url">metabase-analytics.us1.prod.dog</span>
-                                    <a href="https://metabase-analytics.us1.prod.dog/dashboard/45205" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open Metabase
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Release Notes App -->
-                        <div class="flip-card animate-in delay-3" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                            <polyline points="14 2 14 8 20 8"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">Release Notes</div>
-                                    <div class="app-category">App Builder</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">Release Notes App</div>
-                                    <div class="app-description">Auto-generate release notes from JIRA tickets and GitHub PRs. Streamline your release communication process.</div>
-                                    <span class="app-url">app.datadoghq.com/app-builder</span>
-                                    <a href="https://app.datadoghq.com/app-builder/apps/62d0c830-5b16-4e7d-af89-d5839e7a0203" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open App
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- GumLoop -->
-                        <div class="flip-card animate-in delay-4" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <polyline points="16 3 21 3 21 8"/>
-                                            <line x1="4" y1="20" x2="21" y2="3"/>
-                                            <polyline points="21 16 21 21 16 21"/>
-                                            <line x1="15" y1="15" x2="21" y2="21"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">GumLoop</div>
-                                    <div class="app-category">Automation</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">GumLoop</div>
-                                    <div class="app-description">Create AI-powered automation workflows. Build agents to handle repetitive PM tasks like status updates and reporting.</div>
-                                    <span class="app-url">gumloop.com/agents</span>
-                                    <a href="https://www.gumloop.com/agents" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open GumLoop
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- GONG -->
-                        <div class="flip-card animate-in delay-5" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                                            <line x1="12" y1="19" x2="12" y2="23"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">GONG</div>
-                                    <div class="app-category">Customer Intelligence</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">GONG</div>
-                                    <div class="app-description">Listen to customer calls, identify trends, and gather product feedback directly from sales conversations.</div>
-                                    <span class="app-url">gong.io</span>
-                                    <a href="https://www.gong.io" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open GONG
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Confluence -->
-                        <div class="flip-card animate-in delay-6" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">Confluence</div>
-                                    <div class="app-category">Documentation</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">Confluence</div>
-                                    <div class="app-description">Access PM documentation, PRD templates, strategy docs, and team wikis. Central hub for all PM knowledge.</div>
-                                    <span class="app-url">datadoghq.atlassian.net/wiki</span>
-                                    <a href="https://datadoghq.atlassian.net/wiki/spaces/PM/overview" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Open Confluence
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                            <polyline points="15 3 21 3 21 9"/>
-                                            <line x1="10" y1="14" x2="21" y2="3"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pitch GPT -->
-                        <div class="flip-card animate-in delay-7" onclick="toggleFlip(this)">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="app-logo-placeholder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="app-name">Pitch GPT</div>
-                                    <div class="app-category">App Builder</div>
-                                    <div class="flip-hint">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 4v6h6"/>
-                                            <path d="M23 20v-6h-6"/>
-                                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
-                                        </svg>
-                                        Click to flip
-                                    </div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="app-back-title">Pitch GPT</div>
-                                    <div class="app-description">AI-powered pitch generator. Create compelling product pitches, feature announcements, and stakeholder presentations.</div>
-                                    <span class="app-url">app.datadoghq.com/app-builder</span>
-                                    <a href="#" target="_blank" class="app-open-btn" onclick="event.stopPropagation()">
-                                        Coming Soon
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"/>
-                                            <polyline points="12 6 12 12 16 14"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Resources Page -->
-            <div class="page" id="page-resources">
-                <header class="page-header">
-                    <div class="page-header-content">
-                        <div class="page-title-group">
-                            <div class="page-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h1 class="page-title">Resources</h1>
-                                <p class="page-subtitle">Documentation, tools, and learning materials</p>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-                <div class="page-body">
-                    <div class="section">
-                        <h2 class="section-title">Documentation</h2>
-                        <div class="resources-grid">
-                            <a href="https://docs.datadoghq.com" target="_blank" class="resource-link animate-in delay-1">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                </svg>
-                                Datadog Documentation
-                            </a>
-                            <a href="https://datadoghq.atlassian.net/wiki/spaces/PM/overview" target="_blank" class="resource-link animate-in delay-2">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                </svg>
-                                PM Wiki
-                            </a>
-                            <a href="#" class="resource-link animate-in delay-3">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                                    <polyline points="2 17 12 22 22 17"/>
-                                    <polyline points="2 12 12 17 22 12"/>
-                                </svg>
-                                API Reference
-                            </a>
-                            <a href="#" class="resource-link animate-in delay-4">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
-                                </svg>
-                                FAQ
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">Communication</h2>
-                        <div class="resources-grid">
-                            <a href="#" class="resource-link animate-in delay-1">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                                </svg>
-                                #pm-team Slack
-                            </a>
-                            <a href="#" class="resource-link animate-in delay-2">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                                PM Calendar
-                            </a>
-                            <a href="#" class="resource-link animate-in delay-3">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </svg>
-                                PM Mailing List
-                            </a>
-                            <a href="#" class="resource-link animate-in delay-4">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polygon points="10 8 16 12 10 16 10 8"/>
-                                </svg>
-                                Training Videos
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">External</h2>
-                        <div class="resources-grid">
-                            <a href="https://github.com/datadoghq" target="_blank" class="resource-link animate-in delay-1">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                                Datadog GitHub
-                            </a>
-                            <a href="https://www.datadoghq.com/blog/" target="_blank" class="resource-link animate-in delay-2">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                </svg>
-                                Datadog Blog
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Swag Store Page -->
-            <div class="page" id="page-swag-store">
-                <header class="page-header">
-                    <div class="page-header-content">
-                        <div class="page-title-group">
-                            <div class="page-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                                    <line x1="3" y1="6" x2="21" y2="6"/>
-                                    <path d="M16 10a4 4 0 0 1-8 0"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h1 class="page-title">PM Summit 2026 Store</h1>
-                                <p class="page-subtitle">Debug your way to exclusive swag</p>
-                            </div>
-                        </div>
-                        <a href="https://swag-store-sage.vercel.app/" target="_blank" class="btn btn-primary">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                <polyline points="15 3 21 3 21 9"/>
-                                <line x1="10" y1="14" x2="21" y2="3"/>
-                            </svg>
-                            Open in New Tab
-                        </a>
-                    </div>
-                </header>
-                <div class="swag-container">
-                    <iframe 
-                        src="https://swag-store-sage.vercel.app/" 
-                        class="swag-iframe"
-                        title="PM Summit Swag Store"
-                    ></iframe>
-                </div>
-            </div>
-        </main>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <span id="toast-message">Question submitted successfully!</span>
     </div>
 
     <script>
         // Navigation
-        const navItems = document.querySelectorAll('.nav-item');
-        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
 
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const pageId = item.dataset.page;
-                
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-                
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === `page-${pageId}`) {
-                        page.classList.add('active');
-                        
-                        // Re-trigger animations
-                        const animatedElements = page.querySelectorAll('.animate-in');
-                        animatedElements.forEach(el => {
-                            el.style.animation = 'none';
-                            el.offsetHeight;
-                            el.style.animation = null;
-                        });
+        function showSection(sectionId) {
+            // Update nav
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active');
+                }
+            });
 
-                        // Reset flip cards
-                        const flipCards = page.querySelectorAll('.flip-card');
-                        flipCards.forEach(card => card.classList.remove('flipped'));
-                    }
-                });
+            // Update sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === `section-${sectionId}`) {
+                    section.classList.add('active');
+                    window.scrollTo(0, 0);
+                }
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(link.dataset.section);
             });
         });
 
-        // Flip card toggle
-        function toggleFlip(card) {
-            card.classList.toggle('flipped');
+        // Scroll effect on nav
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Speaker card toggle
+        function toggleSpeaker(card) {
+            const wasExpanded = card.classList.contains('expanded');
+            // Close all other cards
+            document.querySelectorAll('.speaker-card').forEach(c => c.classList.remove('expanded'));
+            // Toggle this card
+            if (!wasExpanded) {
+                card.classList.add('expanded');
+            }
+        }
+
+        // FAQ toggle
+        function toggleFaq(item) {
+            const wasExpanded = item.classList.contains('expanded');
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('expanded'));
+            // Toggle this
+            if (!wasExpanded) {
+                item.classList.add('expanded');
+            }
+        }
+
+        // Submit question
+        function submitQuestion(button, speakerName) {
+            const form = button.closest('.speaker-form');
+            const nameInput = form.querySelector('.form-input');
+            const questionInput = form.querySelector('.form-textarea');
+
+            if (!nameInput.value.trim() || !questionInput.value.trim()) {
+                alert('Please fill in both your name and question.');
+                return;
+            }
+
+            // Show toast
+            showToast(`Question for ${speakerName} submitted!`);
+
+            // Clear form
+            nameInput.value = '';
+            questionInput.value = '';
+
+            // Close card
+            button.closest('.speaker-card').classList.remove('expanded');
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
     </script>
 </body>
 </html>
+

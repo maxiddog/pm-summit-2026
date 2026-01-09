@@ -139,22 +139,17 @@
         }
 
         .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
+            width: 280px;
             height: auto;
-            opacity: 0.12;
-            pointer-events: none;
-            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .hero-badge {
@@ -1001,7 +996,7 @@
     <!-- Navigation -->
     <nav class="nav">
         <a href="#" class="nav-logo" onclick="showSection('home'); return false;">
-            <img src="images/datadog-logo.jpg" alt="Datadog">
+            <img src="images/datadog-logo.svg" alt="Datadog">
             <span class="nav-logo-text">PM Summit <span>2026</span></span>
         </a>
         <div class="nav-links">
@@ -1016,10 +1011,10 @@
     <section class="section active" id="section-home">
         <!-- Hero -->
         <div class="hero">
+            <div class="hero-content">
             <video class="hero-video" autoplay muted loop playsinline>
                 <source src="images/pm-summit-animation.mp4" type="video/mp4">
             </video>
-            <div class="hero-content">
             <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
                 March 2026 • New York City

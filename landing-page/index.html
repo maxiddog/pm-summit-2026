@@ -46,7 +46,7 @@
             overflow-x: hidden;
         }
 
-        /* Navigation - Centered */
+        /* Navigation */
         .nav {
             position: fixed;
             top: 0;
@@ -58,15 +58,9 @@
             justify-content: center;
             align-items: center;
             gap: 32px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .nav.scrolled {
-            padding: 10px 24px;
-            box-shadow: var(--shadow-sm);
         }
 
         .nav-logo {
@@ -77,15 +71,14 @@
             color: var(--text-primary);
         }
 
-        .nav-logo-icon {
-            width: 32px;
-            height: 32px;
+        .nav-logo img {
+            height: 28px;
+            width: auto;
         }
 
         .nav-logo-text {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            letter-spacing: -0.02em;
         }
 
         .nav-logo-text span {
@@ -101,7 +94,7 @@
         }
 
         .nav-link {
-            padding: 8px 18px;
+            padding: 8px 16px;
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 13px;
@@ -118,33 +111,31 @@
         .nav-link.active {
             color: white;
             background: var(--accent-purple);
-            box-shadow: var(--shadow-sm);
         }
 
-        /* Hero Section */
-        .hero {
+        /* Sections */
+        .section {
+            display: none;
             min-height: 100vh;
+            padding: 70px 0 40px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 24px 60px;
+            padding: 40px 24px;
+            background: linear-gradient(180deg, #f8f4ff 0%, #ffffff 100%);
             position: relative;
             overflow: hidden;
-            background: linear-gradient(180deg, #f8f4ff 0%, #ffffff 50%);
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 44, 166, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(99, 44, 166, 0.05) 0%, transparent 50%);
-            pointer-events: none;
         }
 
         .hero-video {
@@ -152,22 +143,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
-            max-width: 800px;
-            opacity: 0.08;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            opacity: 0.12;
             pointer-events: none;
+            object-fit: cover;
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
-        }
-
-        .hero-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
         }
 
         .hero-badge {
@@ -181,7 +168,7 @@
             font-size: 12px;
             font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             box-shadow: var(--shadow-sm);
         }
 
@@ -199,12 +186,11 @@
         }
 
         .hero-title {
-            font-size: clamp(40px, 7vw, 72px);
+            font-size: clamp(36px, 6vw, 64px);
             font-weight: 700;
             letter-spacing: -0.03em;
             line-height: 1.1;
-            margin-bottom: 16px;
-            color: var(--text-primary);
+            margin-bottom: 12px;
         }
 
         .hero-title-gradient {
@@ -215,37 +201,37 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(16px, 2vw, 18px);
+            font-size: 16px;
             color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 28px;
+            max-width: 450px;
+            margin: 0 auto 24px;
         }
 
         .hero-date {
             display: inline-flex;
             align-items: center;
             gap: 16px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             background: white;
             border: 1px solid var(--border-light);
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 500;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             box-shadow: var(--shadow-md);
         }
 
         .hero-date-divider {
             width: 1px;
-            height: 20px;
+            height: 18px;
             background: var(--border-light);
         }
 
         .hero-cta {
             display: flex;
             gap: 12px;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
@@ -290,34 +276,27 @@
             height: 16px;
         }
 
-        /* Sections */
-        .section {
-            display: none;
-            min-height: 100vh;
-            padding: 80px 24px 40px;
+        /* Speakers Section */
+        .speakers-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
         }
 
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
 
         .section-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: -0.02em;
             margin-bottom: 8px;
-            color: var(--text-primary);
         }
 
         .section-subtitle {
@@ -325,10 +304,505 @@
             color: var(--text-secondary);
         }
 
+        .speakers-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 24px;
+            margin: 0 -24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .speakers-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .speakers-scroll::-webkit-scrollbar-track {
+            background: var(--border-light);
+            border-radius: 3px;
+        }
+
+        .speakers-scroll::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 3px;
+        }
+
+        .speaker-card {
+            flex: 0 0 160px;
+            text-align: center;
+            cursor: pointer;
+            scroll-snap-align: start;
+            transition: transform 0.2s ease;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .speaker-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: var(--shadow-md);
+            margin: 0 auto 12px;
+            transition: all 0.2s ease;
+        }
+
+        .speaker-card:hover .speaker-photo {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(99, 44, 166, 0.2);
+        }
+
+        .speaker-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .speaker-title {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Customer Spotlight */
+        .spotlight-section {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .spotlight-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+            border-radius: 16px;
+            padding: 40px;
+            color: white;
+        }
+
+        .spotlight-logo {
+            flex: 0 0 120px;
+        }
+
+        .spotlight-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .spotlight-content h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .spotlight-content h3 span {
+            color: #9B4DCA;
+        }
+
+        .spotlight-content p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .spotlight-features {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .spotlight-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .spotlight-feature svg {
+            width: 18px;
+            height: 18px;
+            color: #22c55e;
+        }
+
+        /* Agenda Section */
+        .agenda-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+        }
+
+        .agenda-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .agenda-tab {
+            padding: 10px 24px;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agenda-tab.active {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
+        .agenda-tab:hover:not(.active) {
+            border-color: var(--accent-purple);
+        }
+
+        .agenda-day {
+            display: none;
+        }
+
+        .agenda-day.active {
+            display: block;
+        }
+
+        .agenda-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .agenda-item {
+            display: grid;
+            grid-template-columns: 120px 1fr 80px 160px;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .agenda-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .agenda-item:last-child {
+            border-bottom: none;
+        }
+
+        .agenda-item.break {
+            background: var(--bg-secondary);
+            justify-content: center;
+        }
+
+        .agenda-item.break .agenda-title {
+            grid-column: 2 / -1;
+            text-align: center;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .agenda-time {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .agenda-content {
+            flex: 1;
+        }
+
+        .agenda-type {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .agenda-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agenda-duration {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .agenda-speakers {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Speaker Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--border-light);
+            color: var(--text-primary);
+        }
+
+        .modal-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-purple);
+            margin: 0 auto 20px;
+        }
+
+        .modal-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .modal-title {
+            font-size: 14px;
+            color: var(--accent-purple);
+            margin-bottom: 16px;
+        }
+
+        .modal-bio {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #0077B5;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .modal-linkedin:hover {
+            background: #005885;
+            transform: translateY(-2px);
+        }
+
+        .modal-linkedin img {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 12px;
+            background: white;
+        }
+
+        /* Questions Section */
+        .questions-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+        }
+
+        .speaker-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .speaker-form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .speaker-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .speaker-header:hover {
+            background: var(--bg-secondary);
+        }
+
+        .speaker-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+        }
+
+        .speaker-info {
+            flex: 1;
+        }
+
+        .speaker-info .speaker-name {
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .speaker-role {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .speaker-topic {
+            font-size: 12px;
+            color: var(--accent-purple);
+        }
+
+        .speaker-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .speaker-form-card.expanded .speaker-toggle {
+            transform: rotate(180deg);
+            color: var(--accent-purple);
+        }
+
+        .speaker-form {
+            display: none;
+            padding: 0 20px 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .speaker-form-card.expanded .speaker-form {
+            display: block;
+        }
+
+        .form-group {
+            margin-top: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            background: white;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            margin-top: 12px;
+            width: 100%;
+        }
+
         /* Swag Store */
         .swag-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 80px 24px 40px;
         }
 
         .swag-intro {
@@ -358,7 +832,7 @@
             border: 1px solid var(--border-light);
             border-radius: 12px;
             overflow: hidden;
-            height: calc(100vh - 200px);
+            height: calc(100vh - 240px);
             box-shadow: var(--shadow-md);
         }
 
@@ -368,164 +842,11 @@
             border: none;
         }
 
-        /* Questions Section */
-        .questions-container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .speaker-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .speaker-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .speaker-card:hover {
-            border-color: var(--accent-purple);
-            box-shadow: var(--shadow-md);
-        }
-
-        .speaker-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 20px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .speaker-header:hover {
-            background: var(--bg-secondary);
-        }
-
-        .speaker-avatar {
-            width: 44px;
-            height: 44px;
-            background: var(--accent-gradient);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .speaker-info {
-            flex: 1;
-        }
-
-        .speaker-name {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .speaker-role {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .speaker-topic {
-            font-size: 12px;
-            color: var(--accent-purple);
-            margin-top: 2px;
-        }
-
-        .speaker-toggle {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: all 0.2s ease;
-        }
-
-        .speaker-card.expanded .speaker-toggle {
-            transform: rotate(180deg);
-            color: var(--accent-purple);
-        }
-
-        .speaker-toggle svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .speaker-form {
-            display: none;
-            padding: 0 20px 20px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .speaker-card.expanded .speaker-form {
-            display: block;
-            animation: slideDown 0.2s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-top: 16px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 10px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--accent-purple);
-            background: white;
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            margin-top: 12px;
-            width: 100%;
-        }
-
-        /* FAQ Section */
+        /* FAQ */
         .faq-container {
             max-width: 700px;
             margin: 0 auto;
+            padding: 80px 24px 40px;
         }
 
         .logistics-grid {
@@ -541,14 +862,7 @@
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            transition: all 0.2s ease;
             box-shadow: var(--shadow-sm);
-        }
-
-        .logistics-card:hover {
-            border-color: var(--accent-purple);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
         }
 
         .logistics-icon {
@@ -590,11 +904,6 @@
             border: 1px solid var(--border-light);
             border-radius: 10px;
             overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .faq-item:hover {
-            border-color: var(--accent-purple);
         }
 
         .faq-question {
@@ -605,7 +914,6 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            transition: background 0.2s ease;
         }
 
         .faq-question:hover {
@@ -629,27 +937,10 @@
             padding: 0 18px 14px;
             color: var(--text-secondary);
             font-size: 14px;
-            line-height: 1.6;
         }
 
         .faq-item.expanded .faq-answer {
             display: block;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 24px;
-            text-align: center;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-muted);
-            font-size: 12px;
-            background: var(--bg-secondary);
-        }
-
-        .footer-logo {
-            width: 100px;
-            margin-bottom: 12px;
-            opacity: 0.6;
         }
 
         /* Toast */
@@ -683,39 +974,25 @@
             color: #22c55e;
         }
 
-        /* Media queries */
         @media (max-width: 768px) {
             .nav {
                 flex-direction: column;
-                gap: 12px;
-                padding: 12px 16px;
+                gap: 10px;
+                padding: 10px 16px;
             }
             
-            .nav-links {
-                width: 100%;
-                justify-content: center;
+            .agenda-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
             
-            .nav-link {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-            
-            .hero {
-                padding: 100px 16px 40px;
-            }
-            
-            .section {
-                padding: 80px 16px 32px;
+            .spotlight-card {
+                flex-direction: column;
+                text-align: center;
             }
             
             .logistics-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .swag-intro {
-                flex-direction: column;
-                text-align: center;
             }
         }
     </style>
@@ -724,7 +1001,7 @@
     <!-- Navigation -->
     <nav class="nav">
         <a href="#" class="nav-logo" onclick="showSection('home'); return false;">
-            <img src="images/datadog-logo.png" alt="Datadog" class="nav-logo-icon" onerror="this.outerHTML='<svg class=\'nav-logo-icon\' viewBox=\'0 0 32 32\' fill=\'none\'><rect width=\'32\' height=\'32\' rx=\'6\' fill=\'#632CA6\'/><circle cx=\'16\' cy=\'16\' r=\'6\' fill=\'white\'/></svg>'">
+            <img src="images/datadog-logo.jpg" alt="Datadog">
             <span class="nav-logo-text">PM Summit <span>2026</span></span>
         </a>
         <div class="nav-links">
@@ -735,102 +1012,393 @@
         </div>
     </nav>
 
-    <!-- Home / Hero Section -->
+    <!-- Home Section -->
     <section class="section active" id="section-home">
+        <!-- Hero -->
         <div class="hero">
-            <div class="hero-bg"></div>
-            
-            <!-- Optional: Add a background video or GIF -->
-            <!-- <img src="images/hero-animation.gif" alt="" class="hero-video"> -->
-            
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="images/pm-summit-animation.mp4" type="video/mp4">
+            </video>
             <div class="hero-content">
-                <!-- Optional: Add your summit logo here -->
-                <!-- <img src="images/summit-logo.png" alt="PM Summit 2026" class="hero-logo"> -->
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                March 2026 • New York City
+            </div>
+            <h1 class="hero-title">
+                Datadog<br>
+                <span class="hero-title-gradient">PM Summit 2026</span>
+            </h1>
+            <p class="hero-subtitle">
+                Two days of insights, collaboration, and shaping the future of observability with product leaders from across the globe.
+            </p>
+            <div class="hero-date">
+                <span>📍 NYC HQ</span>
+                <span class="hero-date-divider"></span>
+                <span>📅 March 15-16, 2026</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#" class="btn btn-primary" onclick="showSection('questions'); return false;">
+                    Submit a Question
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#" class="btn btn-secondary" onclick="showSection('swag'); return false;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    Get Swag
+                </a>
+            </div>
+            </div>
+        </div>
+
+        <!-- Speakers Section -->
+        <div class="speakers-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Speakers</h2>
+                    <p class="section-subtitle">Meet the product leaders shaping Datadog's future</p>
+                </div>
+                <div class="speakers-scroll">
+                    <div class="speaker-card" onclick="openSpeakerModal('yanbing')">
+                        <img src="images/Yanbing-pic.png" alt="Yanbing Li" class="speaker-photo">
+                        <div class="speaker-name">Yanbing Li</div>
+                        <div class="speaker-title">Head of PM</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('chris')">
+                        <img src="images/chris-pic.png" alt="Chris McLaughlin" class="speaker-photo">
+                        <div class="speaker-name">Chris McLaughlin</div>
+                        <div class="speaker-title">Senior Director, PM</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('michael')">
+                        <img src="images/Michael-pic.png" alt="Michael Whetten" class="speaker-photo">
+                        <div class="speaker-name">Michael Whetten</div>
+                        <div class="speaker-title">VP Product</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('yrieix')">
+                        <img src="images/yrieix-pic.png" alt="Yrieix Garnier" class="speaker-photo">
+                        <div class="speaker-name">Yrieix Garnier</div>
+                        <div class="speaker-title">VP Product</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('tim')">
+                        <img src="images/tim-pic.png" alt="Tim Knudsen" class="speaker-photo">
+                        <div class="speaker-name">Tim Knudsen</div>
+                        <div class="speaker-title">VP Product</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('dev')">
+                        <img src="images/dev-pic.png" alt="Dev Ittycheria" class="speaker-photo">
+                        <div class="speaker-name">Dev Ittycheria</div>
+                        <div class="speaker-title">Board Member</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('sesh')">
+                        <img src="images/sesh-pic.png" alt="Sesh Nalla" class="speaker-photo">
+                        <div class="speaker-name">Sesh Nalla</div>
+                        <div class="speaker-title">Director, AI Research</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('othmane')">
+                        <img src="images/othmane-pic.png" alt="Othmane Abou-Amal" class="speaker-photo">
+                        <div class="speaker-name">Othmane Abou-Amal</div>
+                        <div class="speaker-title">AI Research</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('sara')">
+                        <img src="images/sara-pic.png" alt="Sara Varni" class="speaker-photo">
+                        <div class="speaker-name">Sara Varni</div>
+                        <div class="speaker-title">CMO</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('yuka')">
+                        <img src="images/yuka-pic.png" alt="Yuka Broderick" class="speaker-photo">
+                        <div class="speaker-name">Yuka Broderick</div>
+                        <div class="speaker-title">VP Finance</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('emilio')">
+                        <img src="images/emilio-pic.png" alt="Emilio Escobar" class="speaker-photo">
+                        <div class="speaker-name">Emilio Escobar</div>
+                        <div class="speaker-title">CISO</div>
+                    </div>
+                    <div class="speaker-card" onclick="openSpeakerModal('alex')">
+                        <img src="images/alex-pic.png" alt="Alex Haugland" class="speaker-photo">
+                        <div class="speaker-name">Alex Haugland</div>
+                        <div class="speaker-title">Staff Engineer @ Cursor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Spotlight -->
+        <div class="spotlight-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Customer Spotlight</h2>
+                    <p class="section-subtitle">Special guest joining us for PM Summit 2026</p>
+                </div>
+                <div class="spotlight-card">
+                    <div class="spotlight-logo">
+                        <img src="images/cursor-logo.svg" alt="Cursor">
+                    </div>
+                    <div class="spotlight-content">
+                        <h3>Special Guest: <span>Cursor</span></h3>
+                        <p>We're excited to welcome Cursor, the AI-powered code editor revolutionizing developer productivity. Their team will share insights on building AI-native tools and how they leverage Datadog for observability at scale.</p>
+                        <div class="spotlight-features">
+                            <div class="spotlight-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                <span>Fireside Chat: Customer Perspective</span>
+                            </div>
+                            <div class="spotlight-feature">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                <span>Workshop: Cursor for Product Managers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agenda Section -->
+        <div class="agenda-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Event Agenda</h2>
+                    <p class="section-subtitle">Two days packed with insights, workshops, and networking</p>
+                </div>
                 
-                <div class="hero-badge">
-                    <span class="hero-badge-dot"></span>
-                    Registration Open
+                <div class="agenda-tabs">
+                    <button class="agenda-tab active" onclick="showAgendaDay(1)">Day 1 • March 15</button>
+                    <button class="agenda-tab" onclick="showAgendaDay(2)">Day 2 • March 16</button>
                 </div>
-                <h1 class="hero-title">
-                    Datadog<br>
-                    <span class="hero-title-gradient">PM Summit 2026</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Join us for two days of insights, collaboration, and shaping the future of observability.
-                </p>
-                <div class="hero-date">
-                    <span>📍 New York City</span>
-                    <span class="hero-date-divider"></span>
-                    <span>📅 March 15-16, 2026</span>
+
+                <!-- Day 1 -->
+                <div class="agenda-day active" id="agenda-day-1">
+                    <div class="agenda-table">
+                        <div class="agenda-item">
+                            <div class="agenda-time">9:00 - 9:15am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Opening</div>
+                                <div class="agenda-title">Welcome, Warm-up & Superlatives</div>
+                            </div>
+                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-speakers">Yanbing Li, Chris McLaughlin</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">9:15 - 9:30am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Icebreaker</div>
+                                <div class="agenda-title">Rock Paper Scissors Tournament</div>
+                            </div>
+                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-speakers"></div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">9:30 - 10:30am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">Product Roadmap Update from Leadership</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Michael Whetten, Yrieix Garnier, Tim Knudsen</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">10:30 - 11:30am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Fireside Chat</div>
+                                <div class="agenda-title">Board Perspective</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Dev Ittycheria</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">11:30 - 12:30pm</div>
+                            <div class="agenda-title">🍽️ Lunch</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">12:30 - 1:30pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">AI Research at Datadog</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Sesh Nalla, Othmane Abou-Amal</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">1:30 - 1:45pm</div>
+                            <div class="agenda-title">☕ Break</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">1:45 - 2:45pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">AI Products Deep Dive</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Tristan Ratchford, Bharadwaj Tanikella</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">2:45 - 3:00pm</div>
+                            <div class="agenda-title">☕ Break</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">3:00 - 3:30pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Game</div>
+                                <div class="agenda-title">Debug Swag Store with MCP</div>
+                            </div>
+                            <div class="agenda-duration">30 mins</div>
+                            <div class="agenda-speakers">Maxi Rodriguez</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">3:30 - 4:15pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Fireside Chat</div>
+                                <div class="agenda-title">Founders Perspective</div>
+                            </div>
+                            <div class="agenda-duration">45 mins</div>
+                            <div class="agenda-speakers">Alexis Lê-Quôc</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">4:15 - 4:45pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">GTM @ Datadog</div>
+                            </div>
+                            <div class="agenda-duration">45 mins</div>
+                            <div class="agenda-speakers">Sara Varni, Greg Gsell, Sandy Hwang</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">4:45 - 5:00pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Closing</div>
+                                <div class="agenda-title">Day 1 Wrap Up</div>
+                            </div>
+                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-speakers">Yanbing Li, Chris McLaughlin</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">5:00 - 6:00pm</div>
+                            <div class="agenda-title">🚶 Commute to Venue</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">6:00 - 9:00pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Reception</div>
+                                <div class="agenda-title">Skylark Happy Hour & Reception</div>
+                            </div>
+                            <div class="agenda-duration">3 hrs</div>
+                            <div class="agenda-speakers"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-cta">
-                    <a href="#" class="btn btn-primary" onclick="showSection('questions'); return false;">
-                        Submit a Question
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="btn btn-secondary" onclick="showSection('swag'); return false;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                            <line x1="3" y1="6" x2="21" y2="6"/>
-                            <path d="M16 10a4 4 0 0 1-8 0"/>
-                        </svg>
-                        Get Swag
-                    </a>
+
+                <!-- Day 2 -->
+                <div class="agenda-day" id="agenda-day-2">
+                    <div class="agenda-table">
+                        <div class="agenda-item break">
+                            <div class="agenda-time">9:00 - 9:45am</div>
+                            <div class="agenda-title">🥐 Breakfast & Networking</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">9:45 - 10:00am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Opening</div>
+                                <div class="agenda-title">Day 2 Opening Remarks</div>
+                            </div>
+                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-speakers">Yanbing Li, Chris McLaughlin</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">10:00 - 11:00am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Fireside Chat</div>
+                                <div class="agenda-title">Security at Datadog</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Tim Knudsen, Emilio Escobar</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">11:00 - 11:45am</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Fireside Chat</div>
+                                <div class="agenda-title">Customer Perspective</div>
+                            </div>
+                            <div class="agenda-duration">45 mins</div>
+                            <div class="agenda-speakers">Alex Haugland (Cursor)</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">11:45 - 12:45pm</div>
+                            <div class="agenda-title">🍽️ Lunch</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">12:45 - 2:15pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Workshop</div>
+                                <div class="agenda-title">Cursor for Product Managers</div>
+                            </div>
+                            <div class="agenda-duration">1.5 hrs</div>
+                            <div class="agenda-speakers">Cursor Team</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">2:15 - 2:30pm</div>
+                            <div class="agenda-title">☕ Break</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">2:30 - 3:30pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">PM Career Ladder</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Cassie Franklin, Yanbing Li</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">3:30 - 4:30pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Presentation</div>
+                                <div class="agenda-title">Financial Outlook & Competitive Landscape</div>
+                            </div>
+                            <div class="agenda-duration">1 hr</div>
+                            <div class="agenda-speakers">Yuka Broderick</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">4:30 - 4:45pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Closing</div>
+                                <div class="agenda-title">Summit Wrap Up & Closing Remarks</div>
+                            </div>
+                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-speakers">Yanbing Li, Chris McLaughlin</div>
+                        </div>
+                        <div class="agenda-item break">
+                            <div class="agenda-time">4:45 - 5:30pm</div>
+                            <div class="agenda-title">🚶 Commute to Dinners</div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">5:30 - 7:30pm</div>
+                            <div class="agenda-content">
+                                <div class="agenda-type">Team Activity</div>
+                                <div class="agenda-title">Dinners Roulette</div>
+                            </div>
+                            <div class="agenda-duration">2 hrs</div>
+                            <div class="agenda-speakers"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Submit Questions Section -->
+    <!-- Questions Section -->
     <section class="section" id="section-questions">
         <div class="questions-container">
             <div class="section-header">
                 <h1 class="section-title">Submit Questions</h1>
                 <p class="section-subtitle">Ask our speakers anything</p>
             </div>
-
             <div class="speaker-grid">
-                <div class="speaker-card" data-speaker="1">
-                    <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">OB</div>
-                        <div class="speaker-info">
-                            <div class="speaker-name">Olivier Bloch</div>
-                            <div class="speaker-role">Chief Product Officer</div>
-                            <div class="speaker-topic">Keynote: The Future of Observability</div>
-                        </div>
-                        <div class="speaker-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="speaker-form">
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Your Question</label>
-                            <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
-                        </div>
-                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Olivier Bloch')">Submit Question</button>
-                    </div>
-                </div>
-
-                <div class="speaker-card" data-speaker="2">
+                <div class="speaker-form-card" data-speaker="1">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
                         <div class="speaker-avatar">AL</div>
                         <div class="speaker-info">
                             <div class="speaker-name">Alexis Lê-Quôc</div>
                             <div class="speaker-role">CTO & Co-Founder</div>
-                            <div class="speaker-topic">Engineering Excellence at Scale</div>
+                            <div class="speaker-topic">Founders Perspective</div>
                         </div>
                         <div class="speaker-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
-                            </svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </div>
                     </div>
                     <div class="speaker-form">
@@ -845,19 +1413,16 @@
                         <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Alexis Lê-Quôc')">Submit Question</button>
                     </div>
                 </div>
-
-                <div class="speaker-card" data-speaker="3">
+                <div class="speaker-form-card">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">SK</div>
+                        <div class="speaker-avatar">DI</div>
                         <div class="speaker-info">
-                            <div class="speaker-name">Sarah Kim</div>
-                            <div class="speaker-role">VP Product, Infrastructure</div>
-                            <div class="speaker-topic">Building Products Customers Love</div>
+                            <div class="speaker-name">Dev Ittycheria</div>
+                            <div class="speaker-role">Board Member</div>
+                            <div class="speaker-topic">Board Perspective</div>
                         </div>
                         <div class="speaker-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
-                            </svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </div>
                     </div>
                     <div class="speaker-form">
@@ -869,22 +1434,19 @@
                             <label class="form-label">Your Question</label>
                             <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
                         </div>
-                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Sarah Kim')">Submit Question</button>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Dev Ittycheria')">Submit Question</button>
                     </div>
                 </div>
-
-                <div class="speaker-card" data-speaker="4">
+                <div class="speaker-form-card">
                     <div class="speaker-header" onclick="toggleSpeaker(this.parentElement)">
-                        <div class="speaker-avatar">MR</div>
+                        <div class="speaker-avatar">AH</div>
                         <div class="speaker-info">
-                            <div class="speaker-name">Maxi Rodriguez</div>
-                            <div class="speaker-role">Senior PM, Developer Experience</div>
-                            <div class="speaker-topic">The MCP Revolution: AI-Powered Debugging</div>
+                            <div class="speaker-name">Alex Haugland</div>
+                            <div class="speaker-role">Staff Engineer @ Cursor</div>
+                            <div class="speaker-topic">Customer Perspective</div>
                         </div>
                         <div class="speaker-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
-                            </svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </div>
                     </div>
                     <div class="speaker-form">
@@ -896,7 +1458,7 @@
                             <label class="form-label">Your Question</label>
                             <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
                         </div>
-                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Maxi Rodriguez')">Submit Question</button>
+                        <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Alex Haugland')">Submit Question</button>
                     </div>
                 </div>
             </div>
@@ -913,11 +1475,7 @@
                 </div>
                 <a href="https://swag-store-sage.vercel.app/" target="_blank" class="btn btn-primary">
                     Open Full Store
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                        <polyline points="15 3 21 3 21 9"/>
-                        <line x1="10" y1="14" x2="21" y2="3"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
             </div>
             <div class="swag-iframe-wrapper">
@@ -933,96 +1491,57 @@
                 <h1 class="section-title">Logistics & FAQ</h1>
                 <p class="section-subtitle">Everything you need to know</p>
             </div>
-
             <div class="logistics-grid">
                 <div class="logistics-card">
                     <div class="logistics-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     </div>
                     <div class="logistics-title">Date</div>
                     <div class="logistics-detail">March 15-16, 2026</div>
                 </div>
                 <div class="logistics-card">
                     <div class="logistics-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
                     <div class="logistics-title">Location</div>
                     <div class="logistics-detail">NYC HQ • 620 8th Ave</div>
                 </div>
                 <div class="logistics-card">
                     <div class="logistics-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     </div>
                     <div class="logistics-title">Schedule</div>
-                    <div class="logistics-detail">9 AM - 6 PM</div>
+                    <div class="logistics-detail">9 AM - 7 PM</div>
                 </div>
             </div>
-
             <div class="faq-list">
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this.parentElement)">
                         <span>What should I bring?</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </div>
-                    <div class="faq-answer">Bring your laptop with Cursor or your preferred AI-enabled IDE installed, along with the Datadog MCP configured. Don't forget your badge and comfortable shoes!</div>
+                    <div class="faq-answer">Bring your laptop with Cursor installed and the Datadog MCP configured. We'll have hands-on workshops. Don't forget comfortable shoes!</div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this.parentElement)">
                         <span>Will meals be provided?</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </div>
-                    <div class="faq-answer">Yes! We'll provide breakfast, lunch, and snacks both days. There will also be a networking dinner on the first evening.</div>
+                    <div class="faq-answer">Yes! Breakfast, lunch, snacks, and dinner events are all included.</div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this.parentElement)">
                         <span>How do I get my free swag?</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </div>
-                    <div class="faq-answer">Head to the Swag Store tab and complete the debugging challenge! Use your AI assistant with the Datadog MCP to find and fix 3 intentional bugs.</div>
+                    <div class="faq-answer">Complete the Debug Swag Store challenge using the Datadog MCP to find and fix 3 bugs!</div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this.parentElement)">
-                        <span>What is the Datadog MCP?</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
+                        <span>What is the Cursor workshop about?</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </div>
-                    <div class="faq-answer">The Datadog MCP (Model Context Protocol) connects your AI assistant directly to Datadog's observability platform, allowing you to query logs, traces, and metrics using natural language.</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this.parentElement)">
-                        <span>Will sessions be recorded?</span>
-                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">Yes, all main stage sessions will be recorded and made available on our internal learning platform within a week after the summit.</div>
+                    <div class="faq-answer">The Cursor team will teach PMs how to leverage AI-powered coding tools to become more technical and ship faster.</div>
                 </div>
             </div>
         </div>
@@ -1030,21 +1549,123 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <img src="images/datadog-logo.png" alt="Datadog" class="footer-logo" onerror="this.style.display='none'">
         <p>Vibecoded with ❤️ in NYC (with flaky office WiFi)</p>
         <p style="margin-top: 4px;">© 2026 Datadog, Inc.</p>
     </footer>
 
+    <!-- Speaker Modal -->
+    <div class="modal-overlay" id="speaker-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSpeakerModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <img src="" alt="" class="modal-photo" id="modal-photo">
+            <div class="modal-name" id="modal-name"></div>
+            <div class="modal-title" id="modal-title"></div>
+            <div class="modal-bio" id="modal-bio"></div>
+            <a href="#" class="modal-linkedin" id="modal-linkedin" target="_blank">
+                <img src="images/LinkedIn-logo.png" alt="LinkedIn">
+                View LinkedIn
+            </a>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div class="toast" id="toast">
-        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         <span id="toast-message">Question submitted!</span>
     </div>
 
     <script>
+        // Speaker data
+        const speakers = {
+            yanbing: {
+                name: 'Yanbing Li',
+                title: 'Head of Product Management',
+                photo: 'images/Yanbing-pic.png',
+                bio: 'Yanbing leads the global Product Management organization at Datadog, driving product strategy and execution across all product lines. With extensive experience in enterprise software, she brings a customer-centric approach to building world-class observability solutions.',
+                linkedin: 'https://www.linkedin.com/in/yanbingli/'
+            },
+            chris: {
+                name: 'Chris McLaughlin',
+                title: 'Senior Director, Product Management',
+                photo: 'images/chris-pic.png',
+                bio: 'Chris oversees key product initiatives at Datadog, focusing on developer experience and platform capabilities. His background in engineering and product enables him to bridge technical excellence with customer needs.',
+                linkedin: 'https://www.linkedin.com/in/chrismclaughlin/'
+            },
+            michael: {
+                name: 'Michael Whetten',
+                title: 'VP Product',
+                photo: 'images/Michael-pic.png',
+                bio: 'Michael leads product strategy for core infrastructure monitoring at Datadog. He has a track record of building products that scale to millions of users while maintaining exceptional reliability.',
+                linkedin: 'https://www.linkedin.com/in/michaelwhetten/'
+            },
+            yrieix: {
+                name: 'Yrieix Garnier',
+                title: 'VP Product',
+                photo: 'images/yrieix-pic.png',
+                bio: 'Yrieix drives product innovation across Datadog\'s APM and security product lines. His expertise in distributed systems and observability has been instrumental in shaping Datadog\'s technical vision.',
+                linkedin: 'https://www.linkedin.com/in/yrieixgarnier/'
+            },
+            tim: {
+                name: 'Tim Knudsen',
+                title: 'VP Product',
+                photo: 'images/tim-pic.png',
+                bio: 'Tim leads product development for Datadog\'s security portfolio. With deep expertise in cloud security and compliance, he helps organizations protect their infrastructure at scale.',
+                linkedin: 'https://www.linkedin.com/in/timknudsen/'
+            },
+            dev: {
+                name: 'Dev Ittycheria',
+                title: 'Board Member',
+                photo: 'images/dev-pic.png',
+                bio: 'Dev brings decades of enterprise software experience to Datadog\'s board. As former CEO of MongoDB, he offers invaluable insights on scaling technology companies and building enduring platforms.',
+                linkedin: 'https://www.linkedin.com/in/devittycheria/'
+            },
+            sesh: {
+                name: 'Sesh Nalla',
+                title: 'Director, AI Research',
+                photo: 'images/sesh-pic.png',
+                bio: 'Sesh leads AI research initiatives at Datadog, exploring how machine learning can enhance observability and automate incident response. His work powers intelligent alerting and anomaly detection.',
+                linkedin: 'https://www.linkedin.com/in/seshnalla/'
+            },
+            othmane: {
+                name: 'Othmane Abou-Amal',
+                title: 'AI Research',
+                photo: 'images/othmane-pic.png',
+                bio: 'Othmane works on cutting-edge AI applications for observability, including natural language interfaces and automated root cause analysis. His research bridges academic ML with practical product applications.',
+                linkedin: 'https://www.linkedin.com/in/othmaneabouamal/'
+            },
+            sara: {
+                name: 'Sara Varni',
+                title: 'Chief Marketing Officer',
+                photo: 'images/sara-pic.png',
+                bio: 'Sara leads global marketing at Datadog, driving brand awareness and go-to-market strategy. Her experience at leading enterprise software companies shapes how Datadog connects with developers and enterprises.',
+                linkedin: 'https://www.linkedin.com/in/saravarni/'
+            },
+            yuka: {
+                name: 'Yuka Broderick',
+                title: 'VP Finance',
+                photo: 'images/yuka-pic.png',
+                bio: 'Yuka oversees financial planning and analysis at Datadog, providing strategic insights that drive business decisions. Her expertise in SaaS metrics helps the company maintain strong financial performance.',
+                linkedin: 'https://www.linkedin.com/in/yukabroderick/'
+            },
+            emilio: {
+                name: 'Emilio Escobar',
+                title: 'Chief Information Security Officer',
+                photo: 'images/emilio-pic.png',
+                bio: 'Emilio leads security and compliance at Datadog, ensuring the platform meets the highest security standards. His experience protecting critical infrastructure informs Datadog\'s security product strategy.',
+                linkedin: 'https://www.linkedin.com/in/emilioescobar/'
+            },
+            alex: {
+                name: 'Alex Haugland',
+                title: 'Staff Engineer @ Cursor',
+                photo: 'images/alex-pic.png',
+                bio: 'Alex is a staff engineer at Cursor, where he works on building AI-powered development tools. He\'ll share how Cursor uses Datadog for observability and insights on building AI-native products.',
+                linkedin: 'https://www.linkedin.com/in/alexhaugland/'
+            }
+        };
+
+        // Navigation
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
 
@@ -1069,13 +1690,44 @@
             });
         });
 
-        window.addEventListener('scroll', () => {
-            document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 50);
+        // Agenda tabs
+        function showAgendaDay(day) {
+            document.querySelectorAll('.agenda-tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === day - 1);
+            });
+            document.querySelectorAll('.agenda-day').forEach((d, i) => {
+                d.classList.toggle('active', i === day - 1);
+            });
+        }
+
+        // Speaker modal
+        function openSpeakerModal(speakerId) {
+            const speaker = speakers[speakerId];
+            if (!speaker) return;
+            
+            document.getElementById('modal-photo').src = speaker.photo;
+            document.getElementById('modal-name').textContent = speaker.name;
+            document.getElementById('modal-title').textContent = speaker.title;
+            document.getElementById('modal-bio').textContent = speaker.bio;
+            document.getElementById('modal-linkedin').href = speaker.linkedin;
+            
+            document.getElementById('speaker-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSpeakerModal() {
+            document.getElementById('speaker-modal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('speaker-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeSpeakerModal();
         });
 
+        // Question form
         function toggleSpeaker(card) {
             const wasExpanded = card.classList.contains('expanded');
-            document.querySelectorAll('.speaker-card').forEach(c => c.classList.remove('expanded'));
+            document.querySelectorAll('.speaker-form-card').forEach(c => c.classList.remove('expanded'));
             if (!wasExpanded) card.classList.add('expanded');
         }
 
@@ -1096,7 +1748,7 @@
             showToast(`Question for ${speakerName} submitted!`);
             nameInput.value = '';
             questionInput.value = '';
-            button.closest('.speaker-card').classList.remove('expanded');
+            button.closest('.speaker-form-card').classList.remove('expanded');
         }
 
         function showToast(message) {

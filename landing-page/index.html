@@ -2010,21 +2010,20 @@
         
         // Handle Google Sign-In button click
         function handleGoogleSignIn() {
-            if (typeof google !== 'undefined' && google.accounts) {
-                google.accounts.id.prompt((notification) => {
-                    if (notification.isNotDisplayed()) {
-                        // Fallback: use popup
-                        google.accounts.oauth2.initTokenClient({
-                            client_id: GOOGLE_CLIENT_ID,
-                            scope: 'email profile',
-                            callback: (response) => {
-                                if (response.access_token) {
-                                    fetchUserInfo(response.access_token);
-                                }
-                            },
-                        }).requestAccessToken();
-                    }
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
+                // Use OAuth2 popup directly - more reliable than One Tap
+                const tokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: GOOGLE_CLIENT_ID,
+                    scope: 'email profile',
+                    callback: (response) => {
+                        if (response.access_token) {
+                            fetchUserInfo(response.access_token);
+                        } else if (response.error) {
+                            showAuthError('Sign-in failed: ' + response.error);
+                        }
+                    },
                 });
+                tokenClient.requestAccessToken();
             } else {
                 showAuthError('Google Sign-In is not available. Please refresh the page and try again.');
             }

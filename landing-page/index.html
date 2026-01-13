@@ -1956,10 +1956,10 @@
         const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/a/macros/datadoghq.com/s/AKfycbzNjyRzVh_oUc_rK4Cl7ZL7KjrfqtwUp8m5xbrv5AFMtMtFTS-ZZ_i6RAeM8zDLOt-a/exec';
         
         // Initialize Supabase client
-        let supabase = null;
+        let supabaseClient = null;
         function initSupabase() {
-            if (typeof window.supabase !== 'undefined') {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
         
@@ -2388,8 +2388,8 @@
             
             try {
                 // Save to Supabase
-                if (supabase) {
-                    const { error } = await supabase
+                if (supabaseClient) {
+                    const { error } = await supabaseClient
                         .from('questions')
                         .insert([{
                             speaker_name: speakerName,

@@ -1248,6 +1248,97 @@
             display: block;
         }
 
+        /* Admin Section */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+        }
+
+        .admin-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .admin-count {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .admin-table-wrapper {
+            overflow-x: auto;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .admin-table th {
+            background: var(--bg-secondary);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+            white-space: nowrap;
+        }
+
+        .admin-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+            vertical-align: top;
+        }
+
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-table tr:hover td {
+            background: var(--bg-secondary);
+        }
+
+        .admin-table td:nth-child(1) {
+            white-space: nowrap;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .admin-table td:nth-child(2) {
+            font-weight: 500;
+            color: var(--accent-purple);
+        }
+
+        .admin-table td:nth-child(5) {
+            max-width: 400px;
+        }
+
+        .admin-loading {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 40px !important;
+        }
+
+        .admin-empty {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 40px !important;
+        }
+
+        .admin-only {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -1350,6 +1441,7 @@
             <a href="#" class="nav-link" data-section="questions">Questions</a>
             <a href="#" class="nav-link" data-section="swag">Swag Store</a>
             <a href="#" class="nav-link" data-section="faq">FAQ</a>
+            <a href="#" class="nav-link admin-only" data-section="admin" id="adminNavLink" style="display: none;">🔐 Admin</a>
         </div>
         <div class="user-menu" id="userMenu">
             <img id="navUserAvatar" class="user-menu-avatar" src="" alt="">
@@ -1916,6 +2008,41 @@
         </div>
     </section>
 
+    <!-- Admin Section (only visible to admins) -->
+    <section class="section" id="section-admin" style="display: none;">
+        <div class="admin-container">
+            <div class="section-header">
+                <h2>🔐 Admin Dashboard</h2>
+                <p class="section-subtitle">View all submitted questions</p>
+            </div>
+            <div class="admin-controls">
+                <button class="btn btn-primary" onclick="loadAdminQuestions()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-right: 8px;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    Refresh Questions
+                </button>
+                <span class="admin-count" id="adminQuestionCount">0 questions</span>
+            </div>
+            <div class="admin-table-wrapper">
+                <table class="admin-table" id="adminQuestionsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Speaker</th>
+                            <th>Submitter</th>
+                            <th>Email</th>
+                            <th>Question</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminQuestionsBody">
+                        <tr>
+                            <td colspan="5" class="admin-loading">Loading questions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <p>Vibecoded with ❤️ in NYC (with flaky office WiFi)</p>
@@ -1961,6 +2088,20 @@
             if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
+        }
+        
+        // =====================
+        // ADMIN CONFIGURATION
+        // =====================
+        
+        // Admin emails - these users can see the admin dashboard
+        const ADMIN_EMAILS = [
+            'maxi.rodriguez@datadoghq.com',
+            // Add more admin emails here
+        ];
+        
+        function isAdmin(email) {
+            return ADMIN_EMAILS.includes(email?.toLowerCase());
         }
         
         // =====================
@@ -2137,6 +2278,11 @@
                 el.textContent = user.name + ' (' + user.email + ')';
             });
             
+            // Show admin nav link if user is admin
+            if (isAdmin(user.email)) {
+                document.getElementById('adminNavLink').style.display = 'inline-block';
+            }
+            
             // Hide auth overlay
             document.getElementById('authOverlay').classList.add('hidden');
             
@@ -2310,6 +2456,11 @@
                     window.scrollTo(0, 0);
                 }
             });
+            
+            // Auto-load questions when navigating to admin section
+            if (sectionId === 'admin' && isAdmin(currentUser?.email)) {
+                loadAdminQuestions();
+            }
         }
 
         navLinks.forEach(link => {
@@ -2439,6 +2590,75 @@
             document.getElementById('toast-message').textContent = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // =====================
+        // ADMIN FUNCTIONS
+        // =====================
+        
+        async function loadAdminQuestions() {
+            if (!isAdmin(currentUser?.email)) {
+                console.log('Not authorized to view admin panel');
+                return;
+            }
+            
+            const tbody = document.getElementById('adminQuestionsBody');
+            tbody.innerHTML = '<tr><td colspan="5" class="admin-loading">Loading questions...</td></tr>';
+            
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Supabase not initialized');
+                }
+                
+                const { data, error } = await supabaseClient
+                    .from('questions')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                // Update count
+                document.getElementById('adminQuestionCount').textContent = 
+                    `${data.length} question${data.length !== 1 ? 's' : ''}`;
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="admin-empty">No questions submitted yet.</td></tr>';
+                    return;
+                }
+                
+                // Build table rows
+                tbody.innerHTML = data.map(q => {
+                    const date = new Date(q.created_at);
+                    const timeStr = date.toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                    return `
+                        <tr>
+                            <td>${timeStr}</td>
+                            <td>${escapeHtml(q.speaker_name)}</td>
+                            <td>${escapeHtml(q.submitter_name)}</td>
+                            <td>${escapeHtml(q.submitter_email)}</td>
+                            <td>${escapeHtml(q.question)}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+            } catch (err) {
+                console.error('Error loading questions:', err);
+                tbody.innerHTML = '<tr><td colspan="5" class="admin-empty">Error loading questions. Please try again.</td></tr>';
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
         }
     </script>
     

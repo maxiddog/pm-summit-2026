@@ -6,6 +6,7 @@
     <title>Datadog PM Summit 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         /* Auth Screen Styles */
         .auth-overlay {
@@ -1779,13 +1780,10 @@
                         </div>
                     </div>
                     <div class="speaker-form">
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your name">
-                        </div>
+                        <p class="form-user-info" style="margin: 0 0 12px; color: #666; font-size: 14px;">Submitting as: <strong id="form-user-name-1"></strong></p>
                         <div class="form-group">
                             <label class="form-label">Your Question</label>
-                            <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Alexis?"></textarea>
                         </div>
                         <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Alexis Lê-Quôc')">Submit Question</button>
                     </div>
@@ -1803,13 +1801,10 @@
                         </div>
                     </div>
                     <div class="speaker-form">
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your name">
-                        </div>
+                        <p class="form-user-info" style="margin: 0 0 12px; color: #666; font-size: 14px;">Submitting as: <strong id="form-user-name-2"></strong></p>
                         <div class="form-group">
                             <label class="form-label">Your Question</label>
-                            <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Dev?"></textarea>
                         </div>
                         <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Dev Ittycheria')">Submit Question</button>
                     </div>
@@ -1827,13 +1822,10 @@
                         </div>
                     </div>
                     <div class="speaker-form">
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your name">
-                        </div>
+                        <p class="form-user-info" style="margin: 0 0 12px; color: #666; font-size: 14px;">Submitting as: <strong id="form-user-name-3"></strong></p>
                         <div class="form-group">
                             <label class="form-label">Your Question</label>
-                            <textarea class="form-textarea" placeholder="What would you like to ask?"></textarea>
+                            <textarea class="form-textarea" placeholder="What would you like to ask Alex?"></textarea>
                         </div>
                         <button class="btn btn-primary form-submit" onclick="submitQuestion(this, 'Alex Haugland')">Submit Question</button>
                     </div>
@@ -1954,6 +1946,23 @@
     </div>
 
     <script>
+        // =====================
+        // SUPABASE CONFIGURATION
+        // =====================
+        const SUPABASE_URL = 'https://ctkrmgrwnnwekewjpucv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0a3JtZ3J3bm53ZWtld2pwdWN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMzgzMjQsImV4cCI6MjA4MzgxNDMyNH0.iWw8lScWBoyQbdeIwxdCzpd4nwuO3oGuMtFHsq4RJFQ';
+        
+        // Google Sheets Apps Script URL (deploy your own - see README)
+        const GOOGLE_SHEETS_WEBHOOK = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+        
+        // Initialize Supabase client
+        let supabase = null;
+        function initSupabase() {
+            if (typeof window.supabase !== 'undefined') {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        }
+        
         // =====================
         // AUTHENTICATION SYSTEM
         // =====================
@@ -2124,6 +2133,11 @@
             document.getElementById('navUserAvatar').src = user.picture || '';
             document.getElementById('navUserName').textContent = user.name.split(' ')[0];
             
+            // Update question form user names
+            document.querySelectorAll('[id^="form-user-name-"]').forEach(el => {
+                el.textContent = user.name + ' (' + user.email + ')';
+            });
+            
             // Hide auth overlay
             document.getElementById('authOverlay').classList.add('hidden');
             
@@ -2171,6 +2185,9 @@
             document.querySelectorAll('.section').forEach(section => {
                 section.style.visibility = 'hidden';
             });
+            
+            // Initialize Supabase
+            initSupabase();
             
             // Check existing auth
             checkExistingAuth();
@@ -2350,18 +2367,70 @@
             if (!wasExpanded) item.classList.add('expanded');
         }
 
-        function submitQuestion(button, speakerName) {
+        async function submitQuestion(button, speakerName) {
             const form = button.closest('.speaker-form');
-            const nameInput = form.querySelector('.form-input');
             const questionInput = form.querySelector('.form-textarea');
-            if (!nameInput.value.trim() || !questionInput.value.trim()) {
-                alert('Please fill in both fields.');
+            
+            if (!questionInput.value.trim()) {
+                alert('Please enter your question.');
                 return;
             }
-            showToast(`Question for ${speakerName} submitted!`);
-            nameInput.value = '';
-            questionInput.value = '';
-            button.closest('.speaker-form-card').classList.remove('expanded');
+            
+            // Use logged-in user's info
+            const userName = currentUser?.name || 'Anonymous';
+            const userEmail = currentUser?.email || 'unknown@datadoghq.com';
+            const question = questionInput.value.trim();
+            const timestamp = new Date().toISOString();
+            
+            // Disable button while submitting
+            button.disabled = true;
+            button.textContent = 'Submitting...';
+            
+            try {
+                // Save to Supabase
+                if (supabase) {
+                    const { error } = await supabase
+                        .from('questions')
+                        .insert([{
+                            speaker_name: speakerName,
+                            submitter_name: userName,
+                            submitter_email: userEmail,
+                            question: question,
+                            created_at: timestamp
+                        }]);
+                    
+                    if (error) {
+                        console.error('Supabase error:', error);
+                    }
+                }
+                
+                // Also send to Google Sheets webhook
+                if (GOOGLE_SHEETS_WEBHOOK && GOOGLE_SHEETS_WEBHOOK !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                    fetch(GOOGLE_SHEETS_WEBHOOK, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            speaker: speakerName,
+                            name: userName,
+                            email: userEmail,
+                            question: question,
+                            timestamp: timestamp
+                        })
+                    }).catch(err => console.log('Sheets webhook error:', err));
+                }
+                
+                showToast(`Question for ${speakerName} submitted! ✓`);
+                questionInput.value = '';
+                button.closest('.speaker-form-card').classList.remove('expanded');
+                
+            } catch (err) {
+                console.error('Submit error:', err);
+                showToast('Error submitting question. Please try again.');
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Submit Question';
+            }
         }
 
         function showToast(message) {

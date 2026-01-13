@@ -289,7 +289,7 @@
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 24px;
-  }
+}
 }
 
 @media (max-width: 900px) {
@@ -308,7 +308,7 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 20px;
   }
-}
+  }
 
 @media (max-width: 640px) {
   .app {
@@ -324,7 +324,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  
+
   .sidebar-nav {
     flex-direction: row;
     gap: 16px;

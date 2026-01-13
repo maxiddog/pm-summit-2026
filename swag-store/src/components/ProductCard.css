@@ -116,10 +116,10 @@
 @media (max-width: 640px) {
   .product-name {
     font-size: 12px;
-  }
-  
+}
+
   .view-details {
     font-size: 12px;
-    padding: 10px 16px;
+  padding: 10px 16px;
   }
 }

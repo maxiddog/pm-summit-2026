@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { datadogRum } from '@datadog/browser-rum';
+import { Analytics } from '@vercel/analytics/react';
 import './App.css';
 import TutorialOverlay from './components/TutorialOverlay';
 import ProductCard from './components/ProductCard';
@@ -386,8 +387,8 @@ function App() {
             Datadog
             <span>PM Summit 2026</span>
           </h1>
-        </div>
-        
+      </div>
+
         <nav className="sidebar-nav">
           {CATEGORIES.map((category, index) => (
             <motion.button
@@ -472,10 +473,10 @@ function App() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <ProductCard
-                    product={product}
-                    onAddToCart={addToCart}
+                  product={product}
+                  onAddToCart={addToCart}
                     onClick={() => setSelectedProduct(product)}
-                  />
+                />
                 </motion.div>
               ))}
             </motion.div>
@@ -490,12 +491,12 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <Cart
-              cart={cart}
-              onRemove={removeFromCart}
-              onCheckout={goToCheckout}
-              onContinueShopping={continueShopping}
-            />
+          <Cart
+            cart={cart}
+            onRemove={removeFromCart}
+            onCheckout={goToCheckout}
+            onContinueShopping={continueShopping}
+          />
           </motion.div>
         )}
 
@@ -507,11 +508,11 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <CheckoutForm
-              cart={cart}
-              onComplete={handleCheckoutComplete}
-              onBack={() => setView('cart')}
-            />
+          <CheckoutForm
+            cart={cart}
+            onComplete={handleCheckoutComplete}
+            onBack={() => setView('cart')}
+          />
           </motion.div>
         )}
 
@@ -564,6 +565,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Analytics />
     </div>
   );
 }

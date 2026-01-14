@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYT Puzzles by Datadog - PM Summit 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Datadog RUM SDK -->
+    <script src="https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js" type="text/javascript"></script>
+    <script src="https://www.datadoghq-browser-agent.com/us1/v5/datadog-logs.js" type="text/javascript"></script>
+    
+    <!-- Framer Motion (via Motion One for vanilla JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #10a37f;
+            --primary-hover: #0d8a6c;
+            --bg: #ffffff;
+            --bg-secondary: #f7f7f8;
+            --bg-tertiary: #ececf1;
+            --text: #353740;
+            --text-secondary: #6e6e80;
+            --border: #e5e5e5;
+            --success: #10a37f;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --purple: #9333ea;
+            --blue: #3b82f6;
+            --yellow: #eab308;
+            --green: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 32px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hint-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 900px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .game-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .game-card.completed {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+
+        .game-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 28px;
+            height: 28px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .game-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .game-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .game-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .play-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Secret Input Section */
+        .secret-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .secret-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .secret-section p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .secret-inputs {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .secret-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .secret-input-group label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .secret-input-group input {
+            width: 180px;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .secret-input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .secret-input-group input.correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .secret-input-group input.incorrect {
+            border-color: var(--error);
+            background: #fef2f2;
+        }
+
+        .submit-secrets-btn {
+            background: linear-gradient(135deg, var(--purple), var(--primary));
+            color: white;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-secrets-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(147, 51, 234, 0.3);
+        }
+
+        .submit-secrets-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 4px;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        /* Win Overlay */
+        .win-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .win-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .win-content {
+            text-align: center;
+            color: white;
+        }
+
+        .win-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b, #9333ea, #3b82f6, #22c55e);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .win-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .win-confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        .win-close-btn {
+            background: white;
+            color: var(--text);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .win-close-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ==================== */
+        /* WORDLE STYLES */
+        /* ==================== */
+        .wordle-grid {
+            display: grid;
+            grid-template-rows: repeat(6, 1fr);
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .wordle-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .wordle-tile {
+            width: 56px;
+            height: 56px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .wordle-tile.filled {
+            border-color: var(--text-secondary);
+        }
+
+        .wordle-tile.correct {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .wordle-tile.present {
+            background: var(--warning);
+            border-color: var(--warning);
+            color: white;
+        }
+
+        .wordle-tile.absent {
+            background: #787c7e;
+            border-color: #787c7e;
+            color: white;
+        }
+
+        .wordle-keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .key {
+            min-width: 36px;
+            height: 50px;
+            border: none;
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .key:hover {
+            background: #d8d8dc;
+        }
+
+        .key.wide {
+            min-width: 60px;
+            font-size: 12px;
+        }
+
+        .key.correct { background: var(--success); color: white; }
+        .key.present { background: var(--warning); color: white; }
+        .key.absent { background: #787c7e; color: white; }
+
+        /* ==================== */
+        /* CONNECTIONS STYLES */
+        /* ==================== */
+        .connections-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .connections-word {
+            padding: 16px 8px;
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .connections-word:hover {
+            background: #e8e8ed;
+        }
+
+        .connections-word.selected {
+            background: var(--text);
+            color: white;
+        }
+
+        .connections-word.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .connections-solved {
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .connections-solved.yellow { background: var(--yellow); color: #1a1a1a; }
+        .connections-solved.green { background: var(--green); }
+        .connections-solved.blue { background: var(--blue); }
+        .connections-solved.purple { background: var(--purple); }
+
+        .connections-category {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .connections-words {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .connections-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .connections-btn {
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .connections-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .connections-btn.submit {
+            background: var(--text);
+            color: white;
+            border-color: var(--text);
+        }
+
+        .connections-btn.submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .connections-mistakes {
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .mistake-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--text);
+            border-radius: 50%;
+            margin: 0 3px;
+        }
+
+        .mistake-dot.used {
+            background: var(--border);
+        }
+
+        /* ==================== */
+        /* SPELLING BEE STYLES */
+        /* ==================== */
+        .spelling-bee-input {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            min-height: 48px;
+            margin-bottom: 24px;
+        }
+
+        .spelling-bee-input .center-letter {
+            color: var(--warning);
+        }
+
+        .honeycomb {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+
+        .honeycomb-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        .hex-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-tertiary);
+            border: none;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.1s;
+            text-transform: uppercase;
+        }
+
+        .hex-btn:hover {
+            background: #d8d8dc;
+        }
+
+        .hex-btn.center {
+            background: var(--warning);
+            color: white;
+        }
+
+        .spelling-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .spelling-btn {
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .spelling-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .spelling-btn.enter {
+            background: var(--text);
+            color: white;
+            border-color: var(--text);
+        }
+
+        .spelling-progress {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .spelling-score {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .spelling-rank {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .spelling-words-found {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .found-word {
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .spelling-message {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .spelling-message.show {
+            opacity: 1;
+        }
+
+        .spelling-message.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .spelling-message.error {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://imgix.datadoghq.com/img/dd_logo_n_70x75.png" alt="Datadog" class="logo-icon">
+            <span>Puzzles by Datadog</span>
+        </div>
+        <a href="https://www.pm-summit.xyz" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Summit
+        </a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="hero">
+            <h1>🧩 NYT Puzzles by Datadog</h1>
+            <p>Play three classic puzzles. Hidden within each game's telemetry is a secret clue. Can you find them all?</p>
+            <div class="hint-badge">
+                <span>💡</span>
+                <span>Use Datadog MCP with your AI agent to uncover the hidden clues!</span>
+            </div>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="games-grid">
+            <div class="game-card" id="wordleCard" onclick="openWordle()">
+                <div class="game-icon">🟩</div>
+                <h3 class="game-title">Wordle</h3>
+                <p class="game-description">Guess the 5-letter word in 6 tries. Green = correct, Yellow = wrong spot.</p>
+                <button class="play-btn">Play Wordle</button>
+            </div>
+
+            <div class="game-card" id="connectionsCard" onclick="openConnections()">
+                <div class="game-icon">🔗</div>
+                <h3 class="game-title">Connections</h3>
+                <p class="game-description">Find 4 groups of 4 words that share something in common.</p>
+                <button class="play-btn">Play Connections</button>
+            </div>
+
+            <div class="game-card" id="spellingBeeCard" onclick="openSpellingBee()">
+                <div class="game-icon">🐝</div>
+                <h3 class="game-title">Spelling Bee</h3>
+                <p class="game-description">Make words using the letters. Each word must include the center letter.</p>
+                <button class="play-btn">Play Spelling Bee</button>
+            </div>
+        </div>
+
+        <!-- Secret Input Section -->
+        <div class="secret-section">
+            <h2>🔐 Enter the Secret Clues</h2>
+            <p>Use Datadog MCP to find the hidden clues in the game telemetry, then enter them below.</p>
+            
+            <div class="secret-inputs">
+                <div class="secret-input-group">
+                    <label>Clue from Wordle</label>
+                    <input type="text" id="clue1" placeholder="??????" maxlength="20">
+                </div>
+                <div class="secret-input-group">
+                    <label>Clue from Connections</label>
+                    <input type="text" id="clue2" placeholder="?????" maxlength="20">
+                </div>
+                <div class="secret-input-group">
+                    <label>Clue from Spelling Bee</label>
+                    <input type="text" id="clue3" placeholder="????????" maxlength="20">
+                </div>
+            </div>
+
+            <button class="submit-secrets-btn" onclick="validateSecrets()">
+                🎯 Submit Clues
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>PM Summit 2026 • <a href="https://www.pm-summit.xyz">www.pm-summit.xyz</a></p>
+    </footer>
+
+    <!-- Wordle Modal -->
+    <div class="modal-overlay" id="wordleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🟩 Wordle</h2>
+                <button class="modal-close" onclick="closeModal('wordleModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="wordle-grid" id="wordleGrid"></div>
+                <div class="wordle-keyboard" id="wordleKeyboard"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connections Modal -->
+    <div class="modal-overlay" id="connectionsModal">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2>🔗 Connections</h2>
+                <button class="modal-close" onclick="closeModal('connectionsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="connectionsSolved"></div>
+                <div class="connections-mistakes" id="connectionsMistakes"></div>
+                <div class="connections-grid" id="connectionsGrid"></div>
+                <div class="connections-controls">
+                    <button class="connections-btn" onclick="shuffleConnections()">Shuffle</button>
+                    <button class="connections-btn" onclick="deselectAllConnections()">Deselect All</button>
+                    <button class="connections-btn submit" id="connectionsSubmit" onclick="submitConnections()" disabled>Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spelling Bee Modal -->
+    <div class="modal-overlay" id="spellingBeeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🐝 Spelling Bee</h2>
+                <button class="modal-close" onclick="closeModal('spellingBeeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="spelling-progress">
+                    <div class="spelling-score" id="spellingScore">Score: 0</div>
+                    <div class="spelling-rank" id="spellingRank">Beginner</div>
+                </div>
+                <div class="spelling-message" id="spellingMessage"></div>
+                <div class="spelling-bee-input" id="spellingInput"></div>
+                <div class="honeycomb" id="honeycomb"></div>
+                <div class="spelling-controls">
+                    <button class="spelling-btn" onclick="deleteSpellingLetter()">Delete</button>
+                    <button class="spelling-btn" onclick="shuffleHoneycomb()">⟳</button>
+                    <button class="spelling-btn enter" onclick="submitSpellingWord()">Enter</button>
+                </div>
+                <div class="spelling-words-found" id="spellingWordsFound"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Win Overlay -->
+    <div class="win-overlay" id="winOverlay">
+        <div class="win-confetti" id="confettiContainer"></div>
+        <div class="win-content">
+            <div class="win-title">🎉 YOU WIN! 🎉</div>
+            <div class="win-subtitle">You found all the secret clues hidden in the telemetry!</div>
+            <button class="win-close-btn" onclick="closeWinOverlay()">Amazing! 🚀</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DATADOG TELEMETRY CONFIGURATION
+        // ============================================
+        
+        window.DD_RUM && window.DD_RUM.init({
+            clientToken: 'pub0123456789abcdef0123456789abcdef', // Replace with actual token
+            applicationId: '00000000-0000-0000-0000-000000000000', // Replace with actual ID
+            site: 'datadoghq.com',
+            service: 'nyt-puzzles-by-datadog',
+            env: 'pm-summit-demo',
+            version: '1.0.0',
+            sessionSampleRate: 100,
+            sessionReplaySampleRate: 100,
+            trackUserInteractions: true,
+            trackResources: true,
+            trackLongTasks: true,
+            defaultPrivacyLevel: 'allow'
+        });
+
+        window.DD_LOGS && window.DD_LOGS.init({
+            clientToken: 'pub0123456789abcdef0123456789abcdef', // Replace with actual token
+            site: 'datadoghq.com',
+            service: 'nyt-puzzles-by-datadog',
+            env: 'pm-summit-demo',
+            forwardErrorsToLogs: true,
+            sessionSampleRate: 100
+        });
+
+        // Helper functions for telemetry
+        function logToDatadog(message, level = 'info', context = {}) {
+            console[level](message, context);
+            if (window.DD_LOGS) {
+                window.DD_LOGS.logger[level](message, context);
+            }
+        }
+
+        function sendMetricToDatadog(name, value, tags = {}) {
+            console.log(`[METRIC] ${name}: ${value}`, tags);
+            // In production, this would use DD_RUM.addAction or custom metrics
+            if (window.DD_RUM) {
+                window.DD_RUM.addAction(name, { value, ...tags });
+            }
+        }
+
+        function sendTraceToDatadog(name, context = {}) {
+            console.log(`[TRACE] ${name}`, context);
+            if (window.DD_RUM) {
+                window.DD_RUM.addAction(name, context);
+            }
+        }
+
+        // ============================================
+        // GAME STATE
+        // ============================================
+        
+        const completedGames = { wordle: false, connections: false, spellingBee: false };
+        const SECRET_CLUES = { wordle: 'BLUESKY', connections: 'ASTRO', spellingBee: 'RIGATONI' };
+
+        // ============================================
+        // WORDLE GAME
+        // ============================================
+        
+        const WORDLE_ANSWER = 'BRAIN';
+        let wordleGuesses = [];
+        let currentWordleGuess = '';
+        let wordleGameOver = false;
+
+        function initWordle() {
+            const grid = document.getElementById('wordleGrid');
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('div');
+                row.className = 'wordle-row';
+                for (let j = 0; j < 5; j++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'wordle-tile';
+                    tile.id = `wordle-${i}-${j}`;
+                    row.appendChild(tile);
+                }
+                grid.appendChild(row);
+            }
+
+            const keyboard = document.getElementById('wordleKeyboard');
+            keyboard.innerHTML = '';
+            const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+            
+            rows.forEach((row, i) => {
+                const keyboardRow = document.createElement('div');
+                keyboardRow.className = 'keyboard-row';
+                
+                if (i === 2) {
+                    const enterKey = document.createElement('button');
+                    enterKey.className = 'key wide';
+                    enterKey.textContent = 'Enter';
+                    enterKey.onclick = () => submitWordleGuess();
+                    keyboardRow.appendChild(enterKey);
+                }
+                
+                row.split('').forEach(letter => {
+                    const key = document.createElement('button');
+                    key.className = 'key';
+                    key.id = `key-${letter}`;
+                    key.textContent = letter;
+                    key.onclick = () => addWordleLetter(letter);
+                    keyboardRow.appendChild(key);
+                });
+                
+                if (i === 2) {
+                    const backKey = document.createElement('button');
+                    backKey.className = 'key wide';
+                    backKey.textContent = '⌫';
+                    backKey.onclick = () => removeWordleLetter();
+                    keyboardRow.appendChild(backKey);
+                }
+                
+                keyboard.appendChild(keyboardRow);
+            });
+        }
+
+        function addWordleLetter(letter) {
+            if (currentWordleGuess.length < 5 && !wordleGameOver) {
+                currentWordleGuess += letter;
+                updateWordleDisplay();
+            }
+        }
+
+        function removeWordleLetter() {
+            if (currentWordleGuess.length > 0 && !wordleGameOver) {
+                currentWordleGuess = currentWordleGuess.slice(0, -1);
+                updateWordleDisplay();
+            }
+        }
+
+        function updateWordleDisplay() {
+            const row = wordleGuesses.length;
+            for (let i = 0; i < 5; i++) {
+                const tile = document.getElementById(`wordle-${row}-${i}`);
+                tile.textContent = currentWordleGuess[i] || '';
+                tile.className = 'wordle-tile' + (currentWordleGuess[i] ? ' filled' : '');
+            }
+        }
+
+        function submitWordleGuess() {
+            if (currentWordleGuess.length !== 5 || wordleGameOver) return;
+            
+            const guess = currentWordleGuess;
+            const row = wordleGuesses.length;
+            
+            for (let i = 0; i < 5; i++) {
+                const tile = document.getElementById(`wordle-${row}-${i}`);
+                const letter = guess[i];
+                const key = document.getElementById(`key-${letter}`);
+                
+                setTimeout(() => {
+                    if (WORDLE_ANSWER[i] === letter) {
+                        tile.className = 'wordle-tile correct';
+                        key.className = 'key correct';
+                    } else if (WORDLE_ANSWER.includes(letter)) {
+                        tile.className = 'wordle-tile present';
+                        if (!key.classList.contains('correct')) key.className = 'key present';
+                    } else {
+                        tile.className = 'wordle-tile absent';
+                        key.className = 'key absent';
+                    }
+                }, i * 100);
+            }
+
+            wordleGuesses.push(guess);
+            currentWordleGuess = '';
+            
+            if (guess === WORDLE_ANSWER) {
+                wordleGameOver = true;
+                completedGames.wordle = true;
+                document.getElementById('wordleCard').classList.add('completed');
+                
+                // SECRET CLUE: Hidden in a metric!
+                setTimeout(() => {
+                    logToDatadog('Wordle completed successfully', 'info', { guesses: wordleGuesses.length });
+                    
+                    // THE HIDDEN CLUE - sent as a metric
+                    sendMetricToDatadog('wordle.game.completed', 1, {
+                        secret_easter_egg: 'BLUESKY',
+                        hidden_clue_type: 'metric',
+                        message: 'Congratulations! The secret word hidden in this metric is: BLUESKY'
+                    });
+                    
+                    alert('🎉 Congratulations! You solved Wordle!');
+                    closeModal('wordleModal');
+                }, 600);
+            } else if (wordleGuesses.length >= 6) {
+                wordleGameOver = true;
+                setTimeout(() => {
+                    alert(`Game Over! The word was ${WORDLE_ANSWER}`);
+                    // Still send the clue even on loss
+                    sendMetricToDatadog('wordle.game.failed', 1, {
+                        secret_easter_egg: 'BLUESKY',
+                        hidden_clue_type: 'metric',
+                        message: 'Better luck next time! The secret word hidden in this metric is: BLUESKY'
+                    });
+                }, 600);
+            }
+        }
+
+        function openWordle() {
+            wordleGuesses = [];
+            currentWordleGuess = '';
+            wordleGameOver = false;
+            initWordle();
+            document.getElementById('wordleModal').classList.add('active');
+            logToDatadog('Wordle game started', 'info');
+        }
+
+        // ============================================
+        // CONNECTIONS GAME
+        // ============================================
+        
+        const CONNECTIONS_GROUPS = [
+            { category: 'Social Media Platforms', words: ['TWITTER', 'INSTAGRAM', 'TIKTOK', 'LINKEDIN'], color: 'yellow' },
+            { category: 'Programming Languages', words: ['PYTHON', 'JAVASCRIPT', 'RUST', 'GOLANG'], color: 'green' },
+            { category: 'Datadog Products', words: ['APM', 'RUM', 'LOGS', 'METRICS'], color: 'blue' },
+            { category: 'New York Neighborhoods', words: ['SOHO', 'TRIBECA', 'DUMBO', 'NOHO'], color: 'purple' }
+        ];
+
+        let connectionsWords = [];
+        let selectedConnections = [];
+        let solvedConnections = [];
+        let connectionsMistakes = 4;
+
+        function initConnections() {
+            connectionsWords = CONNECTIONS_GROUPS.flatMap(g => g.words);
+            shuffleArray(connectionsWords);
+            selectedConnections = [];
+            solvedConnections = [];
+            connectionsMistakes = 4;
+            renderConnections();
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        function renderConnections() {
+            const grid = document.getElementById('connectionsGrid');
+            const solved = document.getElementById('connectionsSolved');
+            const mistakes = document.getElementById('connectionsMistakes');
+            
+            solved.innerHTML = solvedConnections.map(g => `
+                <div class="connections-solved ${g.color}">
+                    <div class="connections-category">${g.category}</div>
+                    <div class="connections-words">${g.words.join(', ')}</div>
+                </div>
+            `).join('');
+            
+            mistakes.innerHTML = `Mistakes remaining: ${Array(4).fill(0).map((_, i) => 
+                `<span class="mistake-dot${i >= connectionsMistakes ? ' used' : ''}"></span>`
+            ).join('')}`;
+            
+            const remainingWords = connectionsWords.filter(w => 
+                !solvedConnections.some(g => g.words.includes(w))
+            );
+            
+            grid.innerHTML = remainingWords.map(word => `
+                <div class="connections-word${selectedConnections.includes(word) ? ' selected' : ''}" 
+                     onclick="toggleConnection('${word}')">${word}</div>
+            `).join('');
+            
+            document.getElementById('connectionsSubmit').disabled = selectedConnections.length !== 4;
+        }
+
+        function toggleConnection(word) {
+            if (selectedConnections.includes(word)) {
+                selectedConnections = selectedConnections.filter(w => w !== word);
+            } else if (selectedConnections.length < 4) {
+                selectedConnections.push(word);
+            }
+            renderConnections();
+        }
+
+        function deselectAllConnections() {
+            selectedConnections = [];
+            renderConnections();
+        }
+
+        function shuffleConnections() {
+            shuffleArray(connectionsWords);
+            renderConnections();
+        }
+
+        function submitConnections() {
+            if (selectedConnections.length !== 4) return;
+            
+            const matchingGroup = CONNECTIONS_GROUPS.find(g => 
+                g.words.every(w => selectedConnections.includes(w))
+            );
+            
+            if (matchingGroup) {
+                solvedConnections.push(matchingGroup);
+                selectedConnections = [];
+                
+                if (solvedConnections.length === 4) {
+                    completedGames.connections = true;
+                    document.getElementById('connectionsCard').classList.add('completed');
+                    
+                    // SECRET CLUE: Hidden in a log!
+                    logToDatadog('Connections game completed', 'info', { 
+                        mistakes_remaining: connectionsMistakes,
+                        secret_easter_egg: 'ASTRO',
+                        hidden_clue_type: 'log',
+                        message: 'Amazing! You found all connections! The secret word hidden in this log is: ASTRO'
+                    });
+                    
+                    setTimeout(() => {
+                        alert('🎉 Congratulations! You solved Connections!');
+                        closeModal('connectionsModal');
+                    }, 300);
+                }
+                renderConnections();
+            } else {
+                connectionsMistakes--;
+                if (connectionsMistakes === 0) {
+                    // Still reveal clue on loss
+                    logToDatadog('Connections game failed', 'info', {
+                        secret_easter_egg: 'ASTRO',
+                        hidden_clue_type: 'log',
+                        message: 'Game over! The secret word hidden in this log is: ASTRO'
+                    });
+                    alert('Game Over! Out of mistakes.');
+                }
+                selectedConnections = [];
+                renderConnections();
+            }
+        }
+
+        function openConnections() {
+            initConnections();
+            document.getElementById('connectionsModal').classList.add('active');
+            logToDatadog('Connections game started', 'info');
+        }
+
+        // ============================================
+        // SPELLING BEE GAME
+        // ============================================
+        
+        const SPELLING_CENTER = 'A';
+        const SPELLING_LETTERS = ['R', 'T', 'S', 'N', 'I', 'O'];
+        const VALID_WORDS = [
+            'RAIN', 'TRAIN', 'STRAIN', 'STAIN', 'SATIN', 'RATIO', 
+            'RATION', 'RAISON', 'TAROS', 'ROAST', 'TOAST', 'TOASTS',
+            'OARS', 'SOAR', 'STAR', 'STARS', 'TSAR', 'ARTS', 'RATS',
+            'TARS', 'OAST', 'OATS', 'NOTA', 'NAOS', 'ANTS', 'TANS',
+            'AIRS', 'AITS', 'ANTI', 'ARIA', 'NOTA', 'IOTA', 'RIANT'
+        ];
+
+        let spellingInput = '';
+        let spellingScore = 0;
+        let spellingWordsFound = [];
+        let shuffledLetters = [...SPELLING_LETTERS];
+
+        function initSpellingBee() {
+            spellingInput = '';
+            spellingScore = 0;
+            spellingWordsFound = [];
+            shuffledLetters = [...SPELLING_LETTERS];
+            renderSpellingBee();
+        }
+
+        function renderSpellingBee() {
+            const input = document.getElementById('spellingInput');
+            input.innerHTML = spellingInput.split('').map(l => 
+                `<span class="${l === SPELLING_CENTER ? 'center-letter' : ''}">${l}</span>`
+            ).join('');
+            
+            const honeycomb = document.getElementById('honeycomb');
+            honeycomb.innerHTML = `
+                <div class="honeycomb-row">
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[0]}')">${shuffledLetters[0]}</div>
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[1]}')">${shuffledLetters[1]}</div>
+                </div>
+                <div class="honeycomb-row">
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[2]}')">${shuffledLetters[2]}</div>
+                    <div class="hex-btn center" onclick="addSpellingLetter('${SPELLING_CENTER}')">${SPELLING_CENTER}</div>
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[3]}')">${shuffledLetters[3]}</div>
+                </div>
+                <div class="honeycomb-row">
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[4]}')">${shuffledLetters[4]}</div>
+                    <div class="hex-btn" onclick="addSpellingLetter('${shuffledLetters[5]}')">${shuffledLetters[5]}</div>
+                </div>
+            `;
+            
+            document.getElementById('spellingScore').textContent = `Score: ${spellingScore}`;
+            document.getElementById('spellingRank').textContent = getSpellingRank();
+            
+            document.getElementById('spellingWordsFound').innerHTML = 
+                spellingWordsFound.map(w => `<span class="found-word">${w}</span>`).join('');
+        }
+
+        function getSpellingRank() {
+            if (spellingScore >= 50) return '🏆 Genius';
+            if (spellingScore >= 35) return '⭐ Amazing';
+            if (spellingScore >= 20) return '👍 Great';
+            if (spellingScore >= 10) return '📈 Good';
+            return '🌱 Beginner';
+        }
+
+        function addSpellingLetter(letter) {
+            spellingInput += letter;
+            renderSpellingBee();
+        }
+
+        function deleteSpellingLetter() {
+            spellingInput = spellingInput.slice(0, -1);
+            renderSpellingBee();
+        }
+
+        function shuffleHoneycomb() {
+            shuffleArray(shuffledLetters);
+            renderSpellingBee();
+        }
+
+        function showSpellingMessage(text, type) {
+            const msg = document.getElementById('spellingMessage');
+            msg.textContent = text;
+            msg.className = `spelling-message show ${type}`;
+            setTimeout(() => msg.classList.remove('show'), 2000);
+        }
+
+        function submitSpellingWord() {
+            const word = spellingInput.toUpperCase();
+            
+            if (word.length < 4) {
+                showSpellingMessage('Too short', 'error');
+            } else if (!word.includes(SPELLING_CENTER)) {
+                showSpellingMessage('Missing center letter', 'error');
+            } else if (spellingWordsFound.includes(word)) {
+                showSpellingMessage('Already found', 'error');
+            } else if (VALID_WORDS.includes(word)) {
+                spellingWordsFound.push(word);
+                spellingScore += word.length;
+                showSpellingMessage(`+${word.length} points!`, 'success');
+                
+                // Check if reached "Genius" level
+                if (spellingScore >= 50 && !completedGames.spellingBee) {
+                    completedGames.spellingBee = true;
+                    document.getElementById('spellingBeeCard').classList.add('completed');
+                    
+                    // SECRET CLUE: Hidden in a trace!
+                    sendTraceToDatadog('spelling_bee.genius_achieved', {
+                        score: spellingScore,
+                        words_found: spellingWordsFound.length,
+                        secret_easter_egg: 'RIGATONI',
+                        hidden_clue_type: 'trace',
+                        message: 'Genius level reached! The secret word hidden in this trace is: RIGATONI'
+                    });
+                    
+                    setTimeout(() => {
+                        alert('🏆 GENIUS! You mastered Spelling Bee!');
+                        closeModal('spellingBeeModal');
+                    }, 500);
+                }
+            } else {
+                showSpellingMessage('Not in word list', 'error');
+            }
+            
+            spellingInput = '';
+            renderSpellingBee();
+        }
+
+        function openSpellingBee() {
+            initSpellingBee();
+            document.getElementById('spellingBeeModal').classList.add('active');
+            logToDatadog('Spelling Bee game started', 'info');
+        }
+
+        // ============================================
+        // MODAL HANDLING
+        // ============================================
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Keyboard support for Wordle
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('wordleModal').classList.contains('active')) return;
+            
+            if (e.key === 'Enter') {
+                submitWordleGuess();
+            } else if (e.key === 'Backspace') {
+                removeWordleLetter();
+            } else if (/^[a-zA-Z]$/.test(e.key)) {
+                addWordleLetter(e.key.toUpperCase());
+            }
+        });
+
+        // ============================================
+        // SECRET VALIDATION
+        // ============================================
+        
+        function validateSecrets() {
+            const clue1 = document.getElementById('clue1').value.trim().toUpperCase();
+            const clue2 = document.getElementById('clue2').value.trim().toUpperCase();
+            const clue3 = document.getElementById('clue3').value.trim().toUpperCase();
+            
+            const input1 = document.getElementById('clue1');
+            const input2 = document.getElementById('clue2');
+            const input3 = document.getElementById('clue3');
+            
+            // Check each clue
+            input1.className = clue1 === SECRET_CLUES.wordle ? 'correct' : 'incorrect';
+            input2.className = clue2 === SECRET_CLUES.connections ? 'correct' : 'incorrect';
+            input3.className = clue3 === SECRET_CLUES.spellingBee ? 'correct' : 'incorrect';
+            
+            // All correct?
+            if (clue1 === SECRET_CLUES.wordle && 
+                clue2 === SECRET_CLUES.connections && 
+                clue3 === SECRET_CLUES.spellingBee) {
+                
+                logToDatadog('All secret clues discovered!', 'info', {
+                    clues: [clue1, clue2, clue3],
+                    success: true
+                });
+                
+                showWinAnimation();
+            } else {
+                logToDatadog('Secret clue validation failed', 'info', {
+                    attempted: [clue1, clue2, clue3],
+                    success: false
+                });
+            }
+        }
+
+        // ============================================
+        // WIN ANIMATION
+        // ============================================
+        
+        function showWinAnimation() {
+            const overlay = document.getElementById('winOverlay');
+            overlay.classList.add('active');
+            
+            // Create confetti
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            
+            const colors = ['#ffd700', '#ff6b6b', '#9333ea', '#3b82f6', '#22c55e', '#f59e0b'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                container.appendChild(confetti);
+                
+                // Animate with Motion One
+                if (window.Motion) {
+                    window.Motion.animate(confetti, {
+                        y: ['-10vh', '110vh'],
+                        x: [(Math.random() - 0.5) * 200, (Math.random() - 0.5) * 400],
+                        rotate: [0, Math.random() * 720 - 360],
+                        opacity: [1, 1, 0]
+                    }, {
+                        duration: Math.random() * 3 + 2,
+                        delay: Math.random() * 0.5,
+                        easing: 'linear'
+                    });
+                } else {
+                    // Fallback CSS animation
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                }
+            }
+            
+            // Animate win title
+            const title = document.querySelector('.win-title');
+            if (window.Motion) {
+                window.Motion.animate(title, {
+                    scale: [0.5, 1.1, 1],
+                    opacity: [0, 1]
+                }, { duration: 0.6, easing: 'ease-out' });
+            }
+        }
+
+        function closeWinOverlay() {
+            document.getElementById('winOverlay').classList.remove('active');
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        logToDatadog('NYT Puzzles by Datadog loaded', 'info', { version: '1.0.0' });
+    </script>
+
+    <style>
+        /* Fallback confetti animation */
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</body>
+</html>

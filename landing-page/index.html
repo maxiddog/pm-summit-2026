@@ -1204,64 +1204,163 @@
             color: var(--text-secondary);
         }
 
-        /* Swag Store */
-        .swag-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 24px 40px;
+        /* Games Section - NYT Style */
+        #section-swag {
+            background: #f7f7f5;
         }
 
-        .swag-promo {
+        .games-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+            text-align: center;
+        }
+
+        .games-header-image {
+            width: 260px;
+            height: auto;
+            margin-bottom: 24px;
+            animation: bounce-float 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce-float {
+            0%, 100% { 
+                transform: translateY(0) rotate(-1deg); 
+            }
+            25% { 
+                transform: translateY(-10px) rotate(1deg); 
+            }
+            50% { 
+                transform: translateY(-3px) rotate(1.5deg); 
+            }
+            75% { 
+                transform: translateY(-14px) rotate(-0.5deg); 
+            }
+        }
+
+        .games-title {
+            font-family: 'Georgia', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #121212;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .games-subtitle {
+            font-size: 16px;
+            color: #5a5a5a;
+            margin-bottom: 36px;
+            font-weight: 400;
+        }
+
+        .games-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .game-item {
             display: flex;
             align-items: center;
-            gap: 40px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(99, 44, 166, 0.08), rgba(155, 77, 202, 0.08));
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
+            gap: 16px;
+            padding: 18px 20px;
+            background: white;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .swag-promo-content {
-            flex: 1;
+        .game-item:hover {
+            border-color: #121212;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transform: translateX(4px);
         }
 
-        .swag-promo-content h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .swag-promo-content > p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .swag-features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 24px;
-        }
-
-        .swag-features li {
-            padding: 8px 0;
-            color: var(--text-primary);
-            font-size: 15px;
-        }
-
-        .swag-promo-visual {
+        .game-item-icon {
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
         }
 
-        .swag-icon {
-            font-size: 100px;
-            animation: float 3s ease-in-out infinite;
+        .game-item-content {
+            flex: 1;
+            text-align: left;
         }
+
+        .game-item-name {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #121212;
+            margin-bottom: 2px;
+        }
+
+        .game-item-desc {
+            font-size: 13px;
+            color: #5a5a5a;
+        }
+
+        .game-item-arrow {
+            color: #121212;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        .game-item:hover .game-item-arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .games-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: #121212;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .games-cta:hover {
+            background: #333;
+            transform: scale(1.03);
+        }
+
+        .games-hint {
+            margin-top: 28px;
+            padding: 16px 20px;
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #92400e;
+            text-align: left;
+        }
+
+        .games-hint strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #78350f;
+        }
+
+        /* Hide old swag styles */
+        .swag-container { display: none; }
+        .swag-promo { display: none; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -2106,31 +2205,49 @@
         </div>
     </section>
 
-    <!-- Swag Store Section -->
+    <!-- Games Section -->
     <section class="section" id="section-swag">
-        <div class="swag-container">
-            <div class="section-header">
-                <h1 class="section-title">🧩 NYT Puzzles by Datadog</h1>
-                <p class="section-subtitle">Play puzzles. Discover hidden clues. Master Datadog MCP!</p>
+        <div class="games-container">
+            <img src="images/games-header.png" alt="NYT Games by Datadog" class="games-header-image">
+            
+            <h1 class="games-title">Games by Datadog</h1>
+            <p class="games-subtitle">Play puzzles. Discover hidden clues. Master MCP.</p>
+
+            <div class="games-list">
+                <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
+                    <div class="game-item-icon">🟩</div>
+                    <div class="game-item-content">
+                        <div class="game-item-name">Wordle</div>
+                        <div class="game-item-desc">Guess the 5-letter word in 6 tries</div>
+                    </div>
+                    <svg class="game-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </a>
+                <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
+                    <div class="game-item-icon">🔗</div>
+                    <div class="game-item-content">
+                        <div class="game-item-name">Connections</div>
+                        <div class="game-item-desc">Find 4 groups of 4 related words</div>
+                    </div>
+                    <svg class="game-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </a>
+                <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
+                    <div class="game-item-icon">🐝</div>
+                    <div class="game-item-content">
+                        <div class="game-item-name">Spelling Bee</div>
+                        <div class="game-item-desc">Make words using the letters provided</div>
+                    </div>
+                    <svg class="game-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </a>
             </div>
-            <div class="swag-promo">
-                <div class="swag-promo-content">
-                    <h2>🔍 The MCP Treasure Hunt</h2>
-                    <p>Play three NYT-style puzzle games: Wordle, Connections, and Spelling Bee. Each game secretly sends telemetry to Datadog with a hidden clue. Use Cursor + Datadog MCP to discover them!</p>
-                    <ul class="swag-features">
-                        <li>🟩 <strong>Wordle</strong> - Guess the 5-letter word (hidden metric)</li>
-                        <li>🔗 <strong>Connections</strong> - Find 4 groups of 4 (hidden log)</li>
-                        <li>🐝 <strong>Spelling Bee</strong> - Make words from letters (hidden trace)</li>
-                        <li>🏆 Find all 3 clues to win!</li>
-                    </ul>
-                    <a href="https://game.pm-summit.xyz/" target="_blank" class="btn btn-primary btn-large">
-                        Play the Puzzles
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    </a>
-                </div>
-                <div class="swag-promo-visual">
-                    <div class="swag-icon">🧩</div>
-                </div>
+
+            <a href="https://game.pm-summit.xyz/" target="_blank" class="games-cta">
+                Play All Games
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+
+            <div class="games-hint">
+                <strong>💡 MCP Treasure Hunt</strong>
+                Each game sends hidden telemetry to Datadog. Use Cursor + Datadog MCP to find the secret clues!
             </div>
         </div>
     </section>

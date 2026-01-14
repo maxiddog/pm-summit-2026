@@ -951,6 +951,120 @@
             height: 18px;
         }
 
+        /* Password Modal */
+        .password-modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 360px;
+            width: 100%;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show .password-modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .password-modal-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .password-modal-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .password-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .password-modal-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            background: white;
+        }
+
+        .password-input.error {
+            border-color: #e74c3c;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+
+        .password-error-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .password-error-msg.show {
+            display: block;
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-light));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .password-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 44, 166, 0.3);
+        }
+
         /* Footer */
         .footer {
             padding: 24px;
@@ -2055,7 +2169,7 @@
                                 <div class="agenda-type">Closing</div>
                                 <div class="agenda-title">Closing Remarks and Wrap Up!</div>
                             </div>
-                            <div class="agenda-duration">15 mins</div>
+                            <div class="agenda-duration">10 mins</div>
                             <div class="agenda-speakers">Yanbing Li, Chris McLaughlin</div>
                         </div>
                         <div class="agenda-item break">
@@ -2444,6 +2558,25 @@
         </div>
     </div>
 
+    <!-- Password Modal for Games -->
+    <div class="modal-overlay" id="password-modal">
+        <div class="password-modal-content">
+            <button class="modal-close" onclick="closePasswordModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="password-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="password-modal-title">Games Access</div>
+            <div class="password-modal-subtitle">This section is under construction.<br>Enter the password to continue.</div>
+            <div class="password-input-wrapper">
+                <input type="password" class="password-input" id="games-password" placeholder="Enter password" onkeypress="if(event.key === 'Enter') checkGamesPassword()">
+            </div>
+            <div class="password-error-msg" id="password-error">Incorrect password. Please try again.</div>
+            <button class="password-submit" onclick="checkGamesPassword()">Unlock Games</button>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div class="toast" id="toast">
         <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -2798,7 +2931,17 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
 
+        // Games password protection
+        let gamesUnlocked = sessionStorage.getItem('gamesUnlocked') === 'true';
+        const GAMES_PASSWORD = 'bits';
+
         function showSection(sectionId) {
+            // Check if trying to access games section without password
+            if (sectionId === 'swag' && !gamesUnlocked) {
+                showPasswordModal();
+                return;
+            }
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.dataset.section === sectionId) link.classList.add('active');
@@ -2816,6 +2959,42 @@
                 loadAllSpeakerQuestions();
             }
         }
+
+        function showPasswordModal() {
+            document.getElementById('password-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('games-password').value = '';
+            document.getElementById('games-password').classList.remove('error');
+            document.getElementById('password-error').classList.remove('show');
+            setTimeout(() => document.getElementById('games-password').focus(), 100);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function checkGamesPassword() {
+            const input = document.getElementById('games-password');
+            const errorMsg = document.getElementById('password-error');
+            
+            if (input.value.toLowerCase() === GAMES_PASSWORD) {
+                gamesUnlocked = true;
+                sessionStorage.setItem('gamesUnlocked', 'true');
+                closePasswordModal();
+                showSection('swag');
+            } else {
+                input.classList.add('error');
+                errorMsg.classList.add('show');
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 400);
+            }
+        }
+
+        document.getElementById('password-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closePasswordModal();
+        });
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {

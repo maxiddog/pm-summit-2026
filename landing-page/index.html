@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datadog PM Summit 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -1374,6 +1374,115 @@
             display: block;
         }
 
+        /* Resources */
+        .resources-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .resource-card {
+            background: white;
+            border: 2px solid #1a1a2e;
+            border-radius: 20px;
+            padding: 40px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .resource-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
+        .resource-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #1a1a2e;
+        }
+
+        .resource-card-title {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slack-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border: 2px solid #1a1a2e;
+            border-radius: 16px;
+            padding: 16px 32px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .slack-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-color: #611f69;
+        }
+
+        .slack-link img {
+            width: 28px;
+            height: 28px;
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -1476,6 +1585,7 @@
             <a href="#" class="nav-link" data-section="questions">Questions</a>
             <a href="#" class="nav-link" data-section="swag">Game</a>
             <a href="#" class="nav-link" data-section="faq">FAQ</a>
+            <a href="#" class="nav-link" data-section="resources">Resources</a>
         </div>
         <div class="user-menu" id="userMenu">
             <img id="navUserAvatar" class="user-menu-avatar" src="" alt="">
@@ -2040,6 +2150,47 @@
             </div>
         </div>
     </section>
+
+    <!-- Resources Section -->
+    <section class="section" id="section-resources">
+        <div class="resources-container">
+            <div class="section-header">
+                <h1 class="section-title">Resources</h1>
+            </div>
+            <div class="resources-grid">
+                <a href="https://docs.google.com/presentation/d/10xfa9Ao7G8AxApSiJUmdE_LNqikzK5wjBM5TwKXD3E0/edit?slide=id.g385cfa4d939_0_0#slide=id.g385cfa4d939_0_0" target="_blank" class="resource-card">
+                    <span class="resource-card-title">Summit Slides</span>
+                </a>
+                <div class="resource-card disabled">
+                    <span class="resource-card-title">Recordings and Zoom Link</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="resource-card disabled">
+                    <span class="resource-card-title">PM Standard of Excellence</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="resource-card disabled">
+                    <span class="resource-card-title">New Career Ladder</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="resource-card disabled">
+                    <span class="resource-card-title">Get Started with Cursor</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+                <div class="resource-card disabled">
+                    <span class="resource-card-title">Get Started with MCP</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="slack://channel?team=T04TCPJPC&id=C09QK44HEE7" class="slack-link">
+                    <img src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" alt="Slack">
+                    <span>#pm-summit-2026</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <p>Vibecoded with ❤️ in NYC (with flaky office WiFi)</p>

@@ -1217,9 +1217,10 @@
         }
 
         .games-header-image {
-            width: 260px;
+            width: 520px;
+            max-width: 90%;
             height: auto;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             animation: bounce-float 2s ease-in-out infinite;
         }
 
@@ -1240,11 +1241,21 @@
 
         .games-title {
             font-family: 'Georgia', serif;
-            font-size: 38px;
+            font-size: 48px;
             font-weight: 700;
             color: #121212;
+            margin-bottom: 4px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .games-title-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #632CA6;
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            letter-spacing: 0.5px;
         }
 
         .games-subtitle {
@@ -1282,13 +1293,28 @@
         }
 
         .game-item-icon {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
             flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .game-item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .game-item:hover .game-item-icon {
+            transform: scale(1.1) rotate(-3deg);
+        }
+
+        .game-item:hover .game-item-icon img {
+            transform: scale(1.05);
         }
 
         .game-item-content {
@@ -2210,12 +2236,15 @@
         <div class="games-container">
             <img src="images/games-header.png" alt="NYT Games by Datadog" class="games-header-image">
             
-            <h1 class="games-title">Games by Datadog</h1>
+            <h1 class="games-title">Games</h1>
+            <p class="games-title-sub">by Datadog</p>
             <p class="games-subtitle">Play puzzles. Discover hidden clues. Master MCP.</p>
 
             <div class="games-list">
                 <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
-                    <div class="game-item-icon">🟩</div>
+                    <div class="game-item-icon">
+                        <img src="images/wordle.png" alt="Wordle">
+                    </div>
                     <div class="game-item-content">
                         <div class="game-item-name">Wordle</div>
                         <div class="game-item-desc">Guess the 5-letter word in 6 tries</div>
@@ -2223,7 +2252,9 @@
                     <svg class="game-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
                 </a>
                 <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
-                    <div class="game-item-icon">🔗</div>
+                    <div class="game-item-icon">
+                        <img src="images/connections.png" alt="Connections">
+                    </div>
                     <div class="game-item-content">
                         <div class="game-item-name">Connections</div>
                         <div class="game-item-desc">Find 4 groups of 4 related words</div>
@@ -2231,7 +2262,9 @@
                     <svg class="game-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
                 </a>
                 <a href="https://game.pm-summit.xyz/" target="_blank" class="game-item">
-                    <div class="game-item-icon">🐝</div>
+                    <div class="game-item-icon">
+                        <img src="images/bee.png" alt="Spelling Bee">
+                    </div>
                     <div class="game-item-content">
                         <div class="game-item-name">Spelling Bee</div>
                         <div class="game-item-desc">Make words using the letters provided</div>

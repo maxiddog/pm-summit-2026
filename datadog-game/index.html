@@ -441,6 +441,15 @@
             font-family: 'Georgia', serif;
             font-size: 22px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-header-icon {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
         }
 
         .modal-close {
@@ -690,7 +699,7 @@
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            margin-bottom: 24px;
+            margin-bottom: 40px;
         }
 
         .honeycomb-row {
@@ -1026,7 +1035,7 @@
     <div class="modal-overlay" id="wordleModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>🟩 Wordle</h2>
+                <h2><img src="https://www.pm-summit.xyz/images/wordle.png" alt="Wordle" class="modal-header-icon"> Wordle</h2>
                 <button class="modal-close" onclick="closeModal('wordleModal')">&times;</button>
             </div>
             <div class="modal-body">
@@ -1040,7 +1049,7 @@
     <div class="modal-overlay" id="connectionsModal">
         <div class="modal" style="max-width: 550px;">
             <div class="modal-header">
-                <h2>🔗 Connections</h2>
+                <h2><img src="https://www.pm-summit.xyz/images/connections.png" alt="Connections" class="modal-header-icon"> Connections</h2>
                 <button class="modal-close" onclick="closeModal('connectionsModal')">&times;</button>
             </div>
             <div class="modal-body">
@@ -1060,7 +1069,7 @@
     <div class="modal-overlay" id="spellingBeeModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>🐝 Spelling Bee</h2>
+                <h2><img src="https://www.pm-summit.xyz/images/bee.png" alt="Spelling Bee" class="modal-header-icon"> Spelling Bee</h2>
                 <button class="modal-close" onclick="closeModal('spellingBeeModal')">&times;</button>
             </div>
             <div class="modal-body">

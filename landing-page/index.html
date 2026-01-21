@@ -1993,7 +1993,7 @@
                     <div class="speaker-card" onclick="openSpeakerModal('sesh')">
                         <img src="images/sesh-pic.png" alt="Sesh Nalla" class="speaker-photo">
                         <div class="speaker-name">Sesh Nalla</div>
-                        <div class="speaker-title">Director, AI Research</div>
+                        <div class="speaker-title">VP of Engineering</div>
                     </div>
                     <div class="speaker-card" onclick="openSpeakerModal('othmane')">
                         <img src="images/othmane-pic.png" alt="Othmane Abou-Amal" class="speaker-photo">
@@ -2633,6 +2633,33 @@
         // Auth state
         let currentUser = null;
         
+        // Generate a session ID for tracking
+        const authSessionId = 'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        
+        // Log auth events to Datadog via our API endpoint
+        async function logAuthEvent(event, data = {}) {
+            try {
+                const response = await fetch('/api/auth-log', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: event,
+                        email: data.email || 'unknown',
+                        name: data.name || 'unknown',
+                        domain: data.domain || 'unknown',
+                        success: data.success ?? true,
+                        errorMessage: data.errorMessage || null,
+                        timestamp: new Date().toISOString(),
+                        userAgent: navigator.userAgent,
+                        sessionId: authSessionId
+                    })
+                });
+                console.log(`[AUTH_LOG] ${event}:`, data);
+            } catch (error) {
+                console.error('[AUTH_LOG] Failed to log event:', error);
+            }
+        }
+        
         // Check if user is already authenticated on page load
         function checkExistingAuth() {
             const storedUser = localStorage.getItem('pm_summit_user');
@@ -2667,6 +2694,14 @@
         
         // Handle Google Sign-In button click
         function handleGoogleSignIn() {
+            // Log login attempt
+            logAuthEvent('login_attempt', {
+                email: 'pending',
+                name: 'pending',
+                domain: 'pending',
+                success: true
+            });
+            
             if (typeof google !== 'undefined' && google.accounts && google.accounts.oauth2) {
                 // Use OAuth2 popup directly - more reliable than One Tap
                 const tokenClient = google.accounts.oauth2.initTokenClient({
@@ -2752,6 +2787,14 @@
             if (ALLOWED_DOMAINS.includes(emailDomain)) {
                 authenticateUser(user, false);
             } else {
+                // Log failed login attempt
+                logAuthEvent('login_failed', {
+                    email: user.email,
+                    name: user.name,
+                    domain: emailDomain,
+                    success: false,
+                    errorMessage: `Domain not allowed: ${emailDomain}`
+                });
                 showAuthError(`Access denied. Only @datadoghq.com email addresses are authorized. You signed in with ${user.email}`);
                 showAuthLoading(false);
             }
@@ -2760,6 +2803,15 @@
         // Authenticate user and show main content
         function authenticateUser(user, fromStorage) {
             currentUser = user;
+            const emailDomain = user.email.split('@')[1];
+            
+            // Log the authentication event
+            logAuthEvent(fromStorage ? 'session_restored' : 'login_success', {
+                email: user.email,
+                name: user.name,
+                domain: emailDomain,
+                success: true
+            });
             
             // Store auth if not from storage
             if (!fromStorage) {
@@ -2804,6 +2856,16 @@
         
         // Handle logout
         function handleLogout() {
+            // Log logout event before clearing user
+            if (currentUser) {
+                logAuthEvent('logout', {
+                    email: currentUser.email,
+                    name: currentUser.name,
+                    domain: currentUser.email.split('@')[1],
+                    success: true
+                });
+            }
+            
             localStorage.removeItem('pm_summit_user');
             currentUser = null;
             
@@ -2900,7 +2962,7 @@
             },
             sesh: {
                 name: 'Sesh Nalla',
-                title: 'Director, AI Research',
+                title: 'VP of Engineering',
                 photo: 'images/sesh-pic.png',
                 bio: 'Seshendra Nalla leads Engineering for AI research at Datadog as well as Observabiity Data Platforms. With over 6 years experince at Datadog, Sesh has built foundationla engineering teams at Datadog and now helps leads our cutting edge AI engienering projects.',
                 linkedin: 'https://www.linkedin.com/in/seshendranalla/'

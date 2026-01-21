@@ -1152,6 +1152,60 @@
         }
 
         // ============================================
+        // VERCEL SERVER LOGGING
+        // ============================================
+        
+        // Generate a unique session ID for this browser session
+        const VERCEL_SESSION_ID = 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        
+        // Log events to Vercel serverless function (appears in Vercel Function Logs)
+        async function logToVercel(event, data = {}) {
+            try {
+                const payload = {
+                    event: event,
+                    data: data,
+                    timestamp: new Date().toISOString(),
+                    sessionId: VERCEL_SESSION_ID,
+                    userAgent: navigator.userAgent,
+                    page: window.location.pathname
+                };
+                
+                // Send to Vercel API endpoint (non-blocking)
+                fetch('/api/log', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.warn('Vercel log failed:', err));
+                
+            } catch (error) {
+                console.warn('Vercel logging error:', error);
+            }
+        }
+        
+        // Log page view on load
+        window.addEventListener('load', () => {
+            logToVercel('page_view', { page: 'games', title: document.title });
+        });
+        
+        // Track all clicks on the page
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            const tagName = target.tagName.toLowerCase();
+            const classList = Array.from(target.classList).join(' ');
+            const text = target.textContent?.slice(0, 50) || '';
+            const id = target.id || '';
+            
+            logToVercel('click', {
+                element: tagName,
+                id: id,
+                classes: classList,
+                text: text.trim(),
+                x: e.clientX,
+                y: e.clientY
+            });
+        });
+
+        // ============================================
         // GAME STATE
         // ============================================
         
@@ -1287,6 +1341,7 @@
                         message: 'Congratulations! The secret word hidden in this metric is: BLUESKY'
                     });
                     
+                    logToVercel('game_complete', { game: 'wordle', guesses: wordleGuesses.length, won: true });
                     alert('🎉 Congratulations! You solved Wordle!');
                     closeModal('wordleModal');
                 }, 600);
@@ -1310,6 +1365,7 @@
             initWordle();
             document.getElementById('wordleModal').classList.add('active');
             logToDatadog('Wordle game started', 'info');
+            logToVercel('game_start', { game: 'wordle' });
         }
 
         // ============================================
@@ -1415,6 +1471,7 @@
                     });
                     
                     setTimeout(() => {
+                        logToVercel('game_complete', { game: 'connections', mistakes_remaining: connectionsMistakes, won: true });
                         alert('🎉 Congratulations! You solved Connections!');
                         closeModal('connectionsModal');
                     }, 300);
@@ -1439,6 +1496,7 @@
             initConnections();
             document.getElementById('connectionsModal').classList.add('active');
             logToDatadog('Connections game started', 'info');
+            logToVercel('game_start', { game: 'connections' });
         }
 
         // ============================================
@@ -1557,6 +1615,7 @@
                     });
                     
                     setTimeout(() => {
+                        logToVercel('game_complete', { game: 'spelling_bee', score: spellingScore, words_found: spellingWordsFound.length, won: true });
                         alert('🏆 GENIUS! You mastered Spelling Bee!');
                         closeModal('spellingBeeModal');
                     }, 500);
@@ -1573,6 +1632,7 @@
             initSpellingBee();
             document.getElementById('spellingBeeModal').classList.add('active');
             logToDatadog('Spelling Bee game started', 'info');
+            logToVercel('game_start', { game: 'spelling_bee' });
         }
 
         // ============================================
@@ -1580,6 +1640,7 @@
         // ============================================
         
         function closeModal(modalId) {
+            logToVercel('modal_close', { modal: modalId });
             document.getElementById(modalId).classList.remove('active');
         }
 
@@ -1633,8 +1694,10 @@
                     success: true
                 });
                 
+                logToVercel('clue_submit', { success: true, clues: [clue1, clue2, clue3] });
                 showWinAnimation();
             } else {
+                logToVercel('clue_submit', { success: false, attempted: [clue1, clue2, clue3] });
                 logToDatadog('Secret clue validation failed', 'info', {
                     attempted: [clue1, clue2, clue3],
                     success: false
@@ -1704,6 +1767,7 @@
         // ============================================
         
         logToDatadog('NYT Puzzles by Datadog loaded', 'info', { version: '1.0.0' });
+        logToVercel('app_loaded', { version: '1.0.0' });
     </script>
 
     <style>

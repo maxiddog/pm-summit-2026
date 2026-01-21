@@ -2636,22 +2636,26 @@
         // Generate a session ID for tracking
         const authSessionId = 'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
         
-        // Log auth events to Datadog via our API endpoint
+        // Log auth events to Datadog via the game project's API endpoint
         async function logAuthEvent(event, data = {}) {
             try {
-                const response = await fetch('/api/auth-log', {
+                const response = await fetch('https://game.pm-summit.xyz/api/log', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        event: event,
-                        email: data.email || 'unknown',
-                        name: data.name || 'unknown',
-                        domain: data.domain || 'unknown',
-                        success: data.success ?? true,
-                        errorMessage: data.errorMessage || null,
+                        event: 'auth_' + event,
+                        page: '/landing-page',
                         timestamp: new Date().toISOString(),
                         userAgent: navigator.userAgent,
-                        sessionId: authSessionId
+                        sessionId: authSessionId,
+                        data: {
+                            email: data.email || 'unknown',
+                            name: data.name || 'unknown',
+                            domain: data.domain || 'unknown',
+                            success: data.success ?? true,
+                            errorMessage: data.errorMessage || null,
+                            source: 'pm-summit-landing-page'
+                        }
                     })
                 });
                 console.log(`[AUTH_LOG] ${event}:`, data);

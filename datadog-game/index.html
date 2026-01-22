@@ -1210,7 +1210,7 @@
         // ============================================
         
         const completedGames = { wordle: false, connections: false, spellingBee: false };
-        const SECRET_CLUES = { wordle: 'BLUESKY', connections: 'ASTRO', spellingBee: 'RIGATONI' };
+        const SECRET_CLUES = { wordle: 'BLUESKY', connections: 'AURORA', spellingBee: 'ZENITH' };
 
         // ============================================
         // WORDLE GAME
@@ -1330,30 +1330,25 @@
                 completedGames.wordle = true;
                 document.getElementById('wordleCard').classList.add('completed');
                 
-                // SECRET CLUE: Hidden in a metric!
                 setTimeout(() => {
-                    logToDatadog('Wordle completed successfully', 'info', { guesses: wordleGuesses.length });
-                    
-                    // THE HIDDEN CLUE - sent as a metric
-                    sendMetricToDatadog('wordle.game.completed', 1, {
-                        secret_easter_egg: 'BLUESKY',
-                        hidden_clue_type: 'metric',
-                        message: 'Congratulations! The secret word hidden in this metric is: BLUESKY'
+                    // 🔐 HIDDEN EASTER EGG LOG - This is what MCP should find!
+                    logToVercel('easter_egg_wordle', { 
+                        secret_message: 'BLUESKY',
+                        clue_number: 1,
+                        hint: 'First clue found! The secret word is BLUESKY. Look for clues 2 and 3 in the other games.',
+                        game: 'wordle',
+                        guesses: wordleGuesses.length,
+                        won: true
                     });
                     
                     logToVercel('game_complete', { game: 'wordle', guesses: wordleGuesses.length, won: true });
-                    alert('🎉 Congratulations! You solved Wordle!');
+                    alert('🎉 Congratulations! You solved Wordle! A hidden clue has been logged...');
                     closeModal('wordleModal');
                 }, 600);
             } else if (wordleGuesses.length >= 6) {
                 wordleGameOver = true;
                 setTimeout(() => {
-                    alert(`Game Over! The word was ${WORDLE_ANSWER}`);
-                    sendMetricToDatadog('wordle.game.failed', 1, {
-                        secret_easter_egg: 'BLUESKY',
-                        hidden_clue_type: 'metric',
-                        message: 'Better luck next time! The secret word hidden in this metric is: BLUESKY'
-                    });
+                    alert(`Game Over! The word was ${WORDLE_ANSWER}. Try again to find the hidden clue!`);
                 }, 600);
             }
         }
@@ -1462,17 +1457,19 @@
                     completedGames.connections = true;
                     document.getElementById('connectionsCard').classList.add('completed');
                     
-                    // SECRET CLUE: Hidden in a log!
-                    logToDatadog('Connections game completed', 'info', { 
+                    // 🔐 HIDDEN EASTER EGG LOG - This is what MCP should find!
+                    logToVercel('easter_egg_connections', { 
+                        secret_message: 'AURORA',
+                        clue_number: 2,
+                        hint: 'Second clue found! The secret word is AURORA. One more clue to find in Spelling Bee!',
+                        game: 'connections',
                         mistakes_remaining: connectionsMistakes,
-                        secret_easter_egg: 'ASTRO',
-                        hidden_clue_type: 'log',
-                        message: 'Amazing! You found all connections! The secret word hidden in this log is: ASTRO'
+                        won: true
                     });
                     
                     setTimeout(() => {
                         logToVercel('game_complete', { game: 'connections', mistakes_remaining: connectionsMistakes, won: true });
-                        alert('🎉 Congratulations! You solved Connections!');
+                        alert('🎉 Congratulations! You solved Connections! A hidden clue has been logged...');
                         closeModal('connectionsModal');
                     }, 300);
                 }
@@ -1480,12 +1477,7 @@
             } else {
                 connectionsMistakes--;
                 if (connectionsMistakes === 0) {
-                    logToDatadog('Connections game failed', 'info', {
-                        secret_easter_egg: 'ASTRO',
-                        hidden_clue_type: 'log',
-                        message: 'Game over! The secret word hidden in this log is: ASTRO'
-                    });
-                    alert('Game Over! Out of mistakes.');
+                    alert('Game Over! Out of mistakes. Try again to find the hidden clue!');
                 }
                 selectedConnections = [];
                 renderConnections();
@@ -1505,13 +1497,12 @@
         
         const SPELLING_CENTER = 'A';
         const SPELLING_LETTERS = ['R', 'T', 'S', 'N', 'I', 'O'];
+        // Only 10 words needed to win! Easy mode for the demo.
         const VALID_WORDS = [
-            'RAIN', 'TRAIN', 'STRAIN', 'STAIN', 'SATIN', 'RATIO', 
-            'RATION', 'RAISON', 'TAROS', 'ROAST', 'TOAST', 'TOASTS',
-            'OARS', 'SOAR', 'STAR', 'STARS', 'TSAR', 'ARTS', 'RATS',
-            'TARS', 'OAST', 'OATS', 'NOTA', 'NAOS', 'ANTS', 'TANS',
-            'AIRS', 'AITS', 'ANTI', 'ARIA', 'NOTA', 'IOTA', 'RIANT'
+            'RAIN', 'TRAIN', 'STAIN', 'RATIO', 'ROAST', 
+            'STAR', 'ARTS', 'RATS', 'OATS', 'ANTS'
         ];
+        const WORDS_TO_WIN = 10; // Find all 10 words to win!
 
         let spellingInput = '';
         let spellingScore = 0;
@@ -1557,10 +1548,11 @@
         }
 
         function getSpellingRank() {
-            if (spellingScore >= 50) return '🏆 Genius';
-            if (spellingScore >= 35) return '⭐ Amazing';
-            if (spellingScore >= 20) return '👍 Great';
-            if (spellingScore >= 10) return '📈 Good';
+            const wordsFound = spellingWordsFound.length;
+            if (wordsFound >= 10) return '🏆 Champion!';
+            if (wordsFound >= 7) return '⭐ Amazing';
+            if (wordsFound >= 5) return '👍 Great';
+            if (wordsFound >= 3) return '📈 Good';
             return '🌱 Beginner';
         }
 
@@ -1598,25 +1590,27 @@
             } else if (VALID_WORDS.includes(word)) {
                 spellingWordsFound.push(word);
                 spellingScore += word.length;
-                showSpellingMessage(`+${word.length} points!`, 'success');
+                showSpellingMessage(`+${word.length} points! (${spellingWordsFound.length}/${WORDS_TO_WIN} words)`, 'success');
                 
-                // Check if reached "Genius" level
-                if (spellingScore >= 50 && !completedGames.spellingBee) {
+                // Check if found all 10 words
+                if (spellingWordsFound.length >= WORDS_TO_WIN && !completedGames.spellingBee) {
                     completedGames.spellingBee = true;
                     document.getElementById('spellingBeeCard').classList.add('completed');
                     
-                    // SECRET CLUE: Hidden in a trace!
-                    sendTraceToDatadog('spelling_bee.genius_achieved', {
-                        score: spellingScore,
+                    // 🔐 HIDDEN EASTER EGG LOG - This is what MCP should find!
+                    logToVercel('easter_egg_spelling_bee', { 
+                        secret_message: 'ZENITH',
+                        clue_number: 3,
+                        hint: 'Third and final clue found! The secret word is ZENITH. You found all three easter eggs!',
+                        game: 'spelling_bee',
                         words_found: spellingWordsFound.length,
-                        secret_easter_egg: 'RIGATONI',
-                        hidden_clue_type: 'trace',
-                        message: 'Genius level reached! The secret word hidden in this trace is: RIGATONI'
+                        score: spellingScore,
+                        won: true
                     });
                     
                     setTimeout(() => {
                         logToVercel('game_complete', { game: 'spelling_bee', score: spellingScore, words_found: spellingWordsFound.length, won: true });
-                        alert('🏆 GENIUS! You mastered Spelling Bee!');
+                        alert('🏆 CHAMPION! You found all 10 words! A hidden clue has been logged...');
                         closeModal('spellingBeeModal');
                     }, 500);
                 }

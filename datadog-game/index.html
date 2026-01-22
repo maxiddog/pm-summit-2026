@@ -1583,52 +1583,72 @@
             
             if (word.length < 4) {
                 showSpellingMessage('Too short', 'error');
-            } else if (!word.includes(SPELLING_CENTER)) {
-                showSpellingMessage('Missing center letter', 'error');
-            } else if (spellingWordsFound.includes(word)) {
-                showSpellingMessage('Already found', 'error');
-            } else if (VALID_WORDS.includes(word)) {
-                spellingWordsFound.push(word);
-                spellingScore += word.length;
-                showSpellingMessage(`+${word.length} points! (${spellingWordsFound.length}/${WORDS_TO_WIN} words)`, 'success');
-                
-                // Check if found all 10 words
-                if (spellingWordsFound.length >= WORDS_TO_WIN && !completedGames.spellingBee) {
-                    completedGames.spellingBee = true;
-                    document.getElementById('spellingBeeCard').classList.add('completed');
-                    
-                    // Update display one last time to show all words
-                    spellingInput = '';
-                    renderSpellingBee();
-                    
-                    // 🔐 HIDDEN EASTER EGG LOG - This is what MCP should find!
-                    logToVercel('easter_egg_spelling_bee', { 
-                        secret_message: 'ZENITH',
-                        clue_number: 3,
-                        hint: 'Third and final clue found! The secret word is ZENITH. You found all three easter eggs!',
-                        game: 'spelling_bee',
-                        words_found: spellingWordsFound.length,
-                        score: spellingScore,
-                        won: true
-                    });
-                    
-                    // Show success message immediately then close modal
-                    showSpellingMessage('🏆 CHAMPION! All 10 words found!', 'success');
-                    
-                    setTimeout(() => {
-                        logToVercel('game_complete', { game: 'spelling_bee', score: spellingScore, words_found: spellingWordsFound.length, won: true });
-                        alert('🏆 CHAMPION! You found all 10 words! A hidden clue has been logged...');
-                        closeModal('spellingBeeModal');
-                    }, 800);
-                    
-                    return; // Stop here - don't continue to renderSpellingBee again
-                }
-            } else {
-                showSpellingMessage('Not in word list', 'error');
+                spellingInput = '';
+                renderSpellingBee();
+                return;
             }
             
+            if (!word.includes(SPELLING_CENTER)) {
+                showSpellingMessage('Missing center letter', 'error');
+                spellingInput = '';
+                renderSpellingBee();
+                return;
+            }
+            
+            if (spellingWordsFound.includes(word)) {
+                showSpellingMessage('Already found', 'error');
+                spellingInput = '';
+                renderSpellingBee();
+                return;
+            }
+            
+            if (!VALID_WORDS.includes(word)) {
+                showSpellingMessage('Not in word list', 'error');
+                spellingInput = '';
+                renderSpellingBee();
+                return;
+            }
+            
+            // Valid word found!
+            spellingWordsFound.push(word);
+            spellingScore += word.length;
             spellingInput = '';
+            
+            console.log(`[SPELLING BEE] Word: ${word}, Words found: ${spellingWordsFound.length}/${WORDS_TO_WIN}, Score: ${spellingScore}`);
+            
+            // Update the display first
             renderSpellingBee();
+            
+            // Check if we've won (found all 10 words)
+            if (spellingWordsFound.length >= WORDS_TO_WIN && !completedGames.spellingBee) {
+                console.log('[SPELLING BEE] 🏆 WIN CONDITION MET!');
+                
+                // Mark as completed immediately
+                completedGames.spellingBee = true;
+                document.getElementById('spellingBeeCard').classList.add('completed');
+                
+                // 🔐 HIDDEN EASTER EGG LOG - This is what MCP should find!
+                logToVercel('easter_egg_spelling_bee', { 
+                    secret_message: 'ZENITH',
+                    clue_number: 3,
+                    hint: 'Third and final clue found! The secret word is ZENITH. You found all three easter eggs!',
+                    game: 'spelling_bee',
+                    words_found: spellingWordsFound.length,
+                    score: spellingScore,
+                    won: true
+                });
+                
+                // Show alert immediately
+                alert('🏆 CHAMPION! You found all 10 words! A hidden clue has been logged...');
+                
+                // Log and close modal
+                logToVercel('game_complete', { game: 'spelling_bee', score: spellingScore, words_found: spellingWordsFound.length, won: true });
+                closeModal('spellingBeeModal');
+                return;
+            }
+            
+            // Show progress message
+            showSpellingMessage(`+${word.length} points! (${spellingWordsFound.length}/${WORDS_TO_WIN} words)`, 'success');
         }
 
         function openSpellingBee() {

@@ -1778,6 +1778,42 @@
             transform: rotate(-10deg) scale(1.1);
         }
 
+        .calendar-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px 28px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .calendar-link:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #4285f4;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.05), rgba(66, 133, 244, 0.1));
+        }
+
+        .calendar-link .calendar-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .calendar-link:hover .calendar-icon {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -2585,15 +2621,15 @@
                     <span class="resource-card-icon">🤖</span>
                     <span class="resource-card-title">Get started with Claude Code</span>
                 </a>
-                <a href="https://calendar.google.com/calendar/u/0?cid=Y18zN2IxNmJmZTExMjExN2EwMmQyY2Y2NmJkMzVjNDcxYmUyYTkyZDRjNmJiMzk0MDI1YzQ1NDAxYmUyOTZhMTY0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" class="resource-card">
-                    <span class="resource-card-icon">📅</span>
-                    <span class="resource-card-title">Subscribe to Calendar</span>
-                </a>
             </div>
-            <div style="text-align: center;">
+            <div style="text-align: center; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
                 <a href="https://dd.enterprise.slack.com/archives/C0A8WBFFQDB" target="_blank" class="slack-link">
                     <img src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" alt="Slack">
                     <span>#2026-product-summit</span>
+                </a>
+                <a href="https://calendar.google.com/calendar/u/0?cid=Y18zN2IxNmJmZTExMjExN2EwMmQyY2Y2NmJkMzVjNDcxYmUyYTkyZDRjNmJiMzk0MDI1YzQ1NDAxYmUyOTZhMTY0QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" class="calendar-link">
+                    <span class="calendar-icon">📅</span>
+                    <span>Subscribe to Calendar</span>
                 </a>
             </div>
         </div>

@@ -3097,17 +3097,10 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
 
-        // Games password protection
-        let gamesUnlocked = sessionStorage.getItem('gamesUnlocked') === 'true';
-        const GAMES_PASSWORD = 'bits';
+        // Games section (password removed)
+        let gamesUnlocked = true;
 
         function showSection(sectionId) {
-            // Check if trying to access games section without password
-            if (sectionId === 'swag' && !gamesUnlocked) {
-                showPasswordModal();
-                return;
-            }
-
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.dataset.section === sectionId) link.classList.add('active');
